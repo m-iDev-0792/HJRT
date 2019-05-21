@@ -10,13 +10,16 @@ using namespace glm;
 
 int main() {
 
-	Camera camera(vec3(0,0,8),vec3(0,0,-1),800,600,1,45);
+	Camera camera(vec3(0,0,8),vec3(0,0,-1),800,600,45,2,7.5);
 
 	Sphere sphere(vec3(0,-1,0),1);
 	sphere.material=make_shared<Lambertian>(vec3(230,173,104)*(1/255.0f));
 
 	Sphere metalSphere(vec3(2,-1,-2),1);
 	metalSphere.material=make_shared<Metal>(vec3(0.8),0.5);
+
+	Sphere glassSphere(vec3(2,-1,-2),1);
+	glassSphere.material=make_shared<Dielectric>(1.5);
 
 	Sphere ground(vec3(0,-2-100,0),100);
 	ground.material=make_shared<Lambertian>(vec3(189,211,223)*(1/255.0f));
@@ -32,7 +35,7 @@ int main() {
 	scene.objects.push_back(&sphere);
 	scene.objects.push_back(&ground);
 	scene.objects.push_back(&light);
-	scene.objects.push_back(&metalSphere);
+	scene.objects.push_back(&glassSphere);
 //	scene.objects.push_back(&triangle1);
 //	scene.objects.push_back(&triangle2);
 

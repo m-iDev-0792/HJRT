@@ -9,17 +9,20 @@
 struct Camera {
 	glm::vec3 position;
 	glm::vec3 direction;
-	float zNear;
+	const float zNear=1.0;//TODO. remove zNear and zFar?
 	float zFar;
 	float fov;
 	int width;
 	int height;
+	float aperture;
+	float zFocus;
 	Camera()= default;
-	Camera(glm::vec3 _position,glm::vec3 _direction,int _width,int _height,float _zNear,float _fov);
-	Ray getRay(float u,float v);
+	Camera(glm::vec3 _position,glm::vec3 _direction,int _width,int _height,float _fov,float _aperture=-1,float _zFocus=1);
+	Ray getRay(const float& u,const float& v);
 private:
 	glm::vec3 right;
 	glm::vec3 up;
+	glm::vec3 lowerLeftPixel;
 
 	float actualHeight;
 	float actualWidth;

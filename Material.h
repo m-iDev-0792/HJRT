@@ -24,5 +24,10 @@ struct Metal:Material{
 	Metal(vec3 _albedo,float _fuzz=0.2);
 	bool scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray* scatteredRay)const override ;
 };
-
+struct Dielectric:Material{
+	float refractIndex;
+	Dielectric()= default;
+	Dielectric(float _refractIndex);
+	bool scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray* scatteredRay)const override ;
+};
 #endif //RTTEST_MATERIAL_H

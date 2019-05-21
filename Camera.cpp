@@ -3,7 +3,8 @@
 //
 
 #include "Camera.h"
-Camera::Camera(glm::vec3 _position,glm::vec3 _direction,int _width,int _height,float _zNear,float _fov):position(_position),direction(_direction),width(_width),height(_height),zNear(_zNear),fov(_fov){
+Camera::Camera(glm::vec3 _position,glm::vec3 _direction,int _width,int _height,float _fov,float _aperture,float _zFocus)
+:position(_position),direction(_direction),width(_width),height(_height),fov(_fov),aperture(_aperture),zFocus(_zFocus){
 	if(glm::length(direction-vec3(0,1,0))>0.01f)
 		right=-normalize(cross(vec3(0,1,0),direction));
 	else
@@ -14,8 +15,18 @@ Camera::Camera(glm::vec3 _position,glm::vec3 _direction,int _width,int _height,f
 	actualWidth=actualHeight*width/height;
 	pixelWidth=actualWidth/width;
 	pixelHeight=actualHeight/height;
+
+	lowerLeftPixel=position + direction*zNear*zFocus + right*pixelWidth*zFocus*(-width/2+0.5f) + up*pixelHeight*zFocus*(-height/2+0.5f);
 }
-Ray Camera::getRay(float u,float v){
-	vec3 pixel=position+direction*zNear+right*(u-width/2+0.5f)*pixelWidth+up*(v-height/2+0.5f)*pixelHeight;
-	return Ray(pixel,normalize(pixel-position));
+Ray Camera::getRay(const float& u,const float& v){
+	if(aperture>0){
+		vec3 rd=aperture*0.5f* randomVecUnitDisk();
+		vec3 offset=right*rd.x+up*rd.y;
+		vec3 pixel=lowerLeftPixel + right*pixelWidth*zFocus*u + up*pixelHeight*zFocus*v;
+		return Ray(position+offset,normalize(pixel-position-offset));
+	} else{
+		vec3 pixel=lowerLeftPixel + right*pixelWidth*zFocus*u + up*pixelHeight*zFocus*v;
+		return Ray(position,normalize(pixel-position));
+	}
+
 }

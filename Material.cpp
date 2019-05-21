@@ -24,3 +24,43 @@ bool Metal::scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray*
 	*attenuation=albedo;
 	return (dot(scatteredRay->dir,hitInfo.normal)>0);
 }
+Dielectric::Dielectric(float _refractIndex):refractIndex(_refractIndex) {
+	emission=vec3(0);
+
+}
+bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, vec3 *attenuation, Ray *scatteredRay) const {
+	*attenuation=vec3(1);
+	float ni_over_nr,cosine,reflect_prob;
+	float dotNormalIncidence=dot(ray.dir,hitInfo.normal);
+	vec3 outwardNormal;
+	if(dotNormalIncidence>0){
+		//incidence and normal are not in the same side
+		outwardNormal=-hitInfo.normal;
+		ni_over_nr=refractIndex;
+		cosine=refractIndex*dotNormalIncidence;//TODO.??????
+	}else{
+		//the most common case
+		outwardNormal=hitInfo.normal;
+		ni_over_nr=1.0/refractIndex;
+		cosine=-dotNormalIncidence;
+	}
+	vec3 refracted;
+	//calculate reflect probability
+	if(refract(ray.dir,outwardNormal,ni_over_nr,&refracted)){
+		reflect_prob=fresnel(cosine,refractIndex);
+	}else{
+		reflect_prob=1.0;
+	}
+
+	if(drand48()<reflect_prob){
+		//do reflect
+		scatteredRay->origin=hitInfo.hitpoint;
+		scatteredRay->dir=normalize(reflect(ray.dir,hitInfo.normal));
+	}else{
+		//do refract
+		scatteredRay->origin=hitInfo.hitpoint;
+		scatteredRay->dir=normalize(refracted);
+	}
+
+	return true;
+}

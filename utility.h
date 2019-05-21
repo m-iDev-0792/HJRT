@@ -59,8 +59,11 @@ inline void toInt(vec3 &color) {
 //	(color.g = static_cast<int>(color.g)) > 255 ? color.g = 255 : 0;
 //	(color.b = static_cast<int>(color.b)) > 255 ? color.b = 255 : 0;
 }
+vec3 randomVecUnitDisk();
 
 vec3 randomVecUnitSphere();
+
+float fresnel(float cosine,float refractIndex);
 
 bool refract(const vec3& incidence,const vec3& normal,float ni_over_nt,vec3* refracted);
 

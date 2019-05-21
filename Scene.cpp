@@ -12,7 +12,7 @@ bool Scene::intersect(const Ray& ray,HitInfo* hitInfo){
 	return hitAnything;
 }
 vec3 Scene::shade(const Ray& ray,int depth){
-	if(depth>50)return vec3(0);
+	if(depth>MAX_BOUNCE)return vec3(0);
 	HitInfo hitInfo;
 	hitInfo.t=10e10;
 	if(this->intersect(ray,&hitInfo)){
