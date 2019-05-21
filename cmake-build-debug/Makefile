@@ -150,6 +150,33 @@ Camera.cpp.s:
 	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Camera.cpp.s
 .PHONY : Camera.cpp.s
 
+ImageExporter.o: ImageExporter.cpp.o
+
+.PHONY : ImageExporter.o
+
+# target to build an object file
+ImageExporter.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/ImageExporter.cpp.o
+.PHONY : ImageExporter.cpp.o
+
+ImageExporter.i: ImageExporter.cpp.i
+
+.PHONY : ImageExporter.i
+
+# target to preprocess a source file
+ImageExporter.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/ImageExporter.cpp.i
+.PHONY : ImageExporter.cpp.i
+
+ImageExporter.s: ImageExporter.cpp.s
+
+.PHONY : ImageExporter.s
+
+# target to generate assembly for a file
+ImageExporter.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/ImageExporter.cpp.s
+.PHONY : ImageExporter.cpp.s
+
 Material.o: Material.cpp.o
 
 .PHONY : Material.o
@@ -297,6 +324,9 @@ help:
 	@echo "... Camera.o"
 	@echo "... Camera.i"
 	@echo "... Camera.s"
+	@echo "... ImageExporter.o"
+	@echo "... ImageExporter.i"
+	@echo "... ImageExporter.s"
 	@echo "... Material.o"
 	@echo "... Material.i"
 	@echo "... Material.s"

@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/hezhenbang/Documents/C++/RTTest/Camera.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/Camera.cpp.o"
+  "/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/ImageExporter.cpp.o"
   "/Users/hezhenbang/Documents/C++/RTTest/Material.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/Material.cpp.o"
   "/Users/hezhenbang/Documents/C++/RTTest/Objects.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/Objects.cpp.o"
   "/Users/hezhenbang/Documents/C++/RTTest/Scene.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/Scene.cpp.o"

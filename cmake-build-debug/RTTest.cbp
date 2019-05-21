@@ -86,6 +86,12 @@
 		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Camera.h">
 			<Option target="RTTest"/>
 		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.cpp">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.h">
+			<Option target="RTTest"/>
+		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Material.cpp">
 			<Option target="RTTest"/>
 		</Unit>

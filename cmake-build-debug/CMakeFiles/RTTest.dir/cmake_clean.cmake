@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/RTTest.dir/Scene.cpp.o"
   "CMakeFiles/RTTest.dir/Material.cpp.o"
   "CMakeFiles/RTTest.dir/utility.cpp.o"
+  "CMakeFiles/RTTest.dir/ImageExporter.cpp.o"
   "RTTest.pdb"
   "RTTest"
 )

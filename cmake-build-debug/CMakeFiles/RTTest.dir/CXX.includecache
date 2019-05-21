@@ -10,6 +10,16 @@
 utility.h
 /Users/hezhenbang/Documents/C++/RTTest/utility.h
 
+/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.h
+glm/glm.hpp
+-
+iostream
+-
+fstream
+-
+stb_image_write.h
+/Users/hezhenbang/Documents/C++/RTTest/stb_image_write.h
+
 /Users/hezhenbang/Documents/C++/RTTest/Material.h
 utility.h
 /Users/hezhenbang/Documents/C++/RTTest/utility.h
@@ -41,13 +51,27 @@ Scene.h
 /Users/hezhenbang/Documents/C++/RTTest/Scene.h
 Camera.h
 /Users/hezhenbang/Documents/C++/RTTest/Camera.h
+ImageExporter.h
+/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.h
+
+/Users/hezhenbang/Documents/C++/RTTest/stb_image_write.h
+stdio.h
+-
+stdarg.h
+-
+stdlib.h
+-
+string.h
+-
+math.h
+-
+assert.h
+-
 
 /Users/hezhenbang/Documents/C++/RTTest/utility.h
 cmath
 -
 vector
--
-fstream
 -
 iostream
 -

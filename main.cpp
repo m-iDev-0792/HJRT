@@ -5,6 +5,7 @@
 #include "Objects.h"
 #include "Scene.h"
 #include "Camera.h"
+#include "ImageExporter.h"
 using namespace std;
 using namespace glm;
 
@@ -39,10 +40,10 @@ int main() {
 //	scene.objects.push_back(&triangle1);
 //	scene.objects.push_back(&triangle2);
 
-	vec3 *data=new vec3[camera.width*camera.height];
+	ImageExporter image(camera.width,camera.height);
 
 	const int antiAliasNum=2;
-	const int samples=120;
+	const int samples=20;
 
 	vec3 color(0);
 
@@ -68,13 +69,12 @@ int main() {
 			gammaCorrection(color);
 			color*=255;
 			toInt(color);
-			data[i*camera.width+j]=color;
+			image.setPixel(i,j,color);
 		}
 	}
 
 	//----------------------Write image----------------------
+	image.save("image.png","png");
 	cout<<"finished"<<endl;
-	savePPM(data,camera.width,camera.height,"image.ppm");
-	delete [] data;
 	return 0;
 }

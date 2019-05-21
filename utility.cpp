@@ -35,18 +35,3 @@ bool refract(const vec3& incidence,const vec3& normal,float ni_over_nr,vec3* ref
 	} else
 		return false;
 }
-bool savePPM(const vec3* data,int width,int height,string fileName){
-	ofstream file(fileName);
-	if(!file.is_open())return false;
-	file<<"P3\n";
-	file<<width<<" "<<height<<"\n";
-	file<<"255\n";
-	for(int i=height-1;i>=0;--i){
-		for(int j=0;j<width;++j){
-			const vec3& color=data[i*width+j];
-			file<<(color.r<0?0:color.r)<<" "<<(color.g<0?0:color.g)<<" "<<(color.b<0?0:color.b)<<" ";
-		}
-		file<<"\n";
-	}
-	return true;
-}

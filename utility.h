@@ -7,7 +7,6 @@
 
 #include <cmath>
 #include <vector>
-#include <fstream>
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -55,9 +54,6 @@ inline void toInt(vec3 &color) {
 	color.r = (color.r > 255 ? 255 : (color.r < 0 ? 0 : static_cast<int>(color.r)));
 	color.g = (color.g > 255 ? 255 : (color.g < 0 ? 0 : static_cast<int>(color.g)));
 	color.b = (color.b > 255 ? 255 : (color.b < 0 ? 0 : static_cast<int>(color.b)));
-//	(color.r = static_cast<int>(color.r)) > 255 ? color.r = 255 : 0;
-//	(color.g = static_cast<int>(color.g)) > 255 ? color.g = 255 : 0;
-//	(color.b = static_cast<int>(color.b)) > 255 ? color.b = 255 : 0;
 }
 vec3 randomVecUnitDisk();
 
@@ -66,7 +62,5 @@ vec3 randomVecUnitSphere();
 float fresnel(float cosine,float refractIndex);
 
 bool refract(const vec3& incidence,const vec3& normal,float ni_over_nt,vec3* refracted);
-
-bool savePPM(const vec3 *data, int width, int height, string fileName);
 
 #endif //RTTEST_UTILITY_H
