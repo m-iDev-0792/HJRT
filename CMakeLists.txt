@@ -3,4 +3,4 @@ project(RTTest)
 include_directories(/usr/local/include)
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(RTTest main.cpp Camera.cpp Objects.cpp Scene.cpp Material.cpp Material.h utility.cpp ImageExporter.cpp ImageExporter.h)
+add_executable(RTTest main.cpp camera.cpp objects.cpp scene.cpp material.cpp utility.cpp imageExporter.cpp aabb.cpp bvh.cpp bvh.h)

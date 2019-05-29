@@ -1,11 +1,13 @@
 file(REMOVE_RECURSE
   "CMakeFiles/RTTest.dir/main.cpp.o"
-  "CMakeFiles/RTTest.dir/Camera.cpp.o"
-  "CMakeFiles/RTTest.dir/Objects.cpp.o"
-  "CMakeFiles/RTTest.dir/Scene.cpp.o"
-  "CMakeFiles/RTTest.dir/Material.cpp.o"
+  "CMakeFiles/RTTest.dir/camera.cpp.o"
+  "CMakeFiles/RTTest.dir/objects.cpp.o"
+  "CMakeFiles/RTTest.dir/scene.cpp.o"
+  "CMakeFiles/RTTest.dir/material.cpp.o"
   "CMakeFiles/RTTest.dir/utility.cpp.o"
-  "CMakeFiles/RTTest.dir/ImageExporter.cpp.o"
+  "CMakeFiles/RTTest.dir/imageExporter.cpp.o"
+  "CMakeFiles/RTTest.dir/aabb.cpp.o"
+  "CMakeFiles/RTTest.dir/bvh.cpp.o"
   "RTTest.pdb"
   "RTTest"
 )

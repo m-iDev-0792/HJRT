@@ -70,57 +70,57 @@ CMakeFiles/RTTest.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/main.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/main.cpp -o CMakeFiles/RTTest.dir/main.cpp.s
 
-CMakeFiles/RTTest.dir/Camera.cpp.o: CMakeFiles/RTTest.dir/flags.make
-CMakeFiles/RTTest.dir/Camera.cpp.o: ../Camera.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RTTest.dir/Camera.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/Camera.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/Camera.cpp
+CMakeFiles/RTTest.dir/camera.cpp.o: CMakeFiles/RTTest.dir/flags.make
+CMakeFiles/RTTest.dir/camera.cpp.o: ../camera.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RTTest.dir/camera.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/camera.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/camera.cpp
 
-CMakeFiles/RTTest.dir/Camera.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/Camera.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/Camera.cpp > CMakeFiles/RTTest.dir/Camera.cpp.i
+CMakeFiles/RTTest.dir/camera.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/camera.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/camera.cpp > CMakeFiles/RTTest.dir/camera.cpp.i
 
-CMakeFiles/RTTest.dir/Camera.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/Camera.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/Camera.cpp -o CMakeFiles/RTTest.dir/Camera.cpp.s
+CMakeFiles/RTTest.dir/camera.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/camera.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/camera.cpp -o CMakeFiles/RTTest.dir/camera.cpp.s
 
-CMakeFiles/RTTest.dir/Objects.cpp.o: CMakeFiles/RTTest.dir/flags.make
-CMakeFiles/RTTest.dir/Objects.cpp.o: ../Objects.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RTTest.dir/Objects.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/Objects.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/Objects.cpp
+CMakeFiles/RTTest.dir/objects.cpp.o: CMakeFiles/RTTest.dir/flags.make
+CMakeFiles/RTTest.dir/objects.cpp.o: ../objects.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RTTest.dir/objects.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/objects.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/objects.cpp
 
-CMakeFiles/RTTest.dir/Objects.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/Objects.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/Objects.cpp > CMakeFiles/RTTest.dir/Objects.cpp.i
+CMakeFiles/RTTest.dir/objects.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/objects.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/objects.cpp > CMakeFiles/RTTest.dir/objects.cpp.i
 
-CMakeFiles/RTTest.dir/Objects.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/Objects.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/Objects.cpp -o CMakeFiles/RTTest.dir/Objects.cpp.s
+CMakeFiles/RTTest.dir/objects.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/objects.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/objects.cpp -o CMakeFiles/RTTest.dir/objects.cpp.s
 
-CMakeFiles/RTTest.dir/Scene.cpp.o: CMakeFiles/RTTest.dir/flags.make
-CMakeFiles/RTTest.dir/Scene.cpp.o: ../Scene.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RTTest.dir/Scene.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/Scene.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/Scene.cpp
+CMakeFiles/RTTest.dir/scene.cpp.o: CMakeFiles/RTTest.dir/flags.make
+CMakeFiles/RTTest.dir/scene.cpp.o: ../scene.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RTTest.dir/scene.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/scene.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/scene.cpp
 
-CMakeFiles/RTTest.dir/Scene.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/Scene.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/Scene.cpp > CMakeFiles/RTTest.dir/Scene.cpp.i
+CMakeFiles/RTTest.dir/scene.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/scene.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/scene.cpp > CMakeFiles/RTTest.dir/scene.cpp.i
 
-CMakeFiles/RTTest.dir/Scene.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/Scene.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/Scene.cpp -o CMakeFiles/RTTest.dir/Scene.cpp.s
+CMakeFiles/RTTest.dir/scene.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/scene.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/scene.cpp -o CMakeFiles/RTTest.dir/scene.cpp.s
 
-CMakeFiles/RTTest.dir/Material.cpp.o: CMakeFiles/RTTest.dir/flags.make
-CMakeFiles/RTTest.dir/Material.cpp.o: ../Material.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RTTest.dir/Material.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/Material.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/Material.cpp
+CMakeFiles/RTTest.dir/material.cpp.o: CMakeFiles/RTTest.dir/flags.make
+CMakeFiles/RTTest.dir/material.cpp.o: ../material.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RTTest.dir/material.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/material.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/material.cpp
 
-CMakeFiles/RTTest.dir/Material.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/Material.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/Material.cpp > CMakeFiles/RTTest.dir/Material.cpp.i
+CMakeFiles/RTTest.dir/material.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/material.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/material.cpp > CMakeFiles/RTTest.dir/material.cpp.i
 
-CMakeFiles/RTTest.dir/Material.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/Material.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/Material.cpp -o CMakeFiles/RTTest.dir/Material.cpp.s
+CMakeFiles/RTTest.dir/material.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/material.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/material.cpp -o CMakeFiles/RTTest.dir/material.cpp.s
 
 CMakeFiles/RTTest.dir/utility.cpp.o: CMakeFiles/RTTest.dir/flags.make
 CMakeFiles/RTTest.dir/utility.cpp.o: ../utility.cpp
@@ -135,42 +135,72 @@ CMakeFiles/RTTest.dir/utility.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/utility.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/utility.cpp -o CMakeFiles/RTTest.dir/utility.cpp.s
 
-CMakeFiles/RTTest.dir/ImageExporter.cpp.o: CMakeFiles/RTTest.dir/flags.make
-CMakeFiles/RTTest.dir/ImageExporter.cpp.o: ../ImageExporter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RTTest.dir/ImageExporter.cpp.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/ImageExporter.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/ImageExporter.cpp
+CMakeFiles/RTTest.dir/imageExporter.cpp.o: CMakeFiles/RTTest.dir/flags.make
+CMakeFiles/RTTest.dir/imageExporter.cpp.o: ../imageExporter.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RTTest.dir/imageExporter.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/imageExporter.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/imageExporter.cpp
 
-CMakeFiles/RTTest.dir/ImageExporter.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/ImageExporter.cpp.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/ImageExporter.cpp > CMakeFiles/RTTest.dir/ImageExporter.cpp.i
+CMakeFiles/RTTest.dir/imageExporter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/imageExporter.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/imageExporter.cpp > CMakeFiles/RTTest.dir/imageExporter.cpp.i
 
-CMakeFiles/RTTest.dir/ImageExporter.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/ImageExporter.cpp.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/ImageExporter.cpp -o CMakeFiles/RTTest.dir/ImageExporter.cpp.s
+CMakeFiles/RTTest.dir/imageExporter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/imageExporter.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/imageExporter.cpp -o CMakeFiles/RTTest.dir/imageExporter.cpp.s
+
+CMakeFiles/RTTest.dir/aabb.cpp.o: CMakeFiles/RTTest.dir/flags.make
+CMakeFiles/RTTest.dir/aabb.cpp.o: ../aabb.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/RTTest.dir/aabb.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/aabb.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/aabb.cpp
+
+CMakeFiles/RTTest.dir/aabb.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/aabb.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/aabb.cpp > CMakeFiles/RTTest.dir/aabb.cpp.i
+
+CMakeFiles/RTTest.dir/aabb.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/aabb.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/aabb.cpp -o CMakeFiles/RTTest.dir/aabb.cpp.s
+
+CMakeFiles/RTTest.dir/bvh.cpp.o: CMakeFiles/RTTest.dir/flags.make
+CMakeFiles/RTTest.dir/bvh.cpp.o: ../bvh.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RTTest.dir/bvh.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/RTTest.dir/bvh.cpp.o -c /Users/hezhenbang/Documents/C++/RTTest/bvh.cpp
+
+CMakeFiles/RTTest.dir/bvh.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/RTTest.dir/bvh.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/RTTest/bvh.cpp > CMakeFiles/RTTest.dir/bvh.cpp.i
+
+CMakeFiles/RTTest.dir/bvh.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/RTTest.dir/bvh.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/RTTest/bvh.cpp -o CMakeFiles/RTTest.dir/bvh.cpp.s
 
 # Object files for target RTTest
 RTTest_OBJECTS = \
 "CMakeFiles/RTTest.dir/main.cpp.o" \
-"CMakeFiles/RTTest.dir/Camera.cpp.o" \
-"CMakeFiles/RTTest.dir/Objects.cpp.o" \
-"CMakeFiles/RTTest.dir/Scene.cpp.o" \
-"CMakeFiles/RTTest.dir/Material.cpp.o" \
+"CMakeFiles/RTTest.dir/camera.cpp.o" \
+"CMakeFiles/RTTest.dir/objects.cpp.o" \
+"CMakeFiles/RTTest.dir/scene.cpp.o" \
+"CMakeFiles/RTTest.dir/material.cpp.o" \
 "CMakeFiles/RTTest.dir/utility.cpp.o" \
-"CMakeFiles/RTTest.dir/ImageExporter.cpp.o"
+"CMakeFiles/RTTest.dir/imageExporter.cpp.o" \
+"CMakeFiles/RTTest.dir/aabb.cpp.o" \
+"CMakeFiles/RTTest.dir/bvh.cpp.o"
 
 # External object files for target RTTest
 RTTest_EXTERNAL_OBJECTS =
 
 RTTest: CMakeFiles/RTTest.dir/main.cpp.o
-RTTest: CMakeFiles/RTTest.dir/Camera.cpp.o
-RTTest: CMakeFiles/RTTest.dir/Objects.cpp.o
-RTTest: CMakeFiles/RTTest.dir/Scene.cpp.o
-RTTest: CMakeFiles/RTTest.dir/Material.cpp.o
+RTTest: CMakeFiles/RTTest.dir/camera.cpp.o
+RTTest: CMakeFiles/RTTest.dir/objects.cpp.o
+RTTest: CMakeFiles/RTTest.dir/scene.cpp.o
+RTTest: CMakeFiles/RTTest.dir/material.cpp.o
 RTTest: CMakeFiles/RTTest.dir/utility.cpp.o
-RTTest: CMakeFiles/RTTest.dir/ImageExporter.cpp.o
+RTTest: CMakeFiles/RTTest.dir/imageExporter.cpp.o
+RTTest: CMakeFiles/RTTest.dir/aabb.cpp.o
+RTTest: CMakeFiles/RTTest.dir/bvh.cpp.o
 RTTest: CMakeFiles/RTTest.dir/build.make
 RTTest: CMakeFiles/RTTest.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable RTTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable RTTest"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RTTest.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -123,140 +123,113 @@ RTTest/fast:
 	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/build
 .PHONY : RTTest/fast
 
-Camera.o: Camera.cpp.o
+aabb.o: aabb.cpp.o
 
-.PHONY : Camera.o
-
-# target to build an object file
-Camera.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Camera.cpp.o
-.PHONY : Camera.cpp.o
-
-Camera.i: Camera.cpp.i
-
-.PHONY : Camera.i
-
-# target to preprocess a source file
-Camera.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Camera.cpp.i
-.PHONY : Camera.cpp.i
-
-Camera.s: Camera.cpp.s
-
-.PHONY : Camera.s
-
-# target to generate assembly for a file
-Camera.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Camera.cpp.s
-.PHONY : Camera.cpp.s
-
-ImageExporter.o: ImageExporter.cpp.o
-
-.PHONY : ImageExporter.o
+.PHONY : aabb.o
 
 # target to build an object file
-ImageExporter.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/ImageExporter.cpp.o
-.PHONY : ImageExporter.cpp.o
+aabb.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/aabb.cpp.o
+.PHONY : aabb.cpp.o
 
-ImageExporter.i: ImageExporter.cpp.i
+aabb.i: aabb.cpp.i
 
-.PHONY : ImageExporter.i
+.PHONY : aabb.i
 
 # target to preprocess a source file
-ImageExporter.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/ImageExporter.cpp.i
-.PHONY : ImageExporter.cpp.i
+aabb.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/aabb.cpp.i
+.PHONY : aabb.cpp.i
 
-ImageExporter.s: ImageExporter.cpp.s
+aabb.s: aabb.cpp.s
 
-.PHONY : ImageExporter.s
+.PHONY : aabb.s
 
 # target to generate assembly for a file
-ImageExporter.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/ImageExporter.cpp.s
-.PHONY : ImageExporter.cpp.s
+aabb.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/aabb.cpp.s
+.PHONY : aabb.cpp.s
 
-Material.o: Material.cpp.o
+bvh.o: bvh.cpp.o
 
-.PHONY : Material.o
+.PHONY : bvh.o
 
 # target to build an object file
-Material.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Material.cpp.o
-.PHONY : Material.cpp.o
+bvh.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/bvh.cpp.o
+.PHONY : bvh.cpp.o
 
-Material.i: Material.cpp.i
+bvh.i: bvh.cpp.i
 
-.PHONY : Material.i
+.PHONY : bvh.i
 
 # target to preprocess a source file
-Material.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Material.cpp.i
-.PHONY : Material.cpp.i
+bvh.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/bvh.cpp.i
+.PHONY : bvh.cpp.i
 
-Material.s: Material.cpp.s
+bvh.s: bvh.cpp.s
 
-.PHONY : Material.s
+.PHONY : bvh.s
 
 # target to generate assembly for a file
-Material.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Material.cpp.s
-.PHONY : Material.cpp.s
+bvh.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/bvh.cpp.s
+.PHONY : bvh.cpp.s
 
-Objects.o: Objects.cpp.o
+camera.o: camera.cpp.o
 
-.PHONY : Objects.o
+.PHONY : camera.o
 
 # target to build an object file
-Objects.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Objects.cpp.o
-.PHONY : Objects.cpp.o
+camera.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/camera.cpp.o
+.PHONY : camera.cpp.o
 
-Objects.i: Objects.cpp.i
+camera.i: camera.cpp.i
 
-.PHONY : Objects.i
+.PHONY : camera.i
 
 # target to preprocess a source file
-Objects.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Objects.cpp.i
-.PHONY : Objects.cpp.i
+camera.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/camera.cpp.i
+.PHONY : camera.cpp.i
 
-Objects.s: Objects.cpp.s
+camera.s: camera.cpp.s
 
-.PHONY : Objects.s
+.PHONY : camera.s
 
 # target to generate assembly for a file
-Objects.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Objects.cpp.s
-.PHONY : Objects.cpp.s
+camera.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/camera.cpp.s
+.PHONY : camera.cpp.s
 
-Scene.o: Scene.cpp.o
+imageExporter.o: imageExporter.cpp.o
 
-.PHONY : Scene.o
+.PHONY : imageExporter.o
 
 # target to build an object file
-Scene.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Scene.cpp.o
-.PHONY : Scene.cpp.o
+imageExporter.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/imageExporter.cpp.o
+.PHONY : imageExporter.cpp.o
 
-Scene.i: Scene.cpp.i
+imageExporter.i: imageExporter.cpp.i
 
-.PHONY : Scene.i
+.PHONY : imageExporter.i
 
 # target to preprocess a source file
-Scene.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Scene.cpp.i
-.PHONY : Scene.cpp.i
+imageExporter.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/imageExporter.cpp.i
+.PHONY : imageExporter.cpp.i
 
-Scene.s: Scene.cpp.s
+imageExporter.s: imageExporter.cpp.s
 
-.PHONY : Scene.s
+.PHONY : imageExporter.s
 
 # target to generate assembly for a file
-Scene.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/Scene.cpp.s
-.PHONY : Scene.cpp.s
+imageExporter.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/imageExporter.cpp.s
+.PHONY : imageExporter.cpp.s
 
 main.o: main.cpp.o
 
@@ -284,6 +257,87 @@ main.s: main.cpp.s
 main.cpp.s:
 	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+material.o: material.cpp.o
+
+.PHONY : material.o
+
+# target to build an object file
+material.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/material.cpp.o
+.PHONY : material.cpp.o
+
+material.i: material.cpp.i
+
+.PHONY : material.i
+
+# target to preprocess a source file
+material.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/material.cpp.i
+.PHONY : material.cpp.i
+
+material.s: material.cpp.s
+
+.PHONY : material.s
+
+# target to generate assembly for a file
+material.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/material.cpp.s
+.PHONY : material.cpp.s
+
+objects.o: objects.cpp.o
+
+.PHONY : objects.o
+
+# target to build an object file
+objects.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/objects.cpp.o
+.PHONY : objects.cpp.o
+
+objects.i: objects.cpp.i
+
+.PHONY : objects.i
+
+# target to preprocess a source file
+objects.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/objects.cpp.i
+.PHONY : objects.cpp.i
+
+objects.s: objects.cpp.s
+
+.PHONY : objects.s
+
+# target to generate assembly for a file
+objects.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/objects.cpp.s
+.PHONY : objects.cpp.s
+
+scene.o: scene.cpp.o
+
+.PHONY : scene.o
+
+# target to build an object file
+scene.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/scene.cpp.o
+.PHONY : scene.cpp.o
+
+scene.i: scene.cpp.i
+
+.PHONY : scene.i
+
+# target to preprocess a source file
+scene.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/scene.cpp.i
+.PHONY : scene.cpp.i
+
+scene.s: scene.cpp.s
+
+.PHONY : scene.s
+
+# target to generate assembly for a file
+scene.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/scene.cpp.s
+.PHONY : scene.cpp.s
 
 utility.o: utility.cpp.o
 
@@ -321,24 +375,30 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... RTTest"
-	@echo "... Camera.o"
-	@echo "... Camera.i"
-	@echo "... Camera.s"
-	@echo "... ImageExporter.o"
-	@echo "... ImageExporter.i"
-	@echo "... ImageExporter.s"
-	@echo "... Material.o"
-	@echo "... Material.i"
-	@echo "... Material.s"
-	@echo "... Objects.o"
-	@echo "... Objects.i"
-	@echo "... Objects.s"
-	@echo "... Scene.o"
-	@echo "... Scene.i"
-	@echo "... Scene.s"
+	@echo "... aabb.o"
+	@echo "... aabb.i"
+	@echo "... aabb.s"
+	@echo "... bvh.o"
+	@echo "... bvh.i"
+	@echo "... bvh.s"
+	@echo "... camera.o"
+	@echo "... camera.i"
+	@echo "... camera.s"
+	@echo "... imageExporter.o"
+	@echo "... imageExporter.i"
+	@echo "... imageExporter.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... material.o"
+	@echo "... material.i"
+	@echo "... material.s"
+	@echo "... objects.o"
+	@echo "... objects.i"
+	@echo "... objects.s"
+	@echo "... scene.o"
+	@echo "... scene.i"
+	@echo "... scene.s"
 	@echo "... utility.o"
 	@echo "... utility.i"
 	@echo "... utility.s"

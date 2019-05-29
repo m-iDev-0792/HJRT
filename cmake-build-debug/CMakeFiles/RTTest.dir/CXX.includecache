@@ -6,11 +6,19 @@
 
 #IncludeRegexTransform: 
 
-/Users/hezhenbang/Documents/C++/RTTest/Camera.h
+/Users/hezhenbang/Documents/C++/RTTest/aabb.h
 utility.h
 /Users/hezhenbang/Documents/C++/RTTest/utility.h
 
-/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.h
+/Users/hezhenbang/Documents/C++/RTTest/bvh.h
+objects.h
+/Users/hezhenbang/Documents/C++/RTTest/objects.h
+
+/Users/hezhenbang/Documents/C++/RTTest/camera.h
+utility.h
+/Users/hezhenbang/Documents/C++/RTTest/utility.h
+
+/Users/hezhenbang/Documents/C++/RTTest/imageExporter.h
 glm/glm.hpp
 -
 iostream
@@ -19,22 +27,6 @@ fstream
 -
 stb_image_write.h
 /Users/hezhenbang/Documents/C++/RTTest/stb_image_write.h
-
-/Users/hezhenbang/Documents/C++/RTTest/Material.h
-utility.h
-/Users/hezhenbang/Documents/C++/RTTest/utility.h
-
-/Users/hezhenbang/Documents/C++/RTTest/Objects.h
-utility.h
-/Users/hezhenbang/Documents/C++/RTTest/utility.h
-Material.h
-/Users/hezhenbang/Documents/C++/RTTest/Material.h
-memory
--
-
-/Users/hezhenbang/Documents/C++/RTTest/Scene.h
-Objects.h
-/Users/hezhenbang/Documents/C++/RTTest/Objects.h
 
 /Users/hezhenbang/Documents/C++/RTTest/main.cpp
 iostream
@@ -45,14 +37,34 @@ vector
 -
 omp.h
 -
-Objects.h
-/Users/hezhenbang/Documents/C++/RTTest/Objects.h
-Scene.h
-/Users/hezhenbang/Documents/C++/RTTest/Scene.h
-Camera.h
-/Users/hezhenbang/Documents/C++/RTTest/Camera.h
-ImageExporter.h
-/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.h
+chrono
+-
+objects.h
+/Users/hezhenbang/Documents/C++/RTTest/objects.h
+scene.h
+/Users/hezhenbang/Documents/C++/RTTest/scene.h
+camera.h
+/Users/hezhenbang/Documents/C++/RTTest/camera.h
+imageExporter.h
+/Users/hezhenbang/Documents/C++/RTTest/imageExporter.h
+
+/Users/hezhenbang/Documents/C++/RTTest/material.h
+utility.h
+/Users/hezhenbang/Documents/C++/RTTest/utility.h
+
+/Users/hezhenbang/Documents/C++/RTTest/objects.h
+utility.h
+/Users/hezhenbang/Documents/C++/RTTest/utility.h
+aabb.h
+/Users/hezhenbang/Documents/C++/RTTest/aabb.h
+material.h
+/Users/hezhenbang/Documents/C++/RTTest/material.h
+memory
+-
+
+/Users/hezhenbang/Documents/C++/RTTest/scene.h
+bvh.h
+/Users/hezhenbang/Documents/C++/RTTest/bvh.h
 
 /Users/hezhenbang/Documents/C++/RTTest/stb_image_write.h
 stdio.h

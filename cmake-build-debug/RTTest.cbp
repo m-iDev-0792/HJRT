@@ -80,37 +80,49 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Camera.cpp">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/aabb.cpp">
 			<Option target="RTTest"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Camera.h">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/aabb.h">
 			<Option target="RTTest"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.cpp">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/bvh.cpp">
 			<Option target="RTTest"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/ImageExporter.h">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/bvh.h">
 			<Option target="RTTest"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Material.cpp">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/camera.cpp">
 			<Option target="RTTest"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Material.h">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/camera.h">
 			<Option target="RTTest"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Objects.cpp">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/imageExporter.cpp">
 			<Option target="RTTest"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Objects.h">
-			<Option target="RTTest"/>
-		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Scene.cpp">
-			<Option target="RTTest"/>
-		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/Scene.h">
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/imageExporter.h">
 			<Option target="RTTest"/>
 		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/main.cpp">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/material.cpp">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/material.h">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/objects.cpp">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/objects.h">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/scene.cpp">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/scene.h">
 			<Option target="RTTest"/>
 		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/utility.cpp">

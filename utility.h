@@ -22,6 +22,7 @@ struct HitInfo {
 	vec3 hitpoint;
 	vec3 normal;
 	const Object *hitobject;
+	HitInfo(){t=10e10;};
 };
 
 struct Ray {
