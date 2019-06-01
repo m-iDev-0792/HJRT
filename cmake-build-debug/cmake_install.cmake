@@ -1,4 +1,4 @@
-# Install script for directory: /Users/hezhenbang/Documents/C++/RTTest
+# Install script for directory: /Users/hezhenbang/Documents/C++/RTTest copy
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

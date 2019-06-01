@@ -48,10 +48,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/hezhenbang/Documents/C++/RTTest
+CMAKE_SOURCE_DIR = "/Users/hezhenbang/Documents/C++/RTTest copy"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug
+CMAKE_BINARY_DIR = "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles /Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/progress.marks"
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -111,287 +111,287 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named RTTest
+# Target rules for targets named HJRT
 
 # Build rule for target.
-RTTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 RTTest
-.PHONY : RTTest
+HJRT: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 HJRT
+.PHONY : HJRT
 
 # fast build rule for target.
-RTTest/fast:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/build
-.PHONY : RTTest/fast
+HJRT/fast:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/build
+.PHONY : HJRT/fast
 
-aabb.o: aabb.cpp.o
+src/aabb.o: src/aabb.cpp.o
 
-.PHONY : aabb.o
-
-# target to build an object file
-aabb.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/aabb.cpp.o
-.PHONY : aabb.cpp.o
-
-aabb.i: aabb.cpp.i
-
-.PHONY : aabb.i
-
-# target to preprocess a source file
-aabb.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/aabb.cpp.i
-.PHONY : aabb.cpp.i
-
-aabb.s: aabb.cpp.s
-
-.PHONY : aabb.s
-
-# target to generate assembly for a file
-aabb.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/aabb.cpp.s
-.PHONY : aabb.cpp.s
-
-bvh.o: bvh.cpp.o
-
-.PHONY : bvh.o
+.PHONY : src/aabb.o
 
 # target to build an object file
-bvh.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/bvh.cpp.o
-.PHONY : bvh.cpp.o
+src/aabb.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/aabb.cpp.o
+.PHONY : src/aabb.cpp.o
 
-bvh.i: bvh.cpp.i
+src/aabb.i: src/aabb.cpp.i
 
-.PHONY : bvh.i
+.PHONY : src/aabb.i
 
 # target to preprocess a source file
-bvh.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/bvh.cpp.i
-.PHONY : bvh.cpp.i
+src/aabb.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/aabb.cpp.i
+.PHONY : src/aabb.cpp.i
 
-bvh.s: bvh.cpp.s
+src/aabb.s: src/aabb.cpp.s
 
-.PHONY : bvh.s
+.PHONY : src/aabb.s
 
 # target to generate assembly for a file
-bvh.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/bvh.cpp.s
-.PHONY : bvh.cpp.s
+src/aabb.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/aabb.cpp.s
+.PHONY : src/aabb.cpp.s
 
-camera.o: camera.cpp.o
+src/bvh.o: src/bvh.cpp.o
 
-.PHONY : camera.o
+.PHONY : src/bvh.o
 
 # target to build an object file
-camera.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/camera.cpp.o
-.PHONY : camera.cpp.o
+src/bvh.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/bvh.cpp.o
+.PHONY : src/bvh.cpp.o
 
-camera.i: camera.cpp.i
+src/bvh.i: src/bvh.cpp.i
 
-.PHONY : camera.i
+.PHONY : src/bvh.i
 
 # target to preprocess a source file
-camera.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/camera.cpp.i
-.PHONY : camera.cpp.i
+src/bvh.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/bvh.cpp.i
+.PHONY : src/bvh.cpp.i
 
-camera.s: camera.cpp.s
+src/bvh.s: src/bvh.cpp.s
 
-.PHONY : camera.s
+.PHONY : src/bvh.s
 
 # target to generate assembly for a file
-camera.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/camera.cpp.s
-.PHONY : camera.cpp.s
+src/bvh.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/bvh.cpp.s
+.PHONY : src/bvh.cpp.s
 
-imageExporter.o: imageExporter.cpp.o
+src/camera.o: src/camera.cpp.o
 
-.PHONY : imageExporter.o
+.PHONY : src/camera.o
 
 # target to build an object file
-imageExporter.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/imageExporter.cpp.o
-.PHONY : imageExporter.cpp.o
+src/camera.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/camera.cpp.o
+.PHONY : src/camera.cpp.o
 
-imageExporter.i: imageExporter.cpp.i
+src/camera.i: src/camera.cpp.i
 
-.PHONY : imageExporter.i
+.PHONY : src/camera.i
 
 # target to preprocess a source file
-imageExporter.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/imageExporter.cpp.i
-.PHONY : imageExporter.cpp.i
+src/camera.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/camera.cpp.i
+.PHONY : src/camera.cpp.i
 
-imageExporter.s: imageExporter.cpp.s
+src/camera.s: src/camera.cpp.s
 
-.PHONY : imageExporter.s
+.PHONY : src/camera.s
 
 # target to generate assembly for a file
-imageExporter.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/imageExporter.cpp.s
-.PHONY : imageExporter.cpp.s
+src/camera.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/camera.cpp.s
+.PHONY : src/camera.cpp.s
 
-main.o: main.cpp.o
+src/imageExporter.o: src/imageExporter.cpp.o
 
-.PHONY : main.o
+.PHONY : src/imageExporter.o
 
 # target to build an object file
-main.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/main.cpp.o
-.PHONY : main.cpp.o
+src/imageExporter.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/imageExporter.cpp.o
+.PHONY : src/imageExporter.cpp.o
 
-main.i: main.cpp.i
+src/imageExporter.i: src/imageExporter.cpp.i
 
-.PHONY : main.i
+.PHONY : src/imageExporter.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/main.cpp.i
-.PHONY : main.cpp.i
+src/imageExporter.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/imageExporter.cpp.i
+.PHONY : src/imageExporter.cpp.i
 
-main.s: main.cpp.s
+src/imageExporter.s: src/imageExporter.cpp.s
 
-.PHONY : main.s
+.PHONY : src/imageExporter.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/main.cpp.s
-.PHONY : main.cpp.s
+src/imageExporter.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/imageExporter.cpp.s
+.PHONY : src/imageExporter.cpp.s
 
-material.o: material.cpp.o
+src/main.o: src/main.cpp.o
 
-.PHONY : material.o
+.PHONY : src/main.o
 
 # target to build an object file
-material.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/material.cpp.o
-.PHONY : material.cpp.o
+src/main.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/main.cpp.o
+.PHONY : src/main.cpp.o
 
-material.i: material.cpp.i
+src/main.i: src/main.cpp.i
 
-.PHONY : material.i
+.PHONY : src/main.i
 
 # target to preprocess a source file
-material.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/material.cpp.i
-.PHONY : material.cpp.i
+src/main.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
 
-material.s: material.cpp.s
+src/main.s: src/main.cpp.s
 
-.PHONY : material.s
+.PHONY : src/main.s
 
 # target to generate assembly for a file
-material.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/material.cpp.s
-.PHONY : material.cpp.s
+src/main.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
-objects.o: objects.cpp.o
+src/material.o: src/material.cpp.o
 
-.PHONY : objects.o
+.PHONY : src/material.o
 
 # target to build an object file
-objects.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/objects.cpp.o
-.PHONY : objects.cpp.o
+src/material.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/material.cpp.o
+.PHONY : src/material.cpp.o
 
-objects.i: objects.cpp.i
+src/material.i: src/material.cpp.i
 
-.PHONY : objects.i
+.PHONY : src/material.i
 
 # target to preprocess a source file
-objects.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/objects.cpp.i
-.PHONY : objects.cpp.i
+src/material.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/material.cpp.i
+.PHONY : src/material.cpp.i
 
-objects.s: objects.cpp.s
+src/material.s: src/material.cpp.s
 
-.PHONY : objects.s
+.PHONY : src/material.s
 
 # target to generate assembly for a file
-objects.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/objects.cpp.s
-.PHONY : objects.cpp.s
+src/material.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/material.cpp.s
+.PHONY : src/material.cpp.s
 
-scene.o: scene.cpp.o
+src/objects.o: src/objects.cpp.o
 
-.PHONY : scene.o
+.PHONY : src/objects.o
 
 # target to build an object file
-scene.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/scene.cpp.o
-.PHONY : scene.cpp.o
+src/objects.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/objects.cpp.o
+.PHONY : src/objects.cpp.o
 
-scene.i: scene.cpp.i
+src/objects.i: src/objects.cpp.i
 
-.PHONY : scene.i
+.PHONY : src/objects.i
 
 # target to preprocess a source file
-scene.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/scene.cpp.i
-.PHONY : scene.cpp.i
+src/objects.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/objects.cpp.i
+.PHONY : src/objects.cpp.i
 
-scene.s: scene.cpp.s
+src/objects.s: src/objects.cpp.s
 
-.PHONY : scene.s
+.PHONY : src/objects.s
 
 # target to generate assembly for a file
-scene.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/scene.cpp.s
-.PHONY : scene.cpp.s
+src/objects.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/objects.cpp.s
+.PHONY : src/objects.cpp.s
 
-texture.o: texture.cpp.o
+src/scene.o: src/scene.cpp.o
 
-.PHONY : texture.o
+.PHONY : src/scene.o
 
 # target to build an object file
-texture.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/texture.cpp.o
-.PHONY : texture.cpp.o
+src/scene.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/scene.cpp.o
+.PHONY : src/scene.cpp.o
 
-texture.i: texture.cpp.i
+src/scene.i: src/scene.cpp.i
 
-.PHONY : texture.i
+.PHONY : src/scene.i
 
 # target to preprocess a source file
-texture.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/texture.cpp.i
-.PHONY : texture.cpp.i
+src/scene.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/scene.cpp.i
+.PHONY : src/scene.cpp.i
 
-texture.s: texture.cpp.s
+src/scene.s: src/scene.cpp.s
 
-.PHONY : texture.s
+.PHONY : src/scene.s
 
 # target to generate assembly for a file
-texture.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/texture.cpp.s
-.PHONY : texture.cpp.s
+src/scene.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/scene.cpp.s
+.PHONY : src/scene.cpp.s
 
-utility.o: utility.cpp.o
+src/texture.o: src/texture.cpp.o
 
-.PHONY : utility.o
+.PHONY : src/texture.o
 
 # target to build an object file
-utility.cpp.o:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/utility.cpp.o
-.PHONY : utility.cpp.o
+src/texture.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/texture.cpp.o
+.PHONY : src/texture.cpp.o
 
-utility.i: utility.cpp.i
+src/texture.i: src/texture.cpp.i
 
-.PHONY : utility.i
+.PHONY : src/texture.i
 
 # target to preprocess a source file
-utility.cpp.i:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/utility.cpp.i
-.PHONY : utility.cpp.i
+src/texture.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/texture.cpp.i
+.PHONY : src/texture.cpp.i
 
-utility.s: utility.cpp.s
+src/texture.s: src/texture.cpp.s
 
-.PHONY : utility.s
+.PHONY : src/texture.s
 
 # target to generate assembly for a file
-utility.cpp.s:
-	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/utility.cpp.s
-.PHONY : utility.cpp.s
+src/texture.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/texture.cpp.s
+.PHONY : src/texture.cpp.s
+
+src/utility.o: src/utility.cpp.o
+
+.PHONY : src/utility.o
+
+# target to build an object file
+src/utility.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/utility.cpp.o
+.PHONY : src/utility.cpp.o
+
+src/utility.i: src/utility.cpp.i
+
+.PHONY : src/utility.i
+
+# target to preprocess a source file
+src/utility.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/utility.cpp.i
+.PHONY : src/utility.cpp.i
+
+src/utility.s: src/utility.cpp.s
+
+.PHONY : src/utility.s
+
+# target to generate assembly for a file
+src/utility.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/utility.cpp.s
+.PHONY : src/utility.cpp.s
 
 # Help Target
 help:
@@ -401,37 +401,37 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... RTTest"
-	@echo "... aabb.o"
-	@echo "... aabb.i"
-	@echo "... aabb.s"
-	@echo "... bvh.o"
-	@echo "... bvh.i"
-	@echo "... bvh.s"
-	@echo "... camera.o"
-	@echo "... camera.i"
-	@echo "... camera.s"
-	@echo "... imageExporter.o"
-	@echo "... imageExporter.i"
-	@echo "... imageExporter.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
-	@echo "... material.o"
-	@echo "... material.i"
-	@echo "... material.s"
-	@echo "... objects.o"
-	@echo "... objects.i"
-	@echo "... objects.s"
-	@echo "... scene.o"
-	@echo "... scene.i"
-	@echo "... scene.s"
-	@echo "... texture.o"
-	@echo "... texture.i"
-	@echo "... texture.s"
-	@echo "... utility.o"
-	@echo "... utility.i"
-	@echo "... utility.s"
+	@echo "... HJRT"
+	@echo "... src/aabb.o"
+	@echo "... src/aabb.i"
+	@echo "... src/aabb.s"
+	@echo "... src/bvh.o"
+	@echo "... src/bvh.i"
+	@echo "... src/bvh.s"
+	@echo "... src/camera.o"
+	@echo "... src/camera.i"
+	@echo "... src/camera.s"
+	@echo "... src/imageExporter.o"
+	@echo "... src/imageExporter.i"
+	@echo "... src/imageExporter.s"
+	@echo "... src/main.o"
+	@echo "... src/main.i"
+	@echo "... src/main.s"
+	@echo "... src/material.o"
+	@echo "... src/material.i"
+	@echo "... src/material.s"
+	@echo "... src/objects.o"
+	@echo "... src/objects.i"
+	@echo "... src/objects.s"
+	@echo "... src/scene.o"
+	@echo "... src/scene.i"
+	@echo "... src/scene.s"
+	@echo "... src/texture.o"
+	@echo "... src/texture.i"
+	@echo "... src/texture.s"
+	@echo "... src/utility.o"
+	@echo "... src/utility.i"
+	@echo "... src/utility.s"
 .PHONY : help
 
 
