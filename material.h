@@ -6,10 +6,13 @@
 #define RTTEST_MATERIAL_H
 
 #include "utility.h"
-
+#include "texture.h"
+#include <memory>
 struct Material {
 	vec3 emission;
 	vec3 albedo;
+	shared_ptr<Texture> emissionTex;
+	shared_ptr<Texture> albedoTex;
 	virtual bool scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray* scatteredRay)const =0;
 };
 struct Lambertian:Material{

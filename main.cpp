@@ -12,7 +12,7 @@ using namespace glm;
 
 int main() {
 
-	Camera camera(vec3(0,2,12),vec3(0,0,-1),800,600,45);
+	Camera camera(vec3(0,2,14),vec3(0,0,-1),800,600,45);
 
 	Sphere sphere(vec3(0,-1,0),1);
 	sphere.name="diffuse";
@@ -37,8 +37,11 @@ int main() {
 
 	const int PlaneR=4;
 	auto white=make_shared<Lambertian>(vec3(0.8));
+	white->albedoTex=make_shared<ImageTexture>("/Users/hezhenbang/Downloads/IMG_0450.JPG");
 	Triangle floor1(vec3(-PlaneR,-2,PlaneR),vec3(PlaneR,-2,-PlaneR),vec3(-PlaneR,-2,-PlaneR));
+	floor1.uv[0]=vec2(0,0);floor1.uv[1]=vec2(1,1);floor1.uv[2]=vec2(0,1);
 	Triangle floor2(vec3(-PlaneR,-2,PlaneR),vec3(PlaneR,-2,PlaneR),vec3(PlaneR,-2,-PlaneR));
+	floor2.uv[0]=vec2(0,0);floor2.uv[1]=vec2(1,0);floor2.uv[2]=vec2(1,1);
 	floor1.material=floor2.material=white;
 
 	Triangle greenWall1(vec3(PlaneR,-2,-PlaneR),vec3(PlaneR,-2,PlaneR),vec3(PlaneR,-2+2*PlaneR,PlaneR));
@@ -65,31 +68,31 @@ int main() {
 	scene.useBVH=false;
 	scene.ambient=vec3(0);
 	scene.objects.push_back(&sphere);
-//	scene.objects.push_back(&ground);
-	scene.objects.push_back(&glassSphere);
+	scene.objects.push_back(&ground);
+	scene.objects.push_back(&metalSphere);
 	scene.objects.push_back(&light1);
 	scene.objects.push_back(&light2);
 
-	scene.objects.push_back(&floor1);
-	scene.objects.push_back(&floor2);
+//	scene.objects.push_back(&floor1);
+//	scene.objects.push_back(&floor2);
 
-	scene.objects.push_back(&ceil1);
-	scene.objects.push_back(&ceil2);
-
-	scene.objects.push_back(&redWall1);
-	scene.objects.push_back(&redWall2);
-
-	scene.objects.push_back(&greenWall1);
-	scene.objects.push_back(&greenWall2);
-
-	scene.objects.push_back(&back1);
-	scene.objects.push_back(&back2);
+//	scene.objects.push_back(&ceil1);
+//	scene.objects.push_back(&ceil2);
+//
+//	scene.objects.push_back(&redWall1);
+//	scene.objects.push_back(&redWall2);
+//
+//	scene.objects.push_back(&greenWall1);
+//	scene.objects.push_back(&greenWall2);
+//
+//	scene.objects.push_back(&back1);
+//	scene.objects.push_back(&back2);
 
 
 	ImageExporter image(camera.width,camera.height);
 
 	const int antiAliasNum=2;
-	const int samples=10;
+	const int samples=100;
 
 	vec3 color(0);
 
@@ -103,7 +106,7 @@ int main() {
 	auto start=chrono::high_resolution_clock::now();
 #pragma omp parallel for schedule(dynamic, 1) private(color)
 	for(int i=0;i<camera.height;++i){
-		cout<<"progress = "<<(i*100.0f/camera.height)<<"%"<<endl;
+		if(!(i%5))cout<<"progress = "<<(i*100.0f/camera.height)<<"%"<<endl;
 		for(int j=0;j<camera.width;++j){
 
 			color=vec3(0);

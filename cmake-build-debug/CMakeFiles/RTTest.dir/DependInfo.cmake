@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/hezhenbang/Documents/C++/RTTest/material.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/material.cpp.o"
   "/Users/hezhenbang/Documents/C++/RTTest/objects.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/objects.cpp.o"
   "/Users/hezhenbang/Documents/C++/RTTest/scene.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/scene.cpp.o"
+  "/Users/hezhenbang/Documents/C++/RTTest/texture.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/texture.cpp.o"
   "/Users/hezhenbang/Documents/C++/RTTest/utility.cpp" "/Users/hezhenbang/Documents/C++/RTTest/cmake-build-debug/CMakeFiles/RTTest.dir/utility.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")

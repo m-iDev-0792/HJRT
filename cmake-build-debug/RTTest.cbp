@@ -125,6 +125,12 @@
 		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/scene.h">
 			<Option target="RTTest"/>
 		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/texture.cpp">
+			<Option target="RTTest"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/texture.h">
+			<Option target="RTTest"/>
+		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/RTTest/utility.cpp">
 			<Option target="RTTest"/>
 		</Unit>

@@ -339,6 +339,33 @@ scene.cpp.s:
 	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/scene.cpp.s
 .PHONY : scene.cpp.s
 
+texture.o: texture.cpp.o
+
+.PHONY : texture.o
+
+# target to build an object file
+texture.cpp.o:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/texture.cpp.o
+.PHONY : texture.cpp.o
+
+texture.i: texture.cpp.i
+
+.PHONY : texture.i
+
+# target to preprocess a source file
+texture.cpp.i:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/texture.cpp.i
+.PHONY : texture.cpp.i
+
+texture.s: texture.cpp.s
+
+.PHONY : texture.s
+
+# target to generate assembly for a file
+texture.cpp.s:
+	$(MAKE) -f CMakeFiles/RTTest.dir/build.make CMakeFiles/RTTest.dir/texture.cpp.s
+.PHONY : texture.cpp.s
+
 utility.o: utility.cpp.o
 
 .PHONY : utility.o
@@ -399,6 +426,9 @@ help:
 	@echo "... scene.o"
 	@echo "... scene.i"
 	@echo "... scene.s"
+	@echo "... texture.o"
+	@echo "... texture.i"
+	@echo "... texture.s"
 	@echo "... utility.o"
 	@echo "... utility.i"
 	@echo "... utility.s"

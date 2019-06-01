@@ -3,8 +3,20 @@
 //
 
 #include "objects.h"
+bool Object::getUV(const HitInfo &hitInfo, vec2 *uvCoord) const{
+	return false;
+}
 bool Sphere::getAABB(AABB* box)const{
 	*box=AABB(origin-vec3(r),origin+vec3(r));
+	return true;
+}
+bool Sphere::getUV(const HitInfo &hitInfo, vec2 *uvCoord) const{
+	const vec3 p=hitInfo.hitpoint-origin;
+	float v=asin(p.z);
+	float u=atan2(p.y,p.x);
+	u=1-(u+M_PI)/(2*M_PI);
+	v=(v+M_PI/2)/M_PI;
+	*uvCoord=vec2(u,v);
 	return true;
 }
 bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo)const {
@@ -33,6 +45,20 @@ bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo)const {
 	return true;
 
 }
+Triangle::Triangle(vec3 _v0, vec3 _v1, vec3 _v2) : v0(_v0), v1(_v1), v2(_v2) {
+	vec3 E1 = this->v1 - this->v0;
+	vec3 E2 = this->v2 - this->v0;
+	//NOTE. we expect v0 v1 v2 are placed in counter-clock-wise
+	normal = normalize(cross(E1, E2));
+}
+Triangle::Triangle(vec3 _v0, vec3 _v1, vec3 _v2,vec2 _uv0,vec2 _uv1,vec2 _uv2):Triangle(_v0, _v1, _v2){
+	setUVs(_uv0,_uv1,_uv2);
+}
+void Triangle::setUVs(vec2 _uv0, vec2 _uv1, vec2 _uv2) {
+	uv[0]=_uv0;
+	uv[1]=_uv1;
+	uv[2]=_uv2;
+}
 bool Triangle::getAABB(AABB* box)const{
 	vec3 min,max;
 	for(int i=0;i<3;++i) {
@@ -42,7 +68,11 @@ bool Triangle::getAABB(AABB* box)const{
 	*box=AABB(min,max);
 	return true;
 }
-//TODO. test reliability
+bool Triangle::getUV(const HitInfo &hitInfo, vec2 *uvCoord) const{
+	const vec2 old=hitInfo.uv;
+	*uvCoord=uv[0]*(1.0f-old.x-old.y)+uv[1]*old.x+uv[2]*old.y;
+	return true;
+}
 bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo)const {
 	// E1
 	vec3 E1 = this->v1 - this->v0;
@@ -89,6 +119,7 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo)const {
 	v *= fInvDet;
 	if(t>hitInfo->t||t<1e-4)return false;
 	hitInfo->t=t;
+	hitInfo->uv=vec2(u,v);
 	hitInfo->hitpoint = ray.origin + t * ray.dir;// same as :hitInfo->hitpoint=this->v0+u*E1+v*E2;
 	hitInfo->normal = this->normal * sgn(dot(-t * ray.dir, this->normal));
 	hitInfo->hitobject=this;

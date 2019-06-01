@@ -21,6 +21,7 @@ struct HitInfo {
 	float t;
 	vec3 hitpoint;
 	vec3 normal;
+	vec2 uv;
 	const Object *hitobject;
 	HitInfo(){t=10e10;};
 };

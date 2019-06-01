@@ -27,17 +27,26 @@ vec3 Scene::shade(const Ray &ray, int depth) {
 	if (depth > MAX_BOUNCE)return ambient;
 	HitInfo hitInfo;
 	if (this->intersect(ray, &hitInfo)) {
+		vec2 uv;
+		bool hasUV = hitInfo.hitobject->getUV(hitInfo, &uv);
+		hitInfo.uv = uv;
+		vec3 emission = hitInfo.hitobject->material->emissionTex == nullptr ?
+		                hitInfo.hitobject->material->emission :
+		                hitInfo.hitobject->material->emissionTex->getColor(uv);
+
 		if (depth > 5) {
-			const vec3 &f = hitInfo.hitobject->material->albedo;
+			const vec3 &f = hitInfo.hitobject->material->albedoTex== nullptr?
+			                hitInfo.hitobject->material->albedo:
+			                hitInfo.hitobject->material->albedoTex->getColor(uv);
 			float maxContribution = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
-			if (drand48() > maxContribution)return hitInfo.hitobject->material->emission;
+			if (drand48() > maxContribution)return emission;
 		}
 		Ray newRay;
 		vec3 attenuation;
 		if (hitInfo.hitobject->material->scatter(ray, hitInfo, &attenuation, &newRay)) {
-			return hitInfo.hitobject->material->emission + attenuation * shade(newRay, depth + 1);
+			return emission + attenuation * shade(newRay, depth + 1);
 		} else
-			return hitInfo.hitobject->material->emission;
+			return emission;
 	} else {
 //		if(depth==1)cout<<"no hit at first hit"<<endl;
 		return ambient;

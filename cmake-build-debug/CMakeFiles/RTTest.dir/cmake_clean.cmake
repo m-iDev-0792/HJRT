@@ -8,6 +8,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/RTTest.dir/imageExporter.cpp.o"
   "CMakeFiles/RTTest.dir/aabb.cpp.o"
   "CMakeFiles/RTTest.dir/bvh.cpp.o"
+  "CMakeFiles/RTTest.dir/texture.cpp.o"
   "RTTest.pdb"
   "RTTest"
 )
