@@ -845,28 +845,26 @@ vector
 -
 iostream
 -
+random
+-
 glm/glm.hpp
 -
 glm/gtc/matrix_transform.hpp
 -
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/aabb.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/aabb.cpp
 aabb.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/aabb.h
+/Users/hezhenbang/Documents/C++/HJRT/src/aabb.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/bvh.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/bvh.cpp
 bvh.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/bvh.h
+/Users/hezhenbang/Documents/C++/HJRT/src/bvh.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/camera.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/camera.cpp
 camera.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/camera.h
+/Users/hezhenbang/Documents/C++/HJRT/src/camera.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/imageExporter.cpp
-imageExporter.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/imageExporter.h
-
-/Users/hezhenbang/Documents/C++/RTTest copy/src/main.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/main.cpp
 iostream
 -
 fstream
@@ -876,31 +874,31 @@ vector
 chrono
 -
 objects.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/objects.h
+/Users/hezhenbang/Documents/C++/HJRT/src/objects.h
 scene.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/scene.h
+/Users/hezhenbang/Documents/C++/HJRT/src/scene.h
 camera.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/camera.h
+/Users/hezhenbang/Documents/C++/HJRT/src/camera.h
 imageExporter.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/imageExporter.h
+/Users/hezhenbang/Documents/C++/HJRT/src/imageExporter.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/material.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/material.cpp
 material.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/material.h
+/Users/hezhenbang/Documents/C++/HJRT/src/material.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/objects.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/objects.cpp
 objects.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/objects.h
+/Users/hezhenbang/Documents/C++/HJRT/src/objects.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/scene.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/scene.cpp
 scene.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/scene.h
+/Users/hezhenbang/Documents/C++/HJRT/src/scene.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/texture.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/texture.cpp
 texture.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/texture.h
+/Users/hezhenbang/Documents/C++/HJRT/src/texture.h
 
-/Users/hezhenbang/Documents/C++/RTTest copy/src/utility.cpp
+/Users/hezhenbang/Documents/C++/HJRT/src/utility.cpp
 utility.h
-/Users/hezhenbang/Documents/C++/RTTest copy/src/utility.h
+/Users/hezhenbang/Documents/C++/HJRT/src/utility.h
 

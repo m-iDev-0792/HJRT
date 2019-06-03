@@ -39,7 +39,7 @@ vec3 Scene::shade(const Ray &ray, int depth) {
 			                hitInfo.hitobject->material->albedo:
 			                hitInfo.hitobject->material->albedoTex->getColor(uv);
 			float maxContribution = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
-			if (drand48() > maxContribution)return emission;
+			if (random0_1f() > maxContribution)return emission;
 		}
 		Ray newRay;
 		vec3 attenuation;

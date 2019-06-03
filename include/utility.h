@@ -8,6 +8,7 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
+#include <random>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -35,9 +36,7 @@ struct Ray {
 	Ray(vec3 _origin, vec3 _dir) : origin(_origin), dir(_dir) {}
 };
 
-inline template
-
-<typename T>
+template<typename T>
 float sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
@@ -57,9 +56,13 @@ inline void toInt(vec3 &color) {
 	color.g = (color.g > 255 ? 255 : (color.g < 0 ? 0 : static_cast<int>(color.g)));
 	color.b = (color.b > 255 ? 255 : (color.b < 0 ? 0 : static_cast<int>(color.b)));
 }
+//-------------------generate random data---------------------------//
+float random0_1f();
+
 vec3 randomVecUnitDisk();
 
 vec3 randomVecUnitSphere();
+
 
 float fresnel(float cosine,float refractIndex);
 

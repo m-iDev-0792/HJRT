@@ -4,16 +4,16 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/aabb.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/aabb.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/bvh.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/bvh.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/camera.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/camera.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/imageExporter.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/imageExporter.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/main.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/main.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/material.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/material.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/objects.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/objects.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/scene.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/scene.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/texture.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/texture.cpp.o"
-  "/Users/hezhenbang/Documents/C++/RTTest copy/src/utility.cpp" "/Users/hezhenbang/Documents/C++/RTTest copy/cmake-build-debug/CMakeFiles/HJRT.dir/src/utility.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/aabb.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/aabb.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/bvh.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/bvh.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/camera.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/camera.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/imageExporter.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/imageExporter.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/main.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/main.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/material.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/material.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/objects.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/objects.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/scene.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/scene.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/texture.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/texture.cpp.o"
+  "/Users/hezhenbang/Documents/C++/HJRT/src/utility.cpp" "/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles/HJRT.dir/src/utility.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 

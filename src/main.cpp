@@ -20,7 +20,7 @@ int main() {
 
 	Sphere metalSphere(vec3(2,-1,-2),1);
 	metalSphere.name="metal";
-	metalSphere.material=make_shared<Metal>(vec3(0.8),0.5);
+	metalSphere.material=make_shared<Metal>(vec3(0.8,0.2,0.2),0.2);
 
 	Sphere glassSphere(vec3(2,-1,0),1);
 	glassSphere.name="glass";
@@ -39,29 +39,41 @@ int main() {
 	auto white=make_shared<Lambertian>(vec3(0.8));
 	white->albedoTex=make_shared<ImageTexture>("/Users/hezhenbang/Downloads/IMG_0450.JPG");
 	Triangle floor1(vec3(-PlaneR,-2,PlaneR),vec3(PlaneR,-2,-PlaneR),vec3(-PlaneR,-2,-PlaneR));
+	floor1.name="floor1";
 	floor1.uv[0]=vec2(0,0);floor1.uv[1]=vec2(1,1);floor1.uv[2]=vec2(0,1);
 	Triangle floor2(vec3(-PlaneR,-2,PlaneR),vec3(PlaneR,-2,PlaneR),vec3(PlaneR,-2,-PlaneR));
+	floor2.name="floor2";
 	floor2.uv[0]=vec2(0,0);floor2.uv[1]=vec2(1,0);floor2.uv[2]=vec2(1,1);
 	floor1.material=floor2.material=white;
 
 	Triangle greenWall1(vec3(PlaneR,-2,-PlaneR),vec3(PlaneR,-2,PlaneR),vec3(PlaneR,-2+2*PlaneR,PlaneR));
+	greenWall1.name="greenWall1";
 	Triangle greenWall2(vec3(PlaneR,-2,-PlaneR),vec3(PlaneR,-2+2*PlaneR,PlaneR),vec3(PlaneR,-2+2*PlaneR,-PlaneR));
+	greenWall2.name="greenWall2";
 	greenWall1.material=greenWall2.material=make_shared<Lambertian>(vec3(0.25, 0.75, 0.25));//(vec3(0.278, 0.494, 0.227));
 
 	Triangle redWall1(vec3(-PlaneR,-2,PlaneR),vec3(-PlaneR,-2,-PlaneR),vec3(-PlaneR,-2+2*PlaneR,-PlaneR));
+	redWall1.name="redWall1";
 	Triangle redWall2(vec3(-PlaneR,-2,PlaneR),vec3(-PlaneR,-2+2*PlaneR,-PlaneR),vec3(-PlaneR,-2+2*PlaneR,PlaneR));
+	redWall2.name="redWall2";
 	redWall1.material=redWall2.material=make_shared<Lambertian>(vec3(0.75, 0.25, 0.25));//(vec3(0.620, 0.173, 0.161));
 
 	Triangle ceil1(vec3(-PlaneR,-2+2*PlaneR,PlaneR),vec3(PlaneR,-2+2*PlaneR,-PlaneR),vec3(-PlaneR,-2+2*PlaneR,-PlaneR));
+	ceil1.name="ceil1";
 	Triangle ceil2(vec3(-PlaneR,-2+2*PlaneR,PlaneR),vec3(PlaneR,-2+2*PlaneR,PlaneR),vec3(PlaneR,-2+2*PlaneR,-PlaneR));
+	ceil2.name="ceil2";
 	ceil1.material=ceil2.material=white;
 
 	Triangle back1(vec3(-PlaneR,-2,-PlaneR),vec3(PlaneR,-2,-PlaneR),vec3(PlaneR,-2+2*PlaneR,-PlaneR));
+	back1.name="back1";
 	Triangle back2(vec3(-PlaneR,-2,-PlaneR),vec3(PlaneR,-2+2*PlaneR,-PlaneR),vec3(-PlaneR,-2+2*PlaneR,-PlaneR));
+	back2.name="back2";
 	back1.material=back2.material=white;
 
 	Triangle light1(vec3(-PlaneR/4,-2.05+2*PlaneR,PlaneR/4),vec3(PlaneR/4,-2.05+2*PlaneR,-PlaneR/4),vec3(-PlaneR/4,-2.05+2*PlaneR,-PlaneR/4));
+	light1.name="light1";
 	Triangle light2(vec3(-PlaneR/4,-2.05+2*PlaneR,PlaneR/4),vec3(PlaneR/4,-2.05+2*PlaneR,PlaneR/4),vec3(PlaneR/4,-2.05+2*PlaneR,-PlaneR/4));
+	light2.name="light2";
 	light1.material=light2.material=light.material;
 
 	Scene scene;
@@ -92,7 +104,7 @@ int main() {
 	ImageExporter image(camera.width,camera.height);
 
 	const int antiAliasNum=2;
-	const int samples=10;
+	const int samples=20;
 
 	vec3 color(0);
 

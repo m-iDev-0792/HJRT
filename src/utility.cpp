@@ -2,17 +2,23 @@
 // Created by 何振邦 on 2019-05-15.
 //
 #include "utility.h"
+float random0_1f(){
+	static random_device seed;
+	static mt19937 engine(seed());
+	static uniform_real_distribution<float> dist(0,1);
+	return dist(engine);
+}
 vec3 randomVecUnitDisk(){
 	vec3 p;
 	do {
-		p = 2.0f*vec3(drand48(),drand48(),0) - vec3(1,1,0);
+		p = 2.0f*vec3(random0_1f(),random0_1f(),0) - vec3(1,1,0);
 	} while (dot(p,p) >= 1.0);
 	return p;
 }
 vec3 randomVecUnitSphere(){
 	vec3 p;
 	do{
-		p=2.0f*vec3(drand48(),drand48(),drand48())-vec3(1);
+		p=2.0f*vec3(random0_1f(),random0_1f(),random0_1f())-vec3(1);
 	}while(dot(p,p)>=1.0);
 	return p;
 }

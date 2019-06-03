@@ -52,7 +52,7 @@ BVH::BVH(vector<Object*>::iterator begin,vector<Object*>::iterator end){
 		aabb=AABB::getBoundingAABB(box1,box2);
 	}else{
 
-	int initAxis=3*drand48();
+	int initAxis=3*random0_1f();
 	//sort objects
 	sort(begin,end,compList[initAxis]);
 	auto middle=begin+(end-begin)/2;

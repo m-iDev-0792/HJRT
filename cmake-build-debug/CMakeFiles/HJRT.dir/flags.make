@@ -6,5 +6,5 @@ CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/Ma
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/Users/hezhenbang/Documents/C++/RTTest copy/include" -I"/Users/hezhenbang/Documents/C++/RTTest copy/3rd-party" 
+CXX_INCLUDES = -I/Users/hezhenbang/Documents/C++/HJRT/include -I/Users/hezhenbang/Documents/C++/HJRT/3rd-party 
 

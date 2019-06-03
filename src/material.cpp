@@ -59,7 +59,7 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, vec3 *attenuati
 		reflect_prob = 1.0;
 	}
 
-	if (drand48() < reflect_prob) {
+	if (random0_1f() < reflect_prob) {
 		//do reflect
 		scatteredRay->origin = hitInfo.hitpoint;
 		scatteredRay->dir = normalize(reflect(ray.dir, hitInfo.normal));
