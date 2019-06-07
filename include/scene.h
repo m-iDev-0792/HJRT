@@ -10,8 +10,8 @@
 struct Scene {
 	//TODO. tidy code
 	const int MAX_BOUNCE = 25;
-	vector<Object *> objects;
-	BVH *bvhRoot;
+	vector<shared_ptr<Object>> objects;
+	shared_ptr<BVH> bvhRoot;
 	vec3 ambient;
 	bool useBVH;
 

@@ -3,7 +3,7 @@
 //
 
 #include "bvh.h"
-bool compX(const Object* a,const Object* b){
+bool compX(const shared_ptr<Object> a,const shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
 		cout<<"unable get AABB"<<endl;
@@ -11,7 +11,7 @@ bool compX(const Object* a,const Object* b){
 	}
 	return abox.min.x<bbox.min.x;
 }
-bool compY(const Object* a,const Object* b){
+bool compY(const shared_ptr<Object> a,const shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
 		cout<<"unable get AABB"<<endl;
@@ -19,7 +19,7 @@ bool compY(const Object* a,const Object* b){
 	}
 	return abox.min.y<bbox.min.y;
 }
-bool compZ(const Object* a,const Object* b){
+bool compZ(const shared_ptr<Object> a,const shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
 		cout<<"unable get AABB"<<endl;
@@ -29,7 +29,7 @@ bool compZ(const Object* a,const Object* b){
 }
 
 decltype(&compX) compList[]={&compX,&compY,&compZ};
-BVH::BVH(vector<Object*>::iterator begin,vector<Object*>::iterator end){
+BVH::BVH(vector<shared_ptr<Object>>::iterator begin,vector<shared_ptr<Object>>::iterator end){
 	if(begin==end){
 		leftNode=rightNode= nullptr;
 		aabb=AABB(vec3(1),vec3(-1));
@@ -57,8 +57,8 @@ BVH::BVH(vector<Object*>::iterator begin,vector<Object*>::iterator end){
 	sort(begin,end,compList[initAxis]);
 	auto middle=begin+(end-begin)/2;
 
-	leftNode=middle-begin>1?new BVH(begin,middle):*begin;
-	rightNode=new BVH(middle,end);
+	leftNode=middle-begin>1?make_shared<BVH>(begin,middle):*begin;
+	rightNode=make_shared<BVH>(middle,end);
 		AABB boxLeft,boxRight;
 		if((!leftNode->getAABB(&boxLeft))||(!rightNode->getAABB(&boxRight))){
 			aabb=AABB(vec3(1),vec3(-1));

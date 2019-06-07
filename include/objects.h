@@ -73,5 +73,5 @@ struct Sphere : public Object {
 	bool getUV(const HitInfo &hitInfo, vec2 *uvCoord) const override;
 };
 
-
+vector<shared_ptr<Triangle>> loadOBJ(string path);
 #endif //RTTEST_OBJECTS_H

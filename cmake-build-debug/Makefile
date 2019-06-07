@@ -204,32 +204,32 @@ src/camera.cpp.s:
 	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/camera.cpp.s
 .PHONY : src/camera.cpp.s
 
-src/imageExporter.o: src/imageExporter.cpp.o
+src/film.o: src/film.cpp.o
 
-.PHONY : src/imageExporter.o
+.PHONY : src/film.o
 
 # target to build an object file
-src/imageExporter.cpp.o:
-	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/imageExporter.cpp.o
-.PHONY : src/imageExporter.cpp.o
+src/film.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/film.cpp.o
+.PHONY : src/film.cpp.o
 
-src/imageExporter.i: src/imageExporter.cpp.i
+src/film.i: src/film.cpp.i
 
-.PHONY : src/imageExporter.i
+.PHONY : src/film.i
 
 # target to preprocess a source file
-src/imageExporter.cpp.i:
-	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/imageExporter.cpp.i
-.PHONY : src/imageExporter.cpp.i
+src/film.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/film.cpp.i
+.PHONY : src/film.cpp.i
 
-src/imageExporter.s: src/imageExporter.cpp.s
+src/film.s: src/film.cpp.s
 
-.PHONY : src/imageExporter.s
+.PHONY : src/film.s
 
 # target to generate assembly for a file
-src/imageExporter.cpp.s:
-	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/imageExporter.cpp.s
-.PHONY : src/imageExporter.cpp.s
+src/film.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/film.cpp.s
+.PHONY : src/film.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -285,6 +285,33 @@ src/material.cpp.s:
 	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/material.cpp.s
 .PHONY : src/material.cpp.s
 
+src/mesh.o: src/mesh.cpp.o
+
+.PHONY : src/mesh.o
+
+# target to build an object file
+src/mesh.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/mesh.cpp.o
+.PHONY : src/mesh.cpp.o
+
+src/mesh.i: src/mesh.cpp.i
+
+.PHONY : src/mesh.i
+
+# target to preprocess a source file
+src/mesh.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/mesh.cpp.i
+.PHONY : src/mesh.cpp.i
+
+src/mesh.s: src/mesh.cpp.s
+
+.PHONY : src/mesh.s
+
+# target to generate assembly for a file
+src/mesh.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/mesh.cpp.s
+.PHONY : src/mesh.cpp.s
+
 src/objects.o: src/objects.cpp.o
 
 .PHONY : src/objects.o
@@ -311,6 +338,33 @@ src/objects.s: src/objects.cpp.s
 src/objects.cpp.s:
 	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/objects.cpp.s
 .PHONY : src/objects.cpp.s
+
+src/pathtracer.o: src/pathtracer.cpp.o
+
+.PHONY : src/pathtracer.o
+
+# target to build an object file
+src/pathtracer.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/pathtracer.cpp.o
+.PHONY : src/pathtracer.cpp.o
+
+src/pathtracer.i: src/pathtracer.cpp.i
+
+.PHONY : src/pathtracer.i
+
+# target to preprocess a source file
+src/pathtracer.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/pathtracer.cpp.i
+.PHONY : src/pathtracer.cpp.i
+
+src/pathtracer.s: src/pathtracer.cpp.s
+
+.PHONY : src/pathtracer.s
+
+# target to generate assembly for a file
+src/pathtracer.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/pathtracer.cpp.s
+.PHONY : src/pathtracer.cpp.s
 
 src/scene.o: src/scene.cpp.o
 
@@ -411,18 +465,24 @@ help:
 	@echo "... src/camera.o"
 	@echo "... src/camera.i"
 	@echo "... src/camera.s"
-	@echo "... src/imageExporter.o"
-	@echo "... src/imageExporter.i"
-	@echo "... src/imageExporter.s"
+	@echo "... src/film.o"
+	@echo "... src/film.i"
+	@echo "... src/film.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
 	@echo "... src/material.o"
 	@echo "... src/material.i"
 	@echo "... src/material.s"
+	@echo "... src/mesh.o"
+	@echo "... src/mesh.i"
+	@echo "... src/mesh.s"
 	@echo "... src/objects.o"
 	@echo "... src/objects.i"
 	@echo "... src/objects.s"
+	@echo "... src/pathtracer.o"
+	@echo "... src/pathtracer.i"
+	@echo "... src/pathtracer.s"
 	@echo "... src/scene.o"
 	@echo "... src/scene.i"
 	@echo "... src/scene.s"

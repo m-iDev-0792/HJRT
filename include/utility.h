@@ -9,9 +9,10 @@
 #include <vector>
 #include <iostream>
 #include <random>
+#include <string>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include "tinyobjloader/tiny_obj_loader.h"
 using namespace std;
 using namespace glm;
 
@@ -24,7 +25,7 @@ struct HitInfo {
 	vec3 normal;
 	vec2 uv;
 	const Object *hitobject;
-	HitInfo(){t=10e10;};
+	HitInfo(){t=10e10;hitobject= nullptr;};
 };
 
 struct Ray {

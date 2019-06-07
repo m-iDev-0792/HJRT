@@ -1,6 +1,7 @@
 //
 // Created by 何振邦 on 2019-05-15.
 //
+#define TINYOBJLOADER_IMPLEMENTATION
 #include "utility.h"
 float random0_1f(){
 	static random_device seed;

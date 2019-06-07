@@ -93,7 +93,7 @@
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/camera.cpp">
 			<Option target="HJRT"/>
 		</Unit>
-		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/imageExporter.cpp">
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/film.cpp">
 			<Option target="HJRT"/>
 		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/main.cpp">
@@ -102,7 +102,13 @@
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/material.cpp">
 			<Option target="HJRT"/>
 		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/mesh.cpp">
+			<Option target="HJRT"/>
+		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/objects.cpp">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/pathtracer.cpp">
 			<Option target="HJRT"/>
 		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/scene.cpp">

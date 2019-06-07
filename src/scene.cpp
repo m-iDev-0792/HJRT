@@ -6,7 +6,7 @@
 
 void Scene::constructBVH() {
 	auto objectCopy = objects;
-	bvhRoot = new BVH(objectCopy.begin(), objectCopy.end());
+	bvhRoot = make_shared<BVH>(objectCopy.begin(), objectCopy.end());
 
 }
 

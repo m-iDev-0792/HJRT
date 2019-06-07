@@ -9,12 +9,12 @@
 #include "objects.h"
 struct BVH:Object {
 	BVH()= default;
-	BVH(vector<Object*>::iterator begin,vector<Object*>::iterator end);
+	BVH(vector<shared_ptr<Object>>::iterator begin,vector<shared_ptr<Object>>::iterator end);
 	bool intersect(const Ray &ray, HitInfo *hitInfo)const override ;
 	bool getAABB(AABB* box)const override ;
 private:
-	Object* leftNode;
-	Object* rightNode;
+	shared_ptr<Object> leftNode;
+	shared_ptr<Object> rightNode;
 	AABB aabb;
 };
 

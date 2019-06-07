@@ -8,8 +8,7 @@ include_directories(include)
 include_directories(3rd-party)
 #set source file idrectories
 aux_source_directory(${PROJECT_SOURCE_DIR}/src HJRT_SRCS)
-
 #set output
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-add_executable(${PROJECT_NAME} ${HJRT_SRCS})
+add_executable(${PROJECT_NAME} ${HJRT_SRCS} )
