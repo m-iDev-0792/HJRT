@@ -4,28 +4,34 @@
 
 #include "objects.h"
 
-bool Object::getUV(const HitInfo &hitInfo, vec2 *uvCoord) const {
+bool Object::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
+	//do nothing
 	return false;
 }
-
+void Object::transform(glm::mat4 mat) {
+	//do nothing
+}
+void Sphere::transform(glm::mat4 mat) {
+	origin=glm::vec3(mat*glm::vec4(origin,1.0f));
+}
 bool Sphere::getAABB(AABB *box) const {
-	*box = AABB(origin - vec3(r), origin + vec3(r));
+	*box = AABB(origin - glm::vec3(r), origin + glm::vec3(r));
 	return true;
 }
 
-bool Sphere::getUV(const HitInfo &hitInfo, vec2 *uvCoord) const {
-	const vec3 p = hitInfo.hitpoint - origin;
+bool Sphere::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
+	const glm::vec3 p = hitInfo.hitpoint - origin;
 	float v = asin(p.z);
 	float u = atan2(p.y, p.x);
 	u = 1 - (u + M_PI) / (2 * M_PI);
 	v = (v + M_PI / 2) / M_PI;
-	*uvCoord = vec2(u, v);
+	*uvCoord = glm::vec2(u, v);
 	return true;
 }
 
 bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo) const {
-	vec3 op = origin - ray.origin; // Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
-	float eps = 1e-4, b = dot(op, ray.dir), det = b * b - dot(op, op) + r * r;
+	glm::vec3 op = origin - ray.origin; // Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
+	float eps = 1e-4, b = glm::dot(op, ray.dir), det = b * b - glm::dot(op, op) + r * r;
 
 	if (det < 0)
 		return false;
@@ -44,57 +50,61 @@ bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	if (t > hitInfo->t)return false;
 	hitInfo->t = t;
 	hitInfo->hitpoint = ray.origin + t * ray.dir;
-	hitInfo->normal = normalize(hitInfo->hitpoint - origin);
+	hitInfo->normal = glm::normalize(hitInfo->hitpoint - origin);
 	hitInfo->hitobject = this;
 	return true;
 
 }
 
-Triangle::Triangle(vec3 _v0, vec3 _v1, vec3 _v2) : v0(_v0), v1(_v1), v2(_v2) {
-	vec3 E1 = this->v1 - this->v0;
-	vec3 E2 = this->v2 - this->v0;
+Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2) : v0(_v0), v1(_v1), v2(_v2) {
+	glm::vec3 E1 = this->v1 - this->v0;
+	glm::vec3 E2 = this->v2 - this->v0;
 	//NOTE. we expect v0 v1 v2 are placed in counter-clock-wise
-	normal = normalize(cross(E1, E2));
+	normal = glm::normalize(glm::cross(E1, E2));
 }
 
-Triangle::Triangle(vec3 _v0, vec3 _v1, vec3 _v2, vec2 _uv0, vec2 _uv1, vec2 _uv2) : Triangle(_v0, _v1, _v2) {
+Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2) : Triangle(_v0, _v1, _v2) {
 	setUVs(_uv0, _uv1, _uv2);
 }
-
-void Triangle::setUVs(vec2 _uv0, vec2 _uv1, vec2 _uv2) {
+void Triangle::transform(glm::mat4 mat) {
+	for(int i=0;i<3;++i)
+		(*this)[i]=glm::vec3(mat*glm::vec4((*this)[i],1.0f));
+	normal=glm::normalize(glm::vec3(mat*glm::vec4(normal,0.0f)));
+}
+void Triangle::setUVs(glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2) {
 	uv[0] = _uv0;
 	uv[1] = _uv1;
 	uv[2] = _uv2;
 }
 
 bool Triangle::getAABB(AABB *box) const {
-	vec3 min, max;
+	glm::vec3 min, max;
 	for (int i = 0; i < 3; ++i) {
-		min[i] = fmin(v0[i], fmin(v1[i], v2[i])) - 0.01;
-		max[i] = fmax(v0[i], fmax(v1[i], v2[i])) + 0.01;
+		min[i] = std::fmin(v0[i], std::fmin(v1[i], v2[i])) - 0.01;
+		max[i] = std::fmax(v0[i], std::fmax(v1[i], v2[i])) + 0.01;
 	}
 	*box = AABB(min, max);
 	return true;
 }
 
-bool Triangle::getUV(const HitInfo &hitInfo, vec2 *uvCoord) const {
-	const vec2 old = hitInfo.uv;
+bool Triangle::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
+	const glm::vec2 old = hitInfo.uv;
 	*uvCoord = uv[0] * (1.0f - old.x - old.y) + uv[1] * old.x + uv[2] * old.y;
 	return true;
 }
 
 bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	// E1
-	vec3 E1 = this->v1 - this->v0;
+	glm::vec3 E1 = this->v1 - this->v0;
 	// E2
-	vec3 E2 = this->v2 - this->v0;
+	glm::vec3 E2 = this->v2 - this->v0;
 	// P
-	vec3 P = cross(ray.dir, E2);
+	glm::vec3 P = glm::cross(ray.dir, E2);
 	// determinant
-	float det = dot(P, E1);
+	float det = glm::dot(P, E1);
 
 	// keep det > 0, modify T accordingly
-	vec3 T;
+	glm::vec3 T;
 	if (det > 0) {
 		T = ray.origin - this->v0;
 	} else {
@@ -108,20 +118,20 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	float t, u, v;
 
 	// Calculate u and make sure u <= 1
-	u = dot(T, P);
+	u = glm::dot(T, P);
 	if (u < 0.0f || u > det)
 		return false;
 
 	// Q
-	vec3 Q = cross(T, E1);
+	glm::vec3 Q = glm::cross(T, E1);
 
 	// Calculate v and make sure u + v <= 1
-	v = dot(ray.dir, Q);
+	v = glm::dot(ray.dir, Q);
 	if (v < 0.0f || u + v > det)
 		return false;
 
 	// Calculate t, scale parameters, ray intersects triangle
-	t = dot(E2, Q);
+	t = glm::dot(E2, Q);
 
 	float fInvDet = 1.0f / det;
 	t *= fInvDet;
@@ -129,15 +139,15 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	v *= fInvDet;
 	if (t > hitInfo->t || t < 1e-4)return false;
 	hitInfo->t = t;
-	hitInfo->uv = vec2(u, v);
+	hitInfo->uv = glm::vec2(u, v);
 	hitInfo->hitpoint = ray.origin + t * ray.dir;// same as :hitInfo->hitpoint=this->v0+u*E1+v*E2;
-	hitInfo->normal = this->normal * sgn(dot(-t * ray.dir, this->normal));
+	hitInfo->normal = this->normal * sgn(glm::dot(-t * ray.dir, this->normal));
 	hitInfo->hitobject = this;
 	return true;
 }
 
-vector<shared_ptr<Triangle>> loadOBJ(string path) {
-	vector<shared_ptr<Triangle>> model;
+std::vector<std::shared_ptr<Object>> loadOBJ(string path) {
+	std::vector<std::shared_ptr<Object>> model;
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
@@ -157,29 +167,29 @@ vector<shared_ptr<Triangle>> loadOBJ(string path) {
 	if (!ret) {
 		return model;
 	}
-	vector<shared_ptr<Material>> materialPtr;
+	std::vector<std::shared_ptr<Material>> materialPtr;
 	for(int i=0;i<materials.size();++i){
-		vec3 albedo(materials[i].diffuse[0],materials[i].diffuse[1],materials[i].diffuse[2]);
-		vec3 emission(materials[i].emission[0],materials[i].emission[1],materials[i].emission[2]);
-		auto newMtl=make_shared<Lambertian>(albedo);
+		glm::vec3 albedo(materials[i].diffuse[0],materials[i].diffuse[1],materials[i].diffuse[2]);
+		glm::vec3 emission(materials[i].emission[0],materials[i].emission[1],materials[i].emission[2]);
+		auto newMtl=std::make_shared<Lambertian>(albedo);
 		newMtl->emission=emission;
 		if(!materials[i].diffuse_texname.empty()){
-			newMtl->albedoTex=make_shared<ImageTexture>(materials[i].diffuse_texname);
+			newMtl->albedoTex=std::make_shared<ImageTexture>(materials[i].diffuse_texname);
 		}
 		if(!materials[i].emissive_texname.empty()){
-			newMtl->emissionTex=make_shared<ImageTexture>(materials[i].emissive_texname);
+			newMtl->emissionTex=std::make_shared<ImageTexture>(materials[i].emissive_texname);
 		}
 		materialPtr.push_back(newMtl);
 	}
 
-	auto defaultMaterial=make_shared<Lambertian>(vec3(0.8));
+	auto defaultMaterial=std::make_shared<Lambertian>(glm::vec3(0.8));
 	for (size_t s = 0; s < shapes.size(); s++) {
 		size_t index_offset = 0;
 
 		for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size(); f++) {
 			int vertexNum = shapes[s].mesh.num_face_vertices[f];
-			vec3 vertex[3], normal[3];
-			vec2 texCoord[3];
+			glm::vec3 vertex[3], normal[3];
+			glm::vec2 texCoord[3];
 			bool hasNormal = true, hasTexCoord = true;
 
 			// Loop over vertices in the face.
@@ -204,17 +214,17 @@ vector<shared_ptr<Triangle>> loadOBJ(string path) {
 				}
 
 			}
-			shared_ptr<Triangle> face;
-			vec3 faceNormal(0);
+			std::shared_ptr<Triangle> face;
+			glm::vec3 faceNormal(0);
 			for(auto& n:normal)faceNormal+=n;
 			faceNormal*=1/3.0f;
 
-			if(hasNormal)face=make_shared<Triangle>(vertex[0],vertex[1],vertex[2],faceNormal);
-			else face=make_shared<Triangle>(vertex[0],vertex[1],vertex[2]);
+			if(hasNormal)face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2],faceNormal);
+			else face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2]);
 
 			if(hasTexCoord)face->setUVs(texCoord[0],texCoord[1],texCoord[2]);
 
-			face->name=shapes[s].name+string("_face_")+to_string(f);
+			face->name=shapes[s].name+std::string("_face_")+std::to_string(f);
 			model.push_back(face);
 			index_offset += vertexNum;
 

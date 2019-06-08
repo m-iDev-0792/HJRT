@@ -11,67 +11,74 @@
 #include <memory>
 
 struct Object {
-	string name;
-	shared_ptr<Material> material;
+	std::string name;
+	std::shared_ptr<Material> material;
 
 	virtual bool intersect(const Ray &ray, HitInfo *hitInfo) const = 0;
 
 	virtual bool getAABB(AABB *box) const = 0;
 
-	virtual bool getUV(const HitInfo &hitInfo, vec2 *uvCoord) const;
+	virtual bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const;
+
+	virtual void transform(glm::mat4 mat);
 };
 
 struct Triangle : public Object {
 	struct {
-		vec3 v0;
-		vec3 v1;
-		vec3 v2;
+		glm::vec3 v0;
+		glm::vec3 v1;
+		glm::vec3 v2;
 	};
 
-	vec2 uv[3];
-	vec3 normal;
+	glm::vec2 uv[3];
+	glm::vec3 normal;
 
 	Triangle() = default;
 
-	Triangle(vec3 _v0, vec3 _v1, vec3 _v2);
+	Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2);
 
-	Triangle(vec3 _v0, vec3 _v1, vec3 _v2, vec2 _uv0, vec2 _uv1, vec2 _uv2);
+	Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2);
 
-	Triangle(vec3 _v0, vec3 _v1, vec3 _v2, vec3 _normal) : v0(_v0), v1(_v1), v2(_v2), normal(_normal) {}
+	Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _normal) : v0(_v0), v1(_v1), v2(_v2), normal(_normal) {}
 
-	Triangle(vec3 _v0, vec3 _v1, vec3 _v2, vec3 _normal, vec2 _uv0, vec2 _uv1, vec2 _uv2) : Triangle(_v0, _v1, _v2,
+	Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _normal, glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2) : Triangle(_v0, _v1, _v2,
 	                                                                                                 _normal) {
 		setUVs(_uv0, _uv1, _uv2);
 	}
 
-	void setUVs(vec2 _uv0, vec2 _uv1, vec2 _uv2);
+	void setUVs(glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2);
+
+	void transform(glm::mat4 mat)override ;
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 
 	bool getAABB(AABB *box) const override;
 
-	bool getUV(const HitInfo &hitInfo, vec2 *uvCoord) const override;
+	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
-	vec3& operator [](int index){
+
+	glm::vec3& operator [](int index){
 		index=index>2?2:index<0?0:index;
 		return (&v0)[index];
 	}
 };
 
 struct Sphere : public Object {
-	vec3 origin;
+	glm::vec3 origin;
 	float r;
 
 	Sphere() = default;
 
-	Sphere(vec3 _origin, float _r) : origin(_origin), r(_r) {}
+	Sphere(glm::vec3 _origin, float _r) : origin(_origin), r(_r) {}
+
+	void transform(glm::mat4 mat)override ;
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 
 	bool getAABB(AABB *box) const override;
 
-	bool getUV(const HitInfo &hitInfo, vec2 *uvCoord) const override;
+	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 };
 
-vector<shared_ptr<Triangle>> loadOBJ(string path);
+std::vector<std::shared_ptr<Object>> loadOBJ(std::string path);
 #endif //RTTEST_OBJECTS_H

@@ -10,7 +10,7 @@ using namespace std;
 using namespace glm;
 
 int main() {
-	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 800, 600, 45);
+	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512/4, 512/4, 45);
 
 	auto sphere = make_shared<Sphere>(vec3(0, -1, 0), 1);
 	sphere->name = "diffuse";
@@ -40,14 +40,11 @@ int main() {
 	auto floor1 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(PlaneR, -2, -PlaneR),
 	                                    vec3(-PlaneR, -2, -PlaneR));
 	floor1->name = "floor1";
-	floor1->uv[0] = vec2(0, 0);
-	floor1->uv[1] = vec2(1, 1);
-	floor1->uv[2] = vec2(0, 1);
+	floor1->setUVs(vec2(0, 0),vec2(1, 1),vec2(0, 1));
+
 	auto floor2 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(PlaneR, -2, PlaneR), vec3(PlaneR, -2, -PlaneR));
 	floor2->name = "floor2";
-	floor2->uv[0] = vec2(0, 0);
-	floor2->uv[1] = vec2(1, 0);
-	floor2->uv[2] = vec2(1, 1);
+	floor2->setUVs(vec2(0, 0),vec2(1, 0),vec2(1, 1));
 	floor1->material = floor2->material = white;
 
 	auto greenWall1 = make_shared<Triangle>(vec3(PlaneR, -2, -PlaneR), vec3(PlaneR, -2, PlaneR),
@@ -57,7 +54,7 @@ int main() {
 	                                        vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
 	greenWall2->name = "greenWall2";
 	greenWall1->material = greenWall2->material = make_shared<Lambertian>(
-			vec3(0.25, 0.75, 0.25));//(vec3(0.278, 0.494, 0.227));
+			vec3(0.25, 0.75, 0.25));
 
 	auto redWall1 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(-PlaneR, -2, -PlaneR),
 	                                      vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
@@ -66,7 +63,7 @@ int main() {
 	                                      vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR));
 	redWall2->name = "redWall2";
 	redWall1->material = redWall2->material = make_shared<Lambertian>(
-			vec3(0.75, 0.25, 0.25));//(vec3(0.620, 0.173, 0.161));
+			vec3(0.75, 0.25, 0.25));
 
 	auto ceil1 = make_shared<Triangle>(vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR),
 	                                   vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
@@ -93,13 +90,16 @@ int main() {
 	                                    vec3(PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4));
 	light2->name = "light2";
 	light1->material = light2->material = light->material;
+	mat4 enlarge(1.0f);
+	enlarge=scale(enlarge,vec3(1.5,1,1.5));
+	light1->transform(enlarge);light2->transform(enlarge);
 
 	Scene scene;
-	scene.useBVH = false;
+	scene.useBVH = true;
 	scene.ambient = vec3(0);
-	scene.objects.push_back(sphere);
+//	scene.objects.push_back(sphere);
 //	scene.objects.push_back(ground);
-	scene.objects.push_back(metalSphere);
+//	scene.objects.push_back(metalSphere);
 	scene.objects.push_back(light1);
 	scene.objects.push_back(light2);
 
@@ -118,16 +118,19 @@ int main() {
 	scene.objects.push_back(back1);
 	scene.objects.push_back(back2);
 
-//	auto model=loadOBJ("tree02.obj");
-//	scene.objects.insert(scene.objects.end(),model.begin(),model.end());
+
+	auto model=make_shared<Mesh>();
+	model->transMat=scale(model->transMat,vec3(1.5f));
+//	model->transMat=translate(model->transMat,vec3(0,-0.5,0));
+//	model->transMat=rotate(model->transMat,radians(30.0f),vec3(-1,0,0));
+	model->loadMesh("../mesh/bunny.obj");
+	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
+	scene.objects.push_back(model);
 
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 20;
-
-	float subR = 1.0 / antiAliasNum;
-	float subS = (-antiAliasNum / 2 + 0.5) * subR;
+	const int samples = 50;
 
 	scene.constructBVH();
 
@@ -136,11 +139,11 @@ int main() {
 	path.antiAliasNum = antiAliasNum;
 	path.renderThreads = 4;
 	path.samples = samples;
-	path.renderPortionBlock = path.renderThreads;
+	path.renderPortionBlock = 8;//path.renderThreads;
 	path.render(image, camera, scene);
 
 	//----------------------Write image----------------------
-	image.save("image.ppm", "ppm");
+	image.save("image.png", "png");
 	cout << "finished" << endl;
 	return 0;
 }

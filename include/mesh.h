@@ -8,18 +8,23 @@
 #include "objects.h"
 #include "bvh.h"
 
+// NOTE.when use Mesh class for rendering
+// call transform() first
+// then call constructBVH()
 struct Mesh : Object {
-	mat4 transform;
-	AABB aabb;
-	vector<shared_ptr<Triangle>> triangles;
+	glm::mat4 transMat;
+	std::shared_ptr<BVH> bvhRoot;
+	std::vector<std::shared_ptr<Object>> triangles;
 
 	Mesh();
 
-	Mesh(string path);
+	Mesh(std::string path);
 
-	void performTransform();
+	void constructBVH();
 
-	bool loadMesh(string path);
+	bool loadMesh(std::string path);
+
+	void transform(glm::mat4 mat)override ;
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 

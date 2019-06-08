@@ -8,8 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <stb/stb_image_write.h>
-using namespace glm;
-using namespace std;
+
 struct Film {
 	int width;
 	int height;
@@ -19,8 +18,8 @@ struct Film {
 	~Film(){
 		delete [] data;
 	}
-	void setPixel(int row,int column,const vec3& color);
-	bool save(string fileName,string format)const;
+	void setPixel(int row,int column,const glm::vec3& color);
+	bool save(std::string fileName,std::string format)const;
 };
 
 

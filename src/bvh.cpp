@@ -3,7 +3,7 @@
 //
 
 #include "bvh.h"
-bool compX(const shared_ptr<Object> a,const shared_ptr<Object> b){
+bool compX(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
 		cout<<"unable get AABB"<<endl;
@@ -11,7 +11,7 @@ bool compX(const shared_ptr<Object> a,const shared_ptr<Object> b){
 	}
 	return abox.min.x<bbox.min.x;
 }
-bool compY(const shared_ptr<Object> a,const shared_ptr<Object> b){
+bool compY(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
 		cout<<"unable get AABB"<<endl;
@@ -19,7 +19,7 @@ bool compY(const shared_ptr<Object> a,const shared_ptr<Object> b){
 	}
 	return abox.min.y<bbox.min.y;
 }
-bool compZ(const shared_ptr<Object> a,const shared_ptr<Object> b){
+bool compZ(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
 		cout<<"unable get AABB"<<endl;
@@ -29,16 +29,16 @@ bool compZ(const shared_ptr<Object> a,const shared_ptr<Object> b){
 }
 
 decltype(&compX) compList[]={&compX,&compY,&compZ};
-BVH::BVH(vector<shared_ptr<Object>>::iterator begin,vector<shared_ptr<Object>>::iterator end){
+BVH::BVH(std::vector<std::shared_ptr<Object>>::iterator begin,std::vector<std::shared_ptr<Object>>::iterator end){
 	if(begin==end){
 		leftNode=rightNode= nullptr;
-		aabb=AABB(vec3(1),vec3(-1));
+		aabb=AABB(glm::vec3(1),glm::vec3(-1));
 		return;
 	}else if(end-begin==1){
 		rightNode= nullptr;
 		leftNode=*begin;
 		if(!leftNode->getAABB(&aabb)){
-			aabb=AABB(vec3(1),vec3(-1));
+			aabb=AABB(glm::vec3(1),glm::vec3(-1));
 			cout<<"unable get AABB"<<endl;
 		}
 	}else if(end-begin==2){
@@ -46,7 +46,7 @@ BVH::BVH(vector<shared_ptr<Object>>::iterator begin,vector<shared_ptr<Object>>::
 		rightNode=*(begin+1);
 		AABB box1,box2;
 		if((!leftNode->getAABB(&box1))||(!rightNode->getAABB(&box2))){
-			aabb=AABB(vec3(1),vec3(-1));
+			aabb=AABB(glm::vec3(1),glm::vec3(-1));
 			cout<<"unable get AABB"<<endl;
 		}
 		aabb=AABB::getBoundingAABB(box1,box2);
@@ -54,14 +54,14 @@ BVH::BVH(vector<shared_ptr<Object>>::iterator begin,vector<shared_ptr<Object>>::
 
 	int initAxis=3*random0_1f();
 	//sort objects
-	sort(begin,end,compList[initAxis]);
+	std::sort(begin,end,compList[initAxis]);
 	auto middle=begin+(end-begin)/2;
 
-	leftNode=middle-begin>1?make_shared<BVH>(begin,middle):*begin;
-	rightNode=make_shared<BVH>(middle,end);
+	leftNode=middle-begin>1?std::make_shared<BVH>(begin,middle):*begin;
+	rightNode=std::make_shared<BVH>(middle,end);
 		AABB boxLeft,boxRight;
 		if((!leftNode->getAABB(&boxLeft))||(!rightNode->getAABB(&boxRight))){
-			aabb=AABB(vec3(1),vec3(-1));
+			aabb=AABB(glm::vec3(1),glm::vec3(-1));
 			cout<<"unable get AABB"<<endl;
 		}
 		aabb=AABB::getBoundingAABB(boxLeft,boxRight);

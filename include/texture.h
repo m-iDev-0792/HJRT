@@ -9,17 +9,17 @@
 #include <stb/stb_image.h>
 #include <memory>
 struct Texture {
-	virtual vec3 getColor(const vec2& uv) const = 0;
+	virtual glm::vec3 getColor(const glm::vec2& uv) const = 0;
 };
 
 struct SolidColorTexture : Texture {
-	vec3 color;
+	glm::vec3 color;
 
 	SolidColorTexture() = default;
 
-	SolidColorTexture(vec3 _color);
+	SolidColorTexture(glm::vec3 _color);
 
-	vec3 getColor(const vec2& uv) const override;
+	glm::vec3 getColor(const glm::vec2& uv) const override;
 };
 
 struct ImageTexture : Texture {
@@ -30,15 +30,15 @@ struct ImageTexture : Texture {
 
 	ImageTexture() = default;
 
-	ImageTexture(string path);
+	ImageTexture(std::string path);
 
 	ImageTexture(const ImageTexture& imgTex);
 
 	ImageTexture& operator = (const ImageTexture& imgTex);
 
-	bool loadFromPath(string path);
+	bool loadFromPath(std::string path);
 
-	vec3 getColor(const vec2& uv) const override;
+	glm::vec3 getColor(const glm::vec2& uv) const override;
 };
 
 #endif //RTTEST_TEXTURE_H

@@ -9,10 +9,10 @@
 using namespace glm;
 using namespace std;
 struct AABB {
-	vec3 min;
-	vec3 max;
+	glm::vec3 min;
+	glm::vec3 max;
 	AABB()= default;
-	AABB(vec3 _min,vec3 _max);
+	AABB(glm::vec3 _min,glm::vec3 _max);
 	bool hit(const Ray& ray)const;
 	static AABB getBoundingAABB(const AABB& box1,const AABB& box2);
 };

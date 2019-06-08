@@ -9,27 +9,27 @@
 #include "texture.h"
 #include <memory>
 struct Material {
-	vec3 emission;
-	vec3 albedo;
-	shared_ptr<Texture> emissionTex;
-	shared_ptr<Texture> albedoTex;
-	virtual bool scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray* scatteredRay)const =0;
+	glm::vec3 emission;
+	glm::vec3 albedo;
+	std::shared_ptr<Texture> emissionTex;
+	std::shared_ptr<Texture> albedoTex;
+	virtual bool scatter(const Ray& ray,const HitInfo& hitInfo,glm::vec3* attenuation,Ray* scatteredRay)const =0;
 };
 struct Lambertian:Material{
 	Lambertian()= default;
-	Lambertian(vec3 _albedo);
-	bool scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray* scatteredRay)const override ;
+	Lambertian(glm::vec3 _albedo);
+	bool scatter(const Ray& ray,const HitInfo& hitInfo,glm::vec3* attenuation,Ray* scatteredRay)const override ;
 };
 struct Metal:Material{
 	float fuzz;
 	Metal()= default;
-	Metal(vec3 _albedo,float _fuzz=0.2);
-	bool scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray* scatteredRay)const override ;
+	Metal(glm::vec3 _albedo,float _fuzz=0.2);
+	bool scatter(const Ray& ray,const HitInfo& hitInfo,glm::vec3* attenuation,Ray* scatteredRay)const override ;
 };
 struct Dielectric:Material{
 	float refractIndex;
 	Dielectric()= default;
 	Dielectric(float _refractIndex);
-	bool scatter(const Ray& ray,const HitInfo& hitInfo,vec3* attenuation,Ray* scatteredRay)const override ;
+	bool scatter(const Ray& ray,const HitInfo& hitInfo,glm::vec3* attenuation,Ray* scatteredRay)const override ;
 };
 #endif //RTTEST_MATERIAL_H

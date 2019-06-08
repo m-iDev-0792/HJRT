@@ -6,12 +6,12 @@
 Film::Film(int _width, int _height):width(_width),height(_height){
 	data=new unsigned char[width*height*3];
 }
-void Film::setPixel(int row, int column, const vec3 &color) {
+void Film::setPixel(int row, int column, const glm::vec3 &color) {
 	data[((height-1-row)*width+column)*3]=color.x;
 	data[((height-1-row)*width+column)*3+1]=color.y;
 	data[((height-1-row)*width+column)*3+2]=color.z;
 }
-bool Film::save(string fileName, string format)const {
+bool Film::save(std::string fileName, std::string format)const {
 	if(format=="png"){
 		return stbi_write_png(fileName.c_str(),width,height,3,data, 0);
 	}else if(format=="jpg"){
@@ -21,7 +21,7 @@ bool Film::save(string fileName, string format)const {
 	}else if(format=="tga"){
 		return stbi_write_tga(fileName.c_str(),width,height,3,data);
 	}else if(format=="ppm"){
-		ofstream file(fileName);
+		std::ofstream file(fileName);
 		if(!file.is_open())return false;
 		file<<"P3\n";
 		file<<width<<" "<<height<<"\n";

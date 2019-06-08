@@ -16,7 +16,7 @@ struct PathTracer : Integrator {
 
 	void render(Film &film, Camera camera, Scene &scene) override;
 
-	void renderPerformer(int threadNum, vector<vec2> start, vector<vec2> end, Film &film, Camera camera,
+	void renderPerformer(int threadNum, std::vector<glm::vec2> start, std::vector<glm::vec2> end, Film &film, Camera camera,
 	                     Scene &scene, bool *finishFlag);
 };
 
