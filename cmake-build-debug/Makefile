@@ -123,6 +123,195 @@ HJRT/fast:
 	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/build
 .PHONY : HJRT/fast
 
+3rd-party/glad/src/glad.o: 3rd-party/glad/src/glad.c.o
+
+.PHONY : 3rd-party/glad/src/glad.o
+
+# target to build an object file
+3rd-party/glad/src/glad.c.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.o
+.PHONY : 3rd-party/glad/src/glad.c.o
+
+3rd-party/glad/src/glad.i: 3rd-party/glad/src/glad.c.i
+
+.PHONY : 3rd-party/glad/src/glad.i
+
+# target to preprocess a source file
+3rd-party/glad/src/glad.c.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.i
+.PHONY : 3rd-party/glad/src/glad.c.i
+
+3rd-party/glad/src/glad.s: 3rd-party/glad/src/glad.c.s
+
+.PHONY : 3rd-party/glad/src/glad.s
+
+# target to generate assembly for a file
+3rd-party/glad/src/glad.c.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.s
+.PHONY : 3rd-party/glad/src/glad.c.s
+
+3rd-party/imgui/src/imgui.o: 3rd-party/imgui/src/imgui.cpp.o
+
+.PHONY : 3rd-party/imgui/src/imgui.o
+
+# target to build an object file
+3rd-party/imgui/src/imgui.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.o
+.PHONY : 3rd-party/imgui/src/imgui.cpp.o
+
+3rd-party/imgui/src/imgui.i: 3rd-party/imgui/src/imgui.cpp.i
+
+.PHONY : 3rd-party/imgui/src/imgui.i
+
+# target to preprocess a source file
+3rd-party/imgui/src/imgui.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.i
+.PHONY : 3rd-party/imgui/src/imgui.cpp.i
+
+3rd-party/imgui/src/imgui.s: 3rd-party/imgui/src/imgui.cpp.s
+
+.PHONY : 3rd-party/imgui/src/imgui.s
+
+# target to generate assembly for a file
+3rd-party/imgui/src/imgui.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.s
+.PHONY : 3rd-party/imgui/src/imgui.cpp.s
+
+3rd-party/imgui/src/imgui_demo.o: 3rd-party/imgui/src/imgui_demo.cpp.o
+
+.PHONY : 3rd-party/imgui/src/imgui_demo.o
+
+# target to build an object file
+3rd-party/imgui/src/imgui_demo.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.o
+.PHONY : 3rd-party/imgui/src/imgui_demo.cpp.o
+
+3rd-party/imgui/src/imgui_demo.i: 3rd-party/imgui/src/imgui_demo.cpp.i
+
+.PHONY : 3rd-party/imgui/src/imgui_demo.i
+
+# target to preprocess a source file
+3rd-party/imgui/src/imgui_demo.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.i
+.PHONY : 3rd-party/imgui/src/imgui_demo.cpp.i
+
+3rd-party/imgui/src/imgui_demo.s: 3rd-party/imgui/src/imgui_demo.cpp.s
+
+.PHONY : 3rd-party/imgui/src/imgui_demo.s
+
+# target to generate assembly for a file
+3rd-party/imgui/src/imgui_demo.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.s
+.PHONY : 3rd-party/imgui/src/imgui_demo.cpp.s
+
+3rd-party/imgui/src/imgui_draw.o: 3rd-party/imgui/src/imgui_draw.cpp.o
+
+.PHONY : 3rd-party/imgui/src/imgui_draw.o
+
+# target to build an object file
+3rd-party/imgui/src/imgui_draw.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.o
+.PHONY : 3rd-party/imgui/src/imgui_draw.cpp.o
+
+3rd-party/imgui/src/imgui_draw.i: 3rd-party/imgui/src/imgui_draw.cpp.i
+
+.PHONY : 3rd-party/imgui/src/imgui_draw.i
+
+# target to preprocess a source file
+3rd-party/imgui/src/imgui_draw.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.i
+.PHONY : 3rd-party/imgui/src/imgui_draw.cpp.i
+
+3rd-party/imgui/src/imgui_draw.s: 3rd-party/imgui/src/imgui_draw.cpp.s
+
+.PHONY : 3rd-party/imgui/src/imgui_draw.s
+
+# target to generate assembly for a file
+3rd-party/imgui/src/imgui_draw.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.s
+.PHONY : 3rd-party/imgui/src/imgui_draw.cpp.s
+
+3rd-party/imgui/src/imgui_impl_glfw.o: 3rd-party/imgui/src/imgui_impl_glfw.cpp.o
+
+.PHONY : 3rd-party/imgui/src/imgui_impl_glfw.o
+
+# target to build an object file
+3rd-party/imgui/src/imgui_impl_glfw.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.o
+.PHONY : 3rd-party/imgui/src/imgui_impl_glfw.cpp.o
+
+3rd-party/imgui/src/imgui_impl_glfw.i: 3rd-party/imgui/src/imgui_impl_glfw.cpp.i
+
+.PHONY : 3rd-party/imgui/src/imgui_impl_glfw.i
+
+# target to preprocess a source file
+3rd-party/imgui/src/imgui_impl_glfw.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.i
+.PHONY : 3rd-party/imgui/src/imgui_impl_glfw.cpp.i
+
+3rd-party/imgui/src/imgui_impl_glfw.s: 3rd-party/imgui/src/imgui_impl_glfw.cpp.s
+
+.PHONY : 3rd-party/imgui/src/imgui_impl_glfw.s
+
+# target to generate assembly for a file
+3rd-party/imgui/src/imgui_impl_glfw.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.s
+.PHONY : 3rd-party/imgui/src/imgui_impl_glfw.cpp.s
+
+3rd-party/imgui/src/imgui_impl_opengl3.o: 3rd-party/imgui/src/imgui_impl_opengl3.cpp.o
+
+.PHONY : 3rd-party/imgui/src/imgui_impl_opengl3.o
+
+# target to build an object file
+3rd-party/imgui/src/imgui_impl_opengl3.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.o
+.PHONY : 3rd-party/imgui/src/imgui_impl_opengl3.cpp.o
+
+3rd-party/imgui/src/imgui_impl_opengl3.i: 3rd-party/imgui/src/imgui_impl_opengl3.cpp.i
+
+.PHONY : 3rd-party/imgui/src/imgui_impl_opengl3.i
+
+# target to preprocess a source file
+3rd-party/imgui/src/imgui_impl_opengl3.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.i
+.PHONY : 3rd-party/imgui/src/imgui_impl_opengl3.cpp.i
+
+3rd-party/imgui/src/imgui_impl_opengl3.s: 3rd-party/imgui/src/imgui_impl_opengl3.cpp.s
+
+.PHONY : 3rd-party/imgui/src/imgui_impl_opengl3.s
+
+# target to generate assembly for a file
+3rd-party/imgui/src/imgui_impl_opengl3.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.s
+.PHONY : 3rd-party/imgui/src/imgui_impl_opengl3.cpp.s
+
+3rd-party/imgui/src/imgui_widgets.o: 3rd-party/imgui/src/imgui_widgets.cpp.o
+
+.PHONY : 3rd-party/imgui/src/imgui_widgets.o
+
+# target to build an object file
+3rd-party/imgui/src/imgui_widgets.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.o
+.PHONY : 3rd-party/imgui/src/imgui_widgets.cpp.o
+
+3rd-party/imgui/src/imgui_widgets.i: 3rd-party/imgui/src/imgui_widgets.cpp.i
+
+.PHONY : 3rd-party/imgui/src/imgui_widgets.i
+
+# target to preprocess a source file
+3rd-party/imgui/src/imgui_widgets.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.i
+.PHONY : 3rd-party/imgui/src/imgui_widgets.cpp.i
+
+3rd-party/imgui/src/imgui_widgets.s: 3rd-party/imgui/src/imgui_widgets.cpp.s
+
+.PHONY : 3rd-party/imgui/src/imgui_widgets.s
+
+# target to generate assembly for a file
+3rd-party/imgui/src/imgui_widgets.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.s
+.PHONY : 3rd-party/imgui/src/imgui_widgets.cpp.s
+
 src/aabb.o: src/aabb.cpp.o
 
 .PHONY : src/aabb.o
@@ -366,6 +555,33 @@ src/pathtracer.cpp.s:
 	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/pathtracer.cpp.s
 .PHONY : src/pathtracer.cpp.s
 
+src/rtui.o: src/rtui.cpp.o
+
+.PHONY : src/rtui.o
+
+# target to build an object file
+src/rtui.cpp.o:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/rtui.cpp.o
+.PHONY : src/rtui.cpp.o
+
+src/rtui.i: src/rtui.cpp.i
+
+.PHONY : src/rtui.i
+
+# target to preprocess a source file
+src/rtui.cpp.i:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/rtui.cpp.i
+.PHONY : src/rtui.cpp.i
+
+src/rtui.s: src/rtui.cpp.s
+
+.PHONY : src/rtui.s
+
+# target to generate assembly for a file
+src/rtui.cpp.s:
+	$(MAKE) -f CMakeFiles/HJRT.dir/build.make CMakeFiles/HJRT.dir/src/rtui.cpp.s
+.PHONY : src/rtui.cpp.s
+
 src/scene.o: src/scene.cpp.o
 
 .PHONY : src/scene.o
@@ -456,6 +672,27 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... HJRT"
+	@echo "... 3rd-party/glad/src/glad.o"
+	@echo "... 3rd-party/glad/src/glad.i"
+	@echo "... 3rd-party/glad/src/glad.s"
+	@echo "... 3rd-party/imgui/src/imgui.o"
+	@echo "... 3rd-party/imgui/src/imgui.i"
+	@echo "... 3rd-party/imgui/src/imgui.s"
+	@echo "... 3rd-party/imgui/src/imgui_demo.o"
+	@echo "... 3rd-party/imgui/src/imgui_demo.i"
+	@echo "... 3rd-party/imgui/src/imgui_demo.s"
+	@echo "... 3rd-party/imgui/src/imgui_draw.o"
+	@echo "... 3rd-party/imgui/src/imgui_draw.i"
+	@echo "... 3rd-party/imgui/src/imgui_draw.s"
+	@echo "... 3rd-party/imgui/src/imgui_impl_glfw.o"
+	@echo "... 3rd-party/imgui/src/imgui_impl_glfw.i"
+	@echo "... 3rd-party/imgui/src/imgui_impl_glfw.s"
+	@echo "... 3rd-party/imgui/src/imgui_impl_opengl3.o"
+	@echo "... 3rd-party/imgui/src/imgui_impl_opengl3.i"
+	@echo "... 3rd-party/imgui/src/imgui_impl_opengl3.s"
+	@echo "... 3rd-party/imgui/src/imgui_widgets.o"
+	@echo "... 3rd-party/imgui/src/imgui_widgets.i"
+	@echo "... 3rd-party/imgui/src/imgui_widgets.s"
 	@echo "... src/aabb.o"
 	@echo "... src/aabb.i"
 	@echo "... src/aabb.s"
@@ -483,6 +720,9 @@ help:
 	@echo "... src/pathtracer.o"
 	@echo "... src/pathtracer.i"
 	@echo "... src/pathtracer.s"
+	@echo "... src/rtui.o"
+	@echo "... src/rtui.i"
+	@echo "... src/rtui.s"
 	@echo "... src/scene.o"
 	@echo "... src/scene.i"
 	@echo "... src/scene.s"

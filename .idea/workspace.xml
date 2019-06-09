@@ -12,64 +12,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a782f66-7925-4249-82ff-1ffba5bd5ee1" name="Default Changelist" comment="Add Texture Support">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/HJRT" beforeDir="false" afterPath="$PROJECT_DIR$/bin/HJRT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/Texture.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/blur.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/blur2.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/cornell2.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/cornellbox100samples.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/image copy 2.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/image copy 3.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/image copy 4.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/image copy.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/image-no-gamma.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/image.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/image5.15.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/imageRight.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/imageWrong.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/model.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/multiThreadResult/169s-4threads-4portion.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/multiThreadResult/169s-5thread-8portion.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/multiThreadResult/219s-5thread.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/multiThreadResult/222s-4thread.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/multiThreadResult/246s-3thread.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/img/multiThreadResult/467s-single thread.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/torus.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/torus100sp.ppm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tree01.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tree01.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tree02.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tree02.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tree03.mtl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/tree03.obj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/material.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/mesh.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/objects.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/scene.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/texture.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/utility.cpp.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/aabb.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/aabb.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/bvh.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/bvh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/bin/image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/CXX.includecache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/DependInfo.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/build.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/cmake_clean.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/flags.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/link.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/progress.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/film.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/film.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/pathtracer.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/HJRT.dir/src/pathtracer.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/HJRT.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/HJRT.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/film.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/film.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/material.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/material.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/mesh.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/objects.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/objects.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/integrator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/integrator.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/pathtracer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pathtracer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/texture.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/texture.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/aabb.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/aabb.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bvh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/bvh.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/film.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/film.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/2019-6-8.md" beforeDir="false" afterPath="$PROJECT_DIR$/log/2019-6-8.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/material.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/material.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/mesh.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/objects.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/objects.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pathtracer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pathtracer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/texture.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/texture.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -84,11 +52,20 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1935">
-              <caret line="119" selection-start-line="119" selection-end-line="119" />
+            <state relative-caret-position="2278">
+              <caret line="134" selection-start-line="134" selection-end-line="134" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -97,12 +74,54 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/utility.h">
+        <entry file="file://$PROJECT_DIR$/include/integrator.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="64" selection-start-line="64" selection-end-line="64" />
+            <state relative-caret-position="272">
+              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
               <folding>
-                <element signature="e#91#107#0" expanded="true" />
+                <element signature="e#89#107#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/rtui.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1260">
+              <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/rtui.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-52">
+              <caret line="50" column="11" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="11" />
+              <folding>
+                <element signature="e#81#103#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pathtracer.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="26" lean-forward="true" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/pathtracer.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-144">
+              <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="16" selection-end-column="24" />
+              <folding>
+                <element signature="e#93#116#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -127,6 +146,7 @@
       <find>string</find>
       <find>cout</find>
       <find>endl</find>
+      <find>HJGraphics::GLFWWindowObject</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -135,15 +155,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Camera.h" />
-        <option value="$PROJECT_DIR$/Camera.cpp" />
-        <option value="$PROJECT_DIR$/utility.cpp" />
-        <option value="$PROJECT_DIR$/ImageExporter.h" />
-        <option value="$PROJECT_DIR$/ImageExporter.cpp" />
-        <option value="$PROJECT_DIR$/Material.h" />
-        <option value="$PROJECT_DIR$/Material.cpp" />
-        <option value="$PROJECT_DIR$/Scene.cpp" />
-        <option value="$PROJECT_DIR$/camera.cpp" />
         <option value="$PROJECT_DIR$/camera.h" />
         <option value="$PROJECT_DIR$/bvh.h" />
         <option value="$PROJECT_DIR$/aabb.h" />
@@ -162,8 +173,6 @@
         <option value="$PROJECT_DIR$/src/renderer.cpp" />
         <option value="$PROJECT_DIR$/include/imageExporter.h" />
         <option value="$PROJECT_DIR$/include/renderer.h" />
-        <option value="$PROJECT_DIR$/include/integrator.h" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/include/mesh.h" />
         <option value="$PROJECT_DIR$/src/mesh.cpp" />
         <option value="$PROJECT_DIR$/include/aabb.h" />
@@ -171,27 +180,38 @@
         <option value="$PROJECT_DIR$/include/bvh.h" />
         <option value="$PROJECT_DIR$/src/bvh.cpp" />
         <option value="$PROJECT_DIR$/src/camera.cpp" />
-        <option value="$PROJECT_DIR$/include/film.h" />
         <option value="$PROJECT_DIR$/src/film.cpp" />
         <option value="$PROJECT_DIR$/include/material.h" />
         <option value="$PROJECT_DIR$/src/material.cpp" />
         <option value="$PROJECT_DIR$/include/objects.h" />
         <option value="$PROJECT_DIR$/src/objects.cpp" />
-        <option value="$PROJECT_DIR$/include/pathtracer.h" />
-        <option value="$PROJECT_DIR$/src/pathtracer.cpp" />
         <option value="$PROJECT_DIR$/include/scene.h" />
         <option value="$PROJECT_DIR$/src/scene.cpp" />
         <option value="$PROJECT_DIR$/src/utility.cpp" />
         <option value="$PROJECT_DIR$/include/texture.h" />
         <option value="$PROJECT_DIR$/src/texture.cpp" />
-        <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/include/utility.h" />
+        <option value="$PROJECT_DIR$/log/2019-6-8.md" />
+        <option value="$PROJECT_DIR$/include/film.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/3rd-party/imgui/src/imgui.cpp" />
+        <option value="$PROJECT_DIR$/3rd-party/imgui/src/imgui_demo.cpp" />
+        <option value="$PROJECT_DIR$/3rd-party/imgui/src/imgui_impl_glfw.cpp" />
+        <option value="$PROJECT_DIR$/3rd-party/imgui/src/imgui_impl_opengl3.cpp" />
+        <option value="$PROJECT_DIR$/3rd-party/imgui/src/imgui_draw.cpp" />
+        <option value="$PROJECT_DIR$/3rd-party/imgui/src/imgui_widgets.cpp" />
+        <option value="$PROJECT_DIR$/src/main.cpp" />
+        <option value="$PROJECT_DIR$/include/rtui.h" />
+        <option value="$PROJECT_DIR$/include/integrator.h" />
+        <option value="$PROJECT_DIR$/include/pathtracer.h" />
+        <option value="$PROJECT_DIR$/src/rtui.cpp" />
+        <option value="$PROJECT_DIR$/src/pathtracer.cpp" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="24" />
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="46" />
+    <option name="y" value="24" />
     <option name="width" value="1177" />
     <option name="height" value="724" />
   </component>
@@ -203,7 +223,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -225,6 +244,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -236,7 +256,12 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -276,11 +301,12 @@
       <workItem from="1559375393247" duration="1943000" />
       <workItem from="1559395217220" duration="49057000" />
       <workItem from="1559915547031" duration="12306000" />
+      <workItem from="1559993415622" duration="20912000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125609000" />
+    <option name="totallyTimeSpent" value="146521000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -292,7 +318,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="24" y="23" width="1177" height="724" extended-state="0" />
+    <frame x="46" y="24" width="1177" height="724" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19286321" />
@@ -300,8 +326,8 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32857144" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4995587" weight="0.4063492" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.68524593" />
+      <window_info anchor="bottom" auto_hide="true" id="Run" order="2" sideWeight="0.4995587" weight="0.4063492" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.5222222" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32857144" />
@@ -309,9 +335,9 @@
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.4986761" weight="0.3968254" />
       <window_info anchor="bottom" id="Terminal" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50132394" side_tool="true" weight="0.3295082" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5012744" side_tool="true" weight="0.32857144" />
       <window_info anchor="bottom" id="Version Control" order="12" weight="0.32912844" />
-      <window_info anchor="bottom" id="CMake" order="13" weight="0.32857144" />
+      <window_info anchor="bottom" id="CMake" order="13" sideWeight="0.49872556" weight="0.32857144" />
       <window_info anchor="bottom" id="Profiler" order="14" weight="0.61639345" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -403,27 +429,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/Cellar/glm/0.9.8.5/include/glm/detail/type_vec3.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="83" column="52" lean-forward="true" selection-start-line="83" selection-start-column="52" selection-end-line="83" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aabb.h" />
-    <entry file="file:///usr/local/include/glm/detail/type_vec3.inl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="151" selection-start-line="151" selection-end-line="151" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aabb.cpp" />
-    <entry file="file://$PROJECT_DIR$/bvh.h" />
-    <entry file="file://$PROJECT_DIR$/bvh.cpp" />
-    <entry file="file://$PROJECT_DIR$/imageExporter.h" />
-    <entry file="file://$PROJECT_DIR$/imageExporter.cpp" />
-    <entry file="file://$PROJECT_DIR$/utility.h" />
     <entry file="file://$PROJECT_DIR$/material.h" />
     <entry file="file://$PROJECT_DIR$/main.cpp" />
     <entry file="file://$PROJECT_DIR$/camera.cpp" />
@@ -465,13 +470,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/renderer.cpp" />
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mesh.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -493,33 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/film.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding>
-            <element signature="e#102#124#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/film.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/integrator.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="2" lean-forward="true" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
-          <folding>
-            <element signature="e#89#107#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -560,48 +531,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/objects.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2437">
-          <caret line="63" column="1" lean-forward="true" selection-start-line="63" selection-start-column="1" selection-end-line="63" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/pathtracer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="32" lean-forward="true" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
-          <folding>
-            <element signature="e#93#116#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pathtracer.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1311">
-          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/include/scene.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scene.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utility.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -612,13 +545,6 @@
           <folding>
             <element signature="e#91#111#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/texture.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-154">
-          <caret line="13" column="1" lean-forward="true" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -645,21 +571,190 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/include/utility.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
+        <state relative-caret-position="867">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
           <folding>
             <element signature="e#91#107#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utility.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/texture.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-744">
+          <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/2019-6-8.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="211">
+            <caret line="37" selection-start-line="37" selection-end-line="37" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/film.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="27" column="22" lean-forward="true" selection-start-line="27" selection-start-column="22" selection-end-line="27" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/objects.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-282">
+          <caret line="69" column="24" lean-forward="true" selection-start-line="69" selection-start-column="24" selection-end-line="69" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/film.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="17" column="34" lean-forward="true" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+          <folding>
+            <element signature="e#102#124#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3rd-party/imgui/src/imgui_demo.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-32">
+          <caret line="57" column="39" lean-forward="true" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+          <folding>
+            <element signature="e#3041#3065#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3rd-party/imgui/src/imgui.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="933" column="16" selection-start-line="933" selection-start-column="16" selection-end-line="933" selection-end-column="16" />
+          <folding>
+            <element signature="e#131016#131168#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3rd-party/imgui/src/imgui_impl_glfw.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="36" column="7" lean-forward="true" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+          <folding>
+            <element signature="e#2615#2639#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3rd-party/imgui/src/imgui_impl_opengl3.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="58" column="6" lean-forward="true" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
+          <folding>
+            <element signature="e#4151#4175#0" expanded="true" />
+            <element signature="e#5453#5588#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3rd-party/imgui/src/imgui_widgets.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="3067" column="16" selection-start-line="3067" selection-start-column="16" selection-end-line="3067" selection-end-column="16" />
+          <folding>
+            <element signature="e#1273#1306#0" expanded="true" />
+            <element signature="e#4512#4644#0" expanded="true" />
+            <element signature="e#4801#4877#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3rd-party/imgui/src/imgui_draw.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="148" column="16" selection-start-line="148" selection-start-column="16" selection-end-line="148" selection-end-column="16" />
+          <folding>
+            <element signature="e#723#756#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scene.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="29" lean-forward="true" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1935">
-          <caret line="119" selection-start-line="119" selection-end-line="119" />
+        <state relative-caret-position="2278">
+          <caret line="134" selection-start-line="134" selection-end-line="134" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/rtui.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-52">
+          <caret line="50" column="11" selection-start-line="50" selection-start-column="11" selection-end-line="50" selection-end-column="11" />
+          <folding>
+            <element signature="e#81#103#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/integrator.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+          <folding>
+            <element signature="e#89#107#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/rtui.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1260">
+          <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/pathtracer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-144">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="16" selection-end-column="24" />
+          <folding>
+            <element signature="e#93#116#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pathtracer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="26" lean-forward="true" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
         </state>
       </provider>
     </entry>

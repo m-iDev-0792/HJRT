@@ -10,6 +10,11 @@
 #include "camera.h"
 
 struct Integrator{
+	enum {
+		IDLE,
+		RENDERING
+	};
+	int state;
 	virtual void render(Film& image,Camera camera,Scene& scene)=0;
 };
 #endif //HJRT_RENDERER_H

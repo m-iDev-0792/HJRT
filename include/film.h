@@ -4,6 +4,7 @@
 
 #ifndef RTTEST_IMAGEEXPORTER_H
 #define RTTEST_IMAGEEXPORTER_H
+
 #include <glm/glm.hpp>
 #include <iostream>
 #include <fstream>
@@ -12,14 +13,19 @@
 struct Film {
 	int width;
 	int height;
-	unsigned char* data;
+	unsigned char *data;
 
-	Film(int _width,int _height);
-	~Film(){
-		delete [] data;
+	Film(int _width, int _height);
+
+	~Film() {
+		delete[] data;
 	}
-	void setPixel(int row,int column,const glm::vec3& color);
-	bool save(std::string fileName,std::string format)const;
+
+	const unsigned char *getData() { return data; }
+
+	void setPixel(int row, int column, const glm::vec3 &color);
+
+	bool save(std::string fileName, std::string format) const;
 };
 
 

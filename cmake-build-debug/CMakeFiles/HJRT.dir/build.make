@@ -174,9 +174,22 @@ CMakeFiles/HJRT.dir/src/pathtracer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/src/pathtracer.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/src/pathtracer.cpp -o CMakeFiles/HJRT.dir/src/pathtracer.cpp.s
 
+CMakeFiles/HJRT.dir/src/rtui.cpp.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/src/rtui.cpp.o: ../src/rtui.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/HJRT.dir/src/rtui.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/src/rtui.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/src/rtui.cpp
+
+CMakeFiles/HJRT.dir/src/rtui.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HJRT.dir/src/rtui.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/src/rtui.cpp > CMakeFiles/HJRT.dir/src/rtui.cpp.i
+
+CMakeFiles/HJRT.dir/src/rtui.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/src/rtui.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/src/rtui.cpp -o CMakeFiles/HJRT.dir/src/rtui.cpp.s
+
 CMakeFiles/HJRT.dir/src/scene.cpp.o: CMakeFiles/HJRT.dir/flags.make
 CMakeFiles/HJRT.dir/src/scene.cpp.o: ../src/scene.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/HJRT.dir/src/scene.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/HJRT.dir/src/scene.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/src/scene.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/src/scene.cpp
 
 CMakeFiles/HJRT.dir/src/scene.cpp.i: cmake_force
@@ -189,7 +202,7 @@ CMakeFiles/HJRT.dir/src/scene.cpp.s: cmake_force
 
 CMakeFiles/HJRT.dir/src/texture.cpp.o: CMakeFiles/HJRT.dir/flags.make
 CMakeFiles/HJRT.dir/src/texture.cpp.o: ../src/texture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/HJRT.dir/src/texture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/HJRT.dir/src/texture.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/src/texture.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/src/texture.cpp
 
 CMakeFiles/HJRT.dir/src/texture.cpp.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/HJRT.dir/src/texture.cpp.s: cmake_force
 
 CMakeFiles/HJRT.dir/src/utility.cpp.o: CMakeFiles/HJRT.dir/flags.make
 CMakeFiles/HJRT.dir/src/utility.cpp.o: ../src/utility.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/HJRT.dir/src/utility.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/HJRT.dir/src/utility.cpp.o"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/src/utility.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/src/utility.cpp
 
 CMakeFiles/HJRT.dir/src/utility.cpp.i: cmake_force
@@ -212,6 +225,97 @@ CMakeFiles/HJRT.dir/src/utility.cpp.i: cmake_force
 CMakeFiles/HJRT.dir/src/utility.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/src/utility.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/src/utility.cpp -o CMakeFiles/HJRT.dir/src/utility.cpp.s
+
+CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.o: ../3rd-party/glad/src/glad.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.o   -c /Users/hezhenbang/Documents/C++/HJRT/3rd-party/glad/src/glad.c
+
+CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/3rd-party/glad/src/glad.c > CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.i
+
+CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/3rd-party/glad/src/glad.c -o CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.s
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.o: ../3rd-party/imgui/src/imgui.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui.cpp
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui.cpp > CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.i
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui.cpp -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.s
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.o: ../3rd-party/imgui/src/imgui_demo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_demo.cpp
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_demo.cpp > CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.i
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_demo.cpp -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.s
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.o: ../3rd-party/imgui/src/imgui_draw.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_draw.cpp
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_draw.cpp > CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.i
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_draw.cpp -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.s
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.o: ../3rd-party/imgui/src/imgui_impl_glfw.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_glfw.cpp
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_glfw.cpp > CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.i
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_glfw.cpp -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.s
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.o: ../3rd-party/imgui/src/imgui_impl_opengl3.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_opengl3.cpp
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_opengl3.cpp > CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.i
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_opengl3.cpp -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.s
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.o: CMakeFiles/HJRT.dir/flags.make
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.o: ../3rd-party/imgui/src/imgui_widgets.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.o -c /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_widgets.cpp
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_widgets.cpp > CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.i
+
+CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_widgets.cpp -o CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.s
 
 # Object files for target HJRT
 HJRT_OBJECTS = \
@@ -224,9 +328,17 @@ HJRT_OBJECTS = \
 "CMakeFiles/HJRT.dir/src/mesh.cpp.o" \
 "CMakeFiles/HJRT.dir/src/objects.cpp.o" \
 "CMakeFiles/HJRT.dir/src/pathtracer.cpp.o" \
+"CMakeFiles/HJRT.dir/src/rtui.cpp.o" \
 "CMakeFiles/HJRT.dir/src/scene.cpp.o" \
 "CMakeFiles/HJRT.dir/src/texture.cpp.o" \
-"CMakeFiles/HJRT.dir/src/utility.cpp.o"
+"CMakeFiles/HJRT.dir/src/utility.cpp.o" \
+"CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.o" \
+"CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.o" \
+"CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.o" \
+"CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.o" \
+"CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.o" \
+"CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.o" \
+"CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.o"
 
 # External object files for target HJRT
 HJRT_EXTERNAL_OBJECTS =
@@ -240,12 +352,20 @@ HJRT_EXTERNAL_OBJECTS =
 ../bin/HJRT: CMakeFiles/HJRT.dir/src/mesh.cpp.o
 ../bin/HJRT: CMakeFiles/HJRT.dir/src/objects.cpp.o
 ../bin/HJRT: CMakeFiles/HJRT.dir/src/pathtracer.cpp.o
+../bin/HJRT: CMakeFiles/HJRT.dir/src/rtui.cpp.o
 ../bin/HJRT: CMakeFiles/HJRT.dir/src/scene.cpp.o
 ../bin/HJRT: CMakeFiles/HJRT.dir/src/texture.cpp.o
 ../bin/HJRT: CMakeFiles/HJRT.dir/src/utility.cpp.o
+../bin/HJRT: CMakeFiles/HJRT.dir/3rd-party/glad/src/glad.c.o
+../bin/HJRT: CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui.cpp.o
+../bin/HJRT: CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_demo.cpp.o
+../bin/HJRT: CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_draw.cpp.o
+../bin/HJRT: CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_glfw.cpp.o
+../bin/HJRT: CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_impl_opengl3.cpp.o
+../bin/HJRT: CMakeFiles/HJRT.dir/3rd-party/imgui/src/imgui_widgets.cpp.o
 ../bin/HJRT: CMakeFiles/HJRT.dir/build.make
 ../bin/HJRT: CMakeFiles/HJRT.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable ../bin/HJRT"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/hezhenbang/Documents/C++/HJRT/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Linking CXX executable ../bin/HJRT"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/HJRT.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -5,7 +5,7 @@
 #include "objects.h"
 #include "mesh.h"
 #include "pathtracer.h"
-
+#include "rtui.h"
 using namespace std;
 using namespace glm;
 
@@ -35,7 +35,6 @@ int main() {
 
 	const int PlaneR = 4;
 	auto white = make_shared<Lambertian>(vec3(0.8));
-//	white->albedoTex=make_shared<ImageTexture>("/Users/hezhenbang/Downloads/IMG_0450.JPG");
 
 	auto floor1 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(PlaneR, -2, -PlaneR),
 	                                    vec3(-PlaneR, -2, -PlaneR));
@@ -92,10 +91,10 @@ int main() {
 	light1->material = light2->material = light->material;
 	mat4 enlarge(1.0f);
 	enlarge=scale(enlarge,vec3(1.5,1,1.5));
-	light1->transform(enlarge);light2->transform(enlarge);
+//	light1->transform(enlarge);light2->transform(enlarge);
 
 	Scene scene;
-	scene.useBVH = true;
+	scene.useBVH = false;
 	scene.ambient = vec3(0);
 //	scene.objects.push_back(sphere);
 //	scene.objects.push_back(ground);
@@ -121,8 +120,7 @@ int main() {
 
 	auto model=make_shared<Mesh>();
 	model->transMat=scale(model->transMat,vec3(1.5f));
-//	model->transMat=translate(model->transMat,vec3(0,-0.5,0));
-//	model->transMat=rotate(model->transMat,radians(30.0f),vec3(-1,0,0));
+	model->transMat=translate(model->transMat,vec3(0,0.35,0));
 	model->loadMesh("../mesh/bunny.obj");
 	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
 	scene.objects.push_back(model);
@@ -130,17 +128,25 @@ int main() {
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 50;
+	const int samples = 200;
 
 	scene.constructBVH();
+
 
 	//----------------------Render---------------------------
 	PathTracer path;
 	path.antiAliasNum = antiAliasNum;
-	path.renderThreads = 4;
+	path.renderThreadNum = 4;
 	path.samples = samples;
-	path.renderPortionBlock = 8;//path.renderThreads;
+	path.renderPortionBlock = 8;//path.renderThreadNum;
 	path.render(image, camera, scene);
+
+
+	RTUI ui(800,600,"HJRT");
+	ui.film=&image;
+	ui.pathTracer=&path;
+	ui.run();
+	glfwTerminate();
 
 	//----------------------Write image----------------------
 	image.save("image.png", "png");

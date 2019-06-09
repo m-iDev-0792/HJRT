@@ -84,6 +84,27 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/3rd-party/glad/src/glad.c">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui.cpp">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_demo.cpp">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_draw.cpp">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_glfw.cpp">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_impl_opengl3.cpp">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/3rd-party/imgui/src/imgui_widgets.cpp">
+			<Option target="HJRT"/>
+		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/aabb.cpp">
 			<Option target="HJRT"/>
 		</Unit>
@@ -109,6 +130,9 @@
 			<Option target="HJRT"/>
 		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/pathtracer.cpp">
+			<Option target="HJRT"/>
+		</Unit>
+		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/rtui.cpp">
 			<Option target="HJRT"/>
 		</Unit>
 		<Unit filename="/Users/hezhenbang/Documents/C++/HJRT/src/scene.cpp">
