@@ -5,7 +5,7 @@
 #ifndef RTTEST_UTILITY_H
 #define RTTEST_UTILITY_H
 
-#include <cmath>
+#define _USE_MATH_DEFINES
 #include <vector>
 #include <iostream>
 #include <random>

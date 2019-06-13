@@ -121,6 +121,7 @@ int main() {
 	auto model=make_shared<Mesh>();
 	model->transMat=scale(model->transMat,vec3(1.5f));
 	model->transMat=translate(model->transMat,vec3(0,0.35,0));
+	model->material=glassSphere->material;
 	model->loadMesh("../mesh/bunny.obj");
 	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
 	scene.objects.push_back(model);
@@ -128,7 +129,7 @@ int main() {
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 200;
+	const int samples = 5;
 
 	scene.constructBVH();
 

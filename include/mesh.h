@@ -20,6 +20,8 @@ struct Mesh : Object {
 
 	Mesh(std::string path);
 
+	Mesh(std::string path, std::shared_ptr<Material> _mat);
+
 	void constructBVH();
 
 	bool loadMesh(std::string path);

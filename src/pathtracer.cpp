@@ -3,14 +3,16 @@
 //
 
 #include "pathtracer.h"
-PathTracer::PathTracer(){
-	state=Integrator::IDLE;
-	samples=20;
-	antiAliasNum=2;
-	renderThreadNum=0;
-	renderPortionBlock=8;
-	latestRenderSec=10e10;
+
+PathTracer::PathTracer() {
+	state = Integrator::IDLE;
+	samples = 20;
+	antiAliasNum = 2;
+	renderThreadNum = 0;
+	renderPortionBlock = 8;
+	latestRenderSec = 10e10;
 }
+
 void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 
 	//set up parameters
@@ -24,14 +26,14 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 	                 glm::vec2(0, heightBlock)};
 	glm::vec2 lastStart(blockNum % 2 ? widthBlock * (blockNum / 2) : widthBlock * (blockNum / 2 - 1),
 	                    heightBlock * (blockNum / 2));
-	std::vector<glm::vec2> blockStarts;
-	std::vector<std::vector<glm::vec2>> startList, endList;
-	startList.resize(runningThreadNum);
-	endList.resize(runningThreadNum);
-	startList[0].push_back(lastStart);
-	endList[0].push_back(glm::vec2(lastStart.x + widthBlock > camera.width ? camera.width : lastStart.x + widthBlock,
-	                               lastStart.y + heightBlock > camera.height ? camera.height : lastStart.y +
-	                                                                                           heightBlock));
+
+	//init taskList
+	taskList.clear();
+	idleTaskNum = 0;
+	taskList.push_back(std::make_pair(lastStart, glm::vec2(
+			lastStart.x + widthBlock > camera.width ? camera.width : lastStart.x + widthBlock,
+			lastStart.y + heightBlock > camera.height ? camera.height : lastStart.y +
+			                                                            heightBlock)));
 	//gyrate block rendering:
 	//block:   0 1 2 3 4 5 6 7 8....
 	//step:    1 1 2 2 3 3 4 4 5....
@@ -46,11 +48,10 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 		int dirStep = d / 2 + 1;
 		for (int s = 0; s < dirStep; ++s) {
 			lastStart += dir[d % 4];
-			blockStarts.push_back(lastStart);
-			startList[totalStep % runningThreadNum].push_back(lastStart);
-			endList[totalStep % runningThreadNum].push_back(
-					glm::vec2(lastStart.x + widthBlock > camera.width ? camera.width : lastStart.x + widthBlock,
-					          lastStart.y + heightBlock > camera.height ? camera.height : lastStart.y + heightBlock));
+			taskList.push_back(std::make_pair(lastStart, glm::vec2(
+					lastStart.x + widthBlock > camera.width ? camera.width : lastStart.x + widthBlock,
+					lastStart.y + heightBlock > camera.height ? camera.height : lastStart.y +
+					                                                            heightBlock)));
 			if (++totalStep >= maxStep)break;
 		}
 	}
@@ -59,40 +60,35 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 	//allocate threads and perform actual rendering
 	threads.clear();
 	threads.resize(runningThreadNum);
-	state=Integrator::RENDERING;
+	state = Integrator::RENDERING;
+
 	for (int i = 0; i < runningThreadNum; ++i) {
-		finishFlag[i] = false;
-		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, startList[i], endList[i],
-		                                           ref(film),
-		                                           camera, ref(scene));
+		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, ref(film), camera,
+		                                           ref(scene));
 		threads[i]->detach();
 	}
-
-	//block code and wait all rendering threads complete
-//	while (true) {
-//		bool finish = true;
-//		for (int i = 0; i < runningThreadNum; ++i) {
-//			finish = finish && finishFlag[i];
-//		}
-//		if (finish)break;
-//		std::this_thread::sleep_for(100ms);
-//	}
 }
 
-void PathTracer::renderPerformer(int threadIndex, std::vector<glm::vec2> startList, std::vector<glm::vec2> endList,
-                                 Film &film,
-                                 Camera camera, Scene &scene) {
-
+void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Scene &scene) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
-	auto start = std::chrono::high_resolution_clock::now();
-	threadTotalProgress[threadIndex]=0;
-	for (int p = 0; p < startList.size(); ++p) {
+	auto startTime = std::chrono::high_resolution_clock::now();
 
-		glm::vec2 start = startList[p];
-		glm::vec2 end = endList[p];
-		blockProgress[threadIndex]=0;
+	glm::vec2 start;
+	glm::vec2 end;
+	for (;;) {
+		taskMutex.lock();
+		if (idleTaskNum >= taskList.size()) {
+			taskMutex.unlock();
+			break;
+		} else {
+			start = taskList[idleTaskNum].first;
+			end = taskList[idleTaskNum].second;
+			++idleTaskNum;
+			taskMutex.unlock();
+		}
 
+		blockProgress[threadIndex] = 0;
 		for (int i = start.y; i < end.y; ++i) {//row
 			for (int j = start.x; j < end.x; ++j) {//column
 				vec3 color;
@@ -110,23 +106,27 @@ void PathTracer::renderPerformer(int threadIndex, std::vector<glm::vec2> startLi
 				toInt(color);
 				film.setPixel(i, j, color);
 			}
-			blockProgress[threadIndex]= static_cast<float>(i+1-start.y)/(end.y-start.y);
-			threadTotalProgress[threadIndex]= (p+blockProgress[threadIndex])/startList.size();
+			blockProgress[threadIndex] = static_cast<float>(i + 1 - start.y) / (end.y - start.y);
 		}
+		blockProgress[threadIndex] = 1;
 	}
 	//finished
-	auto end = std::chrono::high_resolution_clock::now();
-	auto secDura = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+	auto endTime = std::chrono::high_resolution_clock::now();
+	auto secDura = std::chrono::duration_cast<std::chrono::seconds>(endTime - startTime);
 	if (secDura.count() > latestRenderSec)latestRenderSec = secDura.count();
-	blockProgress[threadIndex]=threadTotalProgress[threadIndex]=1;
-	finishFlag[threadIndex] = true;
-	if(isFinish())state=Integrator::IDLE;
+	if (isFinish())state = Integrator::IDLE;
+	std::cout<<"thread "<<threadIndex<<" finished"<<endl;
 }
 
 bool PathTracer::isFinish() {
-	bool finish = true;
+	if (idleTaskNum < taskList.size())return false;
 	for (int i = 0; i < runningThreadNum; ++i) {
-		finish = finish && finishFlag[i];
+		if (blockProgress[i] < 0.999)return false;
 	}
-	return finish;
+	return true;
+}
+
+float PathTracer::totalProgress() {
+	float t;
+	return (t = static_cast<float>(idleTaskNum) / taskList.size()) > 1 ? 1 : t;
 }

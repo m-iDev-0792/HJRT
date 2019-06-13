@@ -54,6 +54,7 @@ void RTUI::run() {
  * This function is called when we need to render something
  */
 void RTUI::render() {
+	static bool lastFrameFinished=false;
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
@@ -65,7 +66,8 @@ void RTUI::render() {
 		bool finish=pathTracer->isFinish();
 		if(secDura.count()>250){
 			lasttime=current;
-			if(!finish) {
+			if(!finish||(!lastFrameFinished)) {
+				if(finish)lastFrameFinished=true;
 				glBindTexture(GL_TEXTURE_2D, texID);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -75,7 +77,7 @@ void RTUI::render() {
 			}
 		}
 
-		ImGui::Begin("Rendering result");
+		ImGui::Begin("Rendering result", nullptr,ImVec2(film->width+10,film->height+10));
 		ImGui::Image((void*)texID,ImVec2(film->width,film->height));
 		ImGui::End();
 
@@ -83,9 +85,8 @@ void RTUI::render() {
 		for(int i=0;i<pathTracer->runningThreadNum;++i){
 			ImGui::Text("thread %d",i);
 			ImGui::Text(" -block progress: %.1f%%",pathTracer->blockProgress[i]*100);
-			ImGui::Text(" -total progress: %.1f%%",pathTracer->threadTotalProgress[i]*100);
-			ImGui::ProgressBar(pathTracer->threadTotalProgress[i]);
 		}
+		ImGui::ProgressBar(pathTracer->totalProgress());
 		if(finish)ImGui::Text("total time: %ds",pathTracer->latestRenderSec);
 		ImGui::End();
 	}

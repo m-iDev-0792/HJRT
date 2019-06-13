@@ -80,5 +80,5 @@ struct Sphere : public Object {
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 };
 
-std::vector<std::shared_ptr<Object>> loadOBJ(std::string path);
+std::vector<std::shared_ptr<Object>> loadOBJ(std::string path,std::shared_ptr<Material> defaultMaterial=nullptr);
 #endif //RTTEST_OBJECTS_H

@@ -146,7 +146,7 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	return true;
 }
 
-std::vector<std::shared_ptr<Object>> loadOBJ(string path) {
+std::vector<std::shared_ptr<Object>> loadOBJ(std::string path,std::shared_ptr<Material> defaultMaterial) {
 	std::vector<std::shared_ptr<Object>> model;
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
@@ -182,7 +182,7 @@ std::vector<std::shared_ptr<Object>> loadOBJ(string path) {
 		materialPtr.push_back(newMtl);
 	}
 
-	auto defaultMaterial=std::make_shared<Lambertian>(glm::vec3(0.8));
+	if(defaultMaterial== nullptr)defaultMaterial=std::make_shared<Lambertian>(glm::vec3(0.8));
 	for (size_t s = 0; s < shapes.size(); s++) {
 		size_t index_offset = 0;
 

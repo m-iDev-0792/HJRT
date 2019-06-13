@@ -7,6 +7,7 @@
 
 #include "integrator.h"
 #include <thread>
+#include <mutex>
 constexpr int MAX_THREAD=128;
 struct PathTracer : Integrator {
 	int samples;
@@ -17,18 +18,22 @@ struct PathTracer : Integrator {
 	int latestRenderSec;
 	//thread state
 	float blockProgress[MAX_THREAD];
-	float threadTotalProgress[MAX_THREAD];
-	bool finishFlag[MAX_THREAD];
+
 	std::vector<std::shared_ptr<std::thread>> threads;
+private:
+	std::mutex taskMutex;
+	std::vector<std::pair<glm::vec2,glm::vec2>> taskList;
+	int idleTaskNum;
 public:
 	PathTracer();
 
 	void render(Film &film, Camera camera, Scene &scene) override;
 
-	void renderPerformer(int threadNum, std::vector<glm::vec2> start, std::vector<glm::vec2> end, Film &film, Camera camera,
-	                     Scene &scene);
+	void renderPerformer(int threadNum, Film &film, Camera camera,Scene &scene);
 
 	bool isFinish();
+
+	float totalProgress();
 };
 
 #endif //HJRT_PATHTRACER_H
