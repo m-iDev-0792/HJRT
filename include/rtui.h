@@ -23,7 +23,7 @@ protected:
 	int bufferWidth;
 	int bufferHeight;
 
-	chrono::high_resolution_clock::time_point lasttime;
+	std::chrono::high_resolution_clock::time_point lasttime;
 
 	virtual void framebufferSizeCallback(GLFWwindow *window, int width, int height);
 

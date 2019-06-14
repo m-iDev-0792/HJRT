@@ -129,7 +129,7 @@ int main() {
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 5;
+	const int samples = 20;
 
 	scene.constructBVH();
 
@@ -140,6 +140,7 @@ int main() {
 	path.renderThreadNum = 4;
 	path.samples = samples;
 	path.renderPortionBlock = 8;//path.renderThreadNum;
+//	path.shade(scene,camera.getRay(256,256));
 	path.render(image, camera, scene);
 
 

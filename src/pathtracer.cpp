@@ -5,12 +5,13 @@
 #include "pathtracer.h"
 
 PathTracer::PathTracer() {
+	maxBounce = 25;
 	state = Integrator::IDLE;
 	samples = 20;
 	antiAliasNum = 2;
 	renderThreadNum = 0;
 	renderPortionBlock = 8;
-	latestRenderSec = 10e10;
+	latestRenderSec = 99999999;
 }
 
 void PathTracer::render(Film &film, Camera camera, Scene &scene) {
@@ -35,9 +36,9 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 			lastStart.y + heightBlock > camera.height ? camera.height : lastStart.y +
 			                                                            heightBlock)));
 	//gyrate block rendering:
-	//block:   0 1 2 3 4 5 6 7 8....
-	//step:    1 1 2 2 3 3 4 4 5....
-	//dir:     → ↓ ← ↑ → ↓ ← ↑ →....
+	//d:        0 1 2 3 4 5 6 7 8....
+	//dirStep:  1 1 2 2 3 3 4 4 5....
+	//dir:      → ↓ ← ↑ → ↓ ← ↑ →....
 	//   +------>e
 	//   | +-----+
 	//   | | s-+ |
@@ -63,8 +64,8 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 	state = Integrator::RENDERING;
 
 	for (int i = 0; i < runningThreadNum; ++i) {
-		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, ref(film), camera,
-		                                           ref(scene));
+		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, std::ref(film), camera,
+		                                           std::ref(scene));
 		threads[i]->detach();
 	}
 }
@@ -91,12 +92,14 @@ void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Sce
 		blockProgress[threadIndex] = 0;
 		for (int i = start.y; i < end.y; ++i) {//row
 			for (int j = start.x; j < end.x; ++j) {//column
-				vec3 color;
+				glm::vec3 color(0);
 				for (int u = 0; u < antiAliasNum; ++u) {
 					for (int v = 0; v < antiAliasNum; ++v) {
 
-						for (int s = 0; s < samples; ++s)
-							color = color + scene.shade(camera.getRay(j + subS + subR * u, i + subS + subR * v), 1);
+						for (int s = 0; s < samples; ++s) {
+							color = color + shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v));
+//							color = color + shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v), 1);
+						}
 
 					}
 				}
@@ -113,9 +116,91 @@ void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Sce
 	//finished
 	auto endTime = std::chrono::high_resolution_clock::now();
 	auto secDura = std::chrono::duration_cast<std::chrono::seconds>(endTime - startTime);
-	if (secDura.count() > latestRenderSec)latestRenderSec = secDura.count();
+	latestRenderSec = secDura.count();
 	if (isFinish())state = Integrator::IDLE;
-	std::cout<<"thread "<<threadIndex<<" finished"<<endl;
+	std::cout << "thread " << threadIndex << " finished" << std::endl;
+}
+
+glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
+	int depth = 0;
+	glm::vec3 *emissionHistory = new glm::vec3[maxBounce + 2];
+	glm::vec3 *attenuationHistory = new glm::vec3[maxBounce + 2];
+	Ray ray = _ray;
+	for (;;) {
+		if (depth > maxBounce) {
+			emissionHistory[depth] = _scene.ambient;
+			break;
+		}
+		HitInfo hitInfo;
+		if (_scene.intersect(ray, &hitInfo)) {
+			glm::vec2 uv;
+			bool hasUV = hitInfo.hitobject->getUV(hitInfo, &uv);
+			hitInfo.uv = uv;
+			glm::vec3 emission = hitInfo.hitobject->material->emissionTex == nullptr ?
+			                     hitInfo.hitobject->material->emission :
+			                     hitInfo.hitobject->material->emissionTex->getColor(uv);
+
+			if (depth > 3) {
+				const glm::vec3 &f = hitInfo.hitobject->material->albedoTex == nullptr ?
+				                     hitInfo.hitobject->material->albedo :
+				                     hitInfo.hitobject->material->albedoTex->getColor(uv);
+				float maxContribution = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
+				if (random0_1f() > maxContribution) {
+					emissionHistory[depth] = emission;
+					break;
+				}
+			}
+			glm::vec3 attenuation;
+			if (hitInfo.hitobject->material->scatter(ray, hitInfo, &attenuation, &ray)) {
+				attenuationHistory[depth] = attenuation;
+				emissionHistory[depth] = emission;
+				++depth;
+				continue;
+			} else {
+				emissionHistory[depth] = emission;
+				break;
+			}
+		} else {
+			emissionHistory[depth] = _scene.ambient;
+			break;
+		}
+	}
+	glm::vec3 color = emissionHistory[depth];
+	for (int i = depth - 1; i >= 0; --i) {
+		color = emissionHistory[i] + attenuationHistory[i] * color;
+	}
+	delete[] emissionHistory;
+	delete[] attenuationHistory;
+	return color;
+}
+
+glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
+	if (depth > maxBounce)return scene.ambient;
+	HitInfo hitInfo;
+	if (scene.intersect(ray, &hitInfo)) {
+		glm::vec2 uv;
+		bool hasUV = hitInfo.hitobject->getUV(hitInfo, &uv);
+		hitInfo.uv = uv;
+		glm::vec3 emission = hitInfo.hitobject->material->emissionTex == nullptr ?
+		                     hitInfo.hitobject->material->emission :
+		                     hitInfo.hitobject->material->emissionTex->getColor(uv);
+
+		if (depth > 3) {
+			const glm::vec3 &f = hitInfo.hitobject->material->albedoTex == nullptr ?
+			                     hitInfo.hitobject->material->albedo :
+			                     hitInfo.hitobject->material->albedoTex->getColor(uv);
+			float maxContribution = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
+			if (random0_1f() > maxContribution)return emission;
+		}
+		Ray newRay;
+		glm::vec3 attenuation;
+		if (hitInfo.hitobject->material->scatter(ray, hitInfo, &attenuation, &newRay)) {
+			return emission + attenuation * shade(scene, newRay, depth + 1);
+		} else
+			return emission;
+	} else {
+		return scene.ambient;
+	}
 }
 
 bool PathTracer::isFinish() {

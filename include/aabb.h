@@ -6,8 +6,7 @@
 #define RTTEST_AABB_H
 
 #include "utility.h"
-using namespace glm;
-using namespace std;
+
 struct AABB {
 	glm::vec3 min;
 	glm::vec3 max;

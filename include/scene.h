@@ -9,15 +9,13 @@
 
 struct Scene {
 	//TODO. tidy code
-	const int MAX_BOUNCE = 25;
 	std::vector<std::shared_ptr<Object>> objects;
 	std::shared_ptr<BVH> bvhRoot;
-	vec3 ambient;
+	glm::vec3 ambient;
+
 	bool useBVH;
 
-	bool intersect(const Ray &ray, HitInfo *hitInfo);
-
-	vec3 shade(const Ray &ray, int depth);
+	bool intersect(const Ray &ray, HitInfo *hitInfo) const;
 
 	void constructBVH();
 };

@@ -6,7 +6,7 @@
 bool compX(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
-		cout<<"unable get AABB"<<endl;
+		std::cout<<"unable get AABB"<<std::endl;
 		return false;
 	}
 	return abox.min.x<bbox.min.x;
@@ -14,7 +14,7 @@ bool compX(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 bool compY(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
-		cout<<"unable get AABB"<<endl;
+		std::cout<<"unable get AABB"<<std::endl;
 		return false;
 	}
 	return abox.min.y<bbox.min.y;
@@ -22,7 +22,7 @@ bool compY(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 bool compZ(const std::shared_ptr<Object> a,const std::shared_ptr<Object> b){
 	AABB abox,bbox;
 	if((!a->getAABB(&abox))||(!b->getAABB(&bbox))){
-		cout<<"unable get AABB"<<endl;
+		std::cout<<"unable get AABB"<<std::endl;
 		return false;
 	}
 	return abox.min.z<bbox.min.z;
@@ -39,7 +39,7 @@ BVH::BVH(std::vector<std::shared_ptr<Object>>::iterator begin,std::vector<std::s
 		leftNode=*begin;
 		if(!leftNode->getAABB(&aabb)){
 			aabb=AABB(glm::vec3(1),glm::vec3(-1));
-			cout<<"unable get AABB"<<endl;
+			std::cout<<"unable get AABB"<<std::endl;
 		}
 	}else if(end-begin==2){
 		leftNode=*begin;
@@ -47,7 +47,7 @@ BVH::BVH(std::vector<std::shared_ptr<Object>>::iterator begin,std::vector<std::s
 		AABB box1,box2;
 		if((!leftNode->getAABB(&box1))||(!rightNode->getAABB(&box2))){
 			aabb=AABB(glm::vec3(1),glm::vec3(-1));
-			cout<<"unable get AABB"<<endl;
+			std::cout<<"unable get AABB"<<std::endl;
 		}
 		aabb=AABB::getBoundingAABB(box1,box2);
 	}else{
@@ -62,7 +62,7 @@ BVH::BVH(std::vector<std::shared_ptr<Object>>::iterator begin,std::vector<std::s
 		AABB boxLeft,boxRight;
 		if((!leftNode->getAABB(&boxLeft))||(!rightNode->getAABB(&boxRight))){
 			aabb=AABB(glm::vec3(1),glm::vec3(-1));
-			cout<<"unable get AABB"<<endl;
+			std::cout<<"unable get AABB"<<std::endl;
 		}
 		aabb=AABB::getBoundingAABB(boxLeft,boxRight);
 	}

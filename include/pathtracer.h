@@ -12,6 +12,9 @@ constexpr int MAX_THREAD=128;
 struct PathTracer : Integrator {
 	int samples;
 	int antiAliasNum;
+	int maxBounce;
+
+
 	int renderThreadNum;
 	int runningThreadNum;//actual thread num
 	int renderPortionBlock;
@@ -26,6 +29,10 @@ private:
 	int idleTaskNum;
 public:
 	PathTracer();
+
+	glm::vec3 shade(const Scene& _scene,const Ray& _ray);//non-recursive shade function
+
+	glm::vec3 shade(const Scene& scene,const Ray& ray, int depth);//recursive shade function
 
 	void render(Film &film, Camera camera, Scene &scene) override;
 

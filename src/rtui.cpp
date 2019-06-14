@@ -60,7 +60,7 @@ void RTUI::render() {
 	ImGui::NewFrame();
 	ImVec4 clear_color = ImVec4(0.333, 0.341, 0.345, 1.00);
 	{
-		auto current=chrono::high_resolution_clock::now();
+		auto current=std::chrono::high_resolution_clock::now();
 		auto secDura = std::chrono::duration_cast<std::chrono::milliseconds>(current-lasttime);
 		//update rendering result
 		bool finish=pathTracer->isFinish();
@@ -119,7 +119,7 @@ void RTUI::customInit() {
 		             GL_UNSIGNED_BYTE, film->getData());
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-	lasttime=chrono::high_resolution_clock::now();
+	lasttime=std::chrono::high_resolution_clock::now();
 }
 
 
