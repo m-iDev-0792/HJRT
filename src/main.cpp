@@ -10,7 +10,7 @@ using namespace std;
 using namespace glm;
 
 int main() {
-	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512/4, 512/4, 45);
+	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512/2, 512/2, 45);
 
 	auto sphere = make_shared<Sphere>(vec3(0, -1, 0), 1);
 	sphere->name = "diffuse";
@@ -91,10 +91,10 @@ int main() {
 	light1->material = light2->material = light->material;
 	mat4 enlarge(1.0f);
 	enlarge=scale(enlarge,vec3(1.5,1,1.5));
-//	light1->transform(enlarge);light2->transform(enlarge);
+	light1->transform(enlarge);light2->transform(enlarge);
 
 	Scene scene;
-	scene.useBVH = false;
+	scene.useBVH = false;//if don't use BVH, wrong intersection judgement occur
 	scene.ambient = vec3(0);
 //	scene.objects.push_back(sphere);
 //	scene.objects.push_back(ground);
@@ -118,18 +118,30 @@ int main() {
 	scene.objects.push_back(back2);
 
 
-	auto model=make_shared<Mesh>();
-	model->transMat=scale(model->transMat,vec3(1.5f));
-	model->transMat=translate(model->transMat,vec3(0,0.35,0));
-	model->material=glassSphere->material;
-	model->loadMesh("../mesh/bunny.obj");
-	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
-	scene.objects.push_back(model);
+//	auto model=make_shared<Mesh>();
+//	model->transMat=scale(model->transMat,vec3(1.5f));
+//	model->transMat=translate(model->transMat,vec3(0,0.35,0));
+//	model->material=glassSphere->material;
+//	model->loadMesh("../mesh/bunny.obj");
+//	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
+//	scene.objects.push_back(model);
+
+	auto huaji=make_shared<Mesh>();
+//	huaji->transMat=translate(huaji->transMat,vec3(-1.3,2,-0.5));
+//	huaji->transMat=rotate(huaji->transMat,radians(-90.0f),vec3(1,0,0));
+//	huaji->transMat=scale(huaji->transMat,vec3(2));
+//	huaji->transMat=translate(huaji->transMat,vec3(-5,0,-3));
+	huaji->transMat=rotate(huaji->transMat,radians(-145.0f),vec3(0,1,0));
+	huaji->transMat=translate(huaji->transMat,vec3(0,-2,0));
+	huaji->transMat=scale(huaji->transMat,vec3(4));
+	huaji->loadMesh("../mesh/dragon.obj");
+	cout<<"loaded model: "<<huaji->name<<"  triangle num: "<<huaji->triangles.size()<<endl;
+	scene.objects.push_back(huaji);
 
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 20;
+	const int samples = 200;
 
 	scene.constructBVH();
 
@@ -140,7 +152,7 @@ int main() {
 	path.renderThreadNum = 4;
 	path.samples = samples;
 	path.renderPortionBlock = 8;//path.renderThreadNum;
-//	path.shade(scene,camera.getRay(256,256));
+
 	path.render(image, camera, scene);
 
 

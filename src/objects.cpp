@@ -137,7 +137,9 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	t *= fInvDet;
 	u *= fInvDet;
 	v *= fInvDet;
-	if (t > hitInfo->t || t < 1e-4)return false;
+	//
+	const float selfIntersectBias=1e-4;
+	if (t > hitInfo->t || t < selfIntersectBias)return false;
 	hitInfo->t = t;
 	hitInfo->uv = glm::vec2(u, v);
 	hitInfo->hitpoint = ray.origin + t * ray.dir;// same as :hitInfo->hitpoint=this->v0+u*E1+v*E2;

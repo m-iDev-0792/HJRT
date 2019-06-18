@@ -89,8 +89,10 @@ bool Mesh::loadMesh(std::string path) {
 			for(auto& n:normal)faceNormal+=n;
 			faceNormal*=1/3.0f;
 
-			if(hasNormal)face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2],faceNormal);
-			else face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2]);
+			if(hasNormal)face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2],normal[0]);
+			else{
+				face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2]);
+			}
 
 			if(hasTexCoord)face->setUVs(texCoord[0],texCoord[1],texCoord[2]);
 

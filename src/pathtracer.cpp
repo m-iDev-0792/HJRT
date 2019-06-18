@@ -151,9 +151,11 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 				}
 			}
 			glm::vec3 attenuation;
-			if (hitInfo.hitobject->material->scatter(ray, hitInfo, &attenuation, &ray)) {
+			Ray newRay;
+			if (hitInfo.hitobject->material->scatter(ray, hitInfo, &attenuation, &newRay)) {
 				attenuationHistory[depth] = attenuation;
 				emissionHistory[depth] = emission;
+				ray=newRay;
 				++depth;
 				continue;
 			} else {

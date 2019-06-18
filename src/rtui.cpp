@@ -77,7 +77,9 @@ void RTUI::render() {
 			}
 		}
 
-		ImGui::Begin("Rendering result", nullptr,ImVec2(film->width+10,film->height+10));
+		ImGui::Begin("Rendering result", nullptr,ImGuiWindowFlags_NoResize);
+		ImGui::SetWindowSize(ImVec2(film->width+40,film->height+40));
+		ImGui::SetCursorPos(ImVec2(20,20));
 		ImGui::Image((void*)texID,ImVec2(film->width,film->height));
 		ImGui::End();
 

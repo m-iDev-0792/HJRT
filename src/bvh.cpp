@@ -73,6 +73,8 @@ bool BVH::intersect(const Ray &ray, HitInfo *hitInfo)const{
 		HitInfo leftInfo,rightInfo;
 		bool leftHit=leftNode== nullptr?false:leftNode->intersect(ray,&leftInfo);
 		bool rightHit=rightNode==nullptr?false:rightNode->intersect(ray,&rightInfo);
+		//NOTE. if hitInfo->t is equal to leftInfo.t or rightInfo.t, leftNode or rightNode will override hitInfo
+		if(leftInfo.t>hitInfo->t&&rightInfo.t>hitInfo->t)return false;
 		if(leftHit&&rightHit){
 			*hitInfo=leftInfo.t<rightInfo.t?leftInfo:rightInfo;
 			return true;
