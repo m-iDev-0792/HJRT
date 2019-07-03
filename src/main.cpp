@@ -141,7 +141,7 @@ int main() {
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 700;
+	const int samples = 100;
 
 	scene.constructBVH();
 

@@ -2,6 +2,8 @@
 
 HJRT is a portable C++14 path tracing renderer which renders image using naive brute force path tracing algorithm.
 
+![](log/img/demo.gif)
+
 **Features**
 
 + basic material and texture
