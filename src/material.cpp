@@ -71,3 +71,12 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 
 	return true;
 }
+Isotropy::Isotropy(glm::vec3 _albedo) {
+	albedo=_albedo;
+}
+bool Isotropy::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	*attenuation = (albedoTex == nullptr ? albedo : albedoTex->getColor(hitInfo.uv));
+	scatteredRay->origin=ray.origin;
+	scatteredRay->dir=randomVecUnitSphere();
+	return true;
+}

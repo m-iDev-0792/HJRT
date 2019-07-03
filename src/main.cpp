@@ -91,10 +91,10 @@ int main() {
 	light1->material = light2->material = light->material;
 	mat4 enlarge(1.0f);
 	enlarge=scale(enlarge,vec3(1.5,1,1.5));
-	light1->transform(enlarge);light2->transform(enlarge);
+//	light1->transform(enlarge);light2->transform(enlarge);
 
 	Scene scene;
-	scene.useBVH = false;//if don't use BVH, wrong intersection judgement occur
+	scene.useBVH = false;
 	scene.ambient = vec3(0);
 //	scene.objects.push_back(sphere);
 //	scene.objects.push_back(ground);
@@ -127,21 +127,21 @@ int main() {
 //	scene.objects.push_back(model);
 
 	auto huaji=make_shared<Mesh>();
-//	huaji->transMat=translate(huaji->transMat,vec3(-1.3,2,-0.5));
-//	huaji->transMat=rotate(huaji->transMat,radians(-90.0f),vec3(1,0,0));
-//	huaji->transMat=scale(huaji->transMat,vec3(2));
-//	huaji->transMat=translate(huaji->transMat,vec3(-5,0,-3));
-	huaji->transMat=rotate(huaji->transMat,radians(-145.0f),vec3(0,1,0));
+	huaji->material=make_shared<Dielectric>(2.417);
 	huaji->transMat=translate(huaji->transMat,vec3(0,-2,0));
-	huaji->transMat=scale(huaji->transMat,vec3(4));
-	huaji->loadMesh("../mesh/dragon.obj");
+	huaji->loadMesh("../mesh/diamondStanding.obj");
 	cout<<"loaded model: "<<huaji->name<<"  triangle num: "<<huaji->triangles.size()<<endl;
 	scene.objects.push_back(huaji);
+
+//	auto fogBoundary=make_shared<Sphere>(vec3(0,0,0),2);
+//	auto fog=make_shared<Fog>(0.3,fogBoundary);
+//	fog->material=make_shared<Isotropy>(vec3(0.576, 0.451, 0.647));
+//	scene.objects.push_back(fog);
 
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 200;
+	const int samples = 700;
 
 	scene.constructBVH();
 

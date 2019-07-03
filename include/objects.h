@@ -80,5 +80,19 @@ struct Sphere : public Object {
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 };
 
-std::vector<std::shared_ptr<Object>> loadOBJ(std::string path,std::shared_ptr<Material> defaultMaterial=nullptr);
+struct Fog : public Object {
+	std::shared_ptr<Object> boundary;
+	float density;
+
+	Fog(float _density,std::shared_ptr<Object> _boundary) : density(_density), boundary(_boundary) {};
+
+	void transform(glm::mat4 mat) override;
+
+	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
+
+	bool getAABB(AABB *box) const override;
+
+	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
+
+};
 #endif //RTTEST_OBJECTS_H
