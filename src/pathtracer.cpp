@@ -6,6 +6,7 @@
 
 PathTracer::PathTracer() {
 	maxBounce = 25;
+	RRCutBounce = 5;
 	state = Integrator::IDLE;
 	samples = 20;
 	antiAliasNum = 2;
@@ -35,7 +36,7 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 			lastStart.x + widthBlock > camera.width ? camera.width : lastStart.x + widthBlock,
 			lastStart.y + heightBlock > camera.height ? camera.height : lastStart.y +
 			                                                            heightBlock)));
-	//gyrate block rendering:
+	//spiral block rendering:
 	//d:        0 1 2 3 4 5 6 7 8....
 	//dirStep:  1 1 2 2 3 3 4 4 5....
 	//dir:      → ↓ ← ↑ → ↓ ← ↑ →....
@@ -139,21 +140,25 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 			glm::vec3 emission = hitInfo.hitobject->material->emissionTex == nullptr ?
 			                     hitInfo.hitobject->material->emission :
 			                     hitInfo.hitobject->material->emissionTex->getColor(uv);
-
-			if (depth > 3) {
+			float RRWeight=1.0f;//Russian roulette weight
+			if (depth > RRCutBounce) {
 				const glm::vec3 &f = hitInfo.hitobject->material->albedoTex == nullptr ?
 				                     hitInfo.hitobject->material->albedo :
 				                     hitInfo.hitobject->material->albedoTex->getColor(uv);
-				float maxContribution = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
-				if (random0_1f() > maxContribution) {
+				//Set Russian roulette probability as max color contribution
+				float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
+
+				if (random0_1f() > RRProbability) {
 					emissionHistory[depth] = emission;
 					break;
+				}else{
+					RRWeight/=RRProbability;
 				}
 			}
 			glm::vec3 attenuation;
 			Ray newRay;
 			if (hitInfo.hitobject->material->scatter(ray, hitInfo, &attenuation, &newRay)) {
-				attenuationHistory[depth] = attenuation;
+				attenuationHistory[depth] = attenuation*RRWeight;
 				emissionHistory[depth] = emission;
 				ray=newRay;
 				++depth;
@@ -186,18 +191,20 @@ glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
 		glm::vec3 emission = hitInfo.hitobject->material->emissionTex == nullptr ?
 		                     hitInfo.hitobject->material->emission :
 		                     hitInfo.hitobject->material->emissionTex->getColor(uv);
-
-		if (depth > 3) {
+		float RRWeight = 1.0f;//Russian roulette weight
+		if (depth > RRCutBounce) {
 			const glm::vec3 &f = hitInfo.hitobject->material->albedoTex == nullptr ?
 			                     hitInfo.hitobject->material->albedo :
 			                     hitInfo.hitobject->material->albedoTex->getColor(uv);
-			float maxContribution = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
-			if (random0_1f() > maxContribution)return emission;
+			//Set Russian roulette probability as max color contribution
+			float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
+			if (random0_1f() > RRProbability)return emission;
+			else RRWeight /= RRProbability;
 		}
 		Ray newRay;
 		glm::vec3 attenuation;
 		if (hitInfo.hitobject->material->scatter(ray, hitInfo, &attenuation, &newRay)) {
-			return emission + attenuation * shade(scene, newRay, depth + 1);
+			return emission + attenuation * RRWeight * shade(scene, newRay, depth + 1);
 		} else
 			return emission;
 	} else {

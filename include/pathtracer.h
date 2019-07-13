@@ -13,6 +13,7 @@ struct PathTracer : Integrator {
 	int samples;
 	int antiAliasNum;
 	int maxBounce;
+	int RRCutBounce;
 
 
 	int renderThreadNum;
