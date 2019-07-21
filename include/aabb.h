@@ -5,8 +5,8 @@
 #ifndef RTTEST_AABB_H
 #define RTTEST_AABB_H
 
-#include "utility.h"
-
+#include "ray.h"
+#include <cmath>
 struct AABB {
 	glm::vec3 min;
 	glm::vec3 max;

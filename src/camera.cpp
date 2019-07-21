@@ -20,7 +20,7 @@ Camera::Camera(glm::vec3 _position,glm::vec3 _direction,int _width,int _height,f
 }
 Ray Camera::getRay(const float& u,const float& v){
 	if(aperture>0){
-		glm::vec3 rd=aperture*0.5f* randomVecUnitDisk();
+		glm::vec3 rd=aperture*0.5f* sampleInsideDiskUniform();
 		glm::vec3 offset=right*rd.x+up*rd.y;
 		glm::vec3 pixel=lowerLeftPixel + right*pixelWidth*zFocus*u + up*pixelHeight*zFocus*v;
 		return Ray(position+offset,glm::normalize(pixel-position-offset));

@@ -5,7 +5,7 @@
 #ifndef RTTEST_CAMERA_H
 #define RTTEST_CAMERA_H
 #include "utility.h"
-
+#include "ray.h"
 struct Camera {
 	glm::vec3 position;
 	glm::vec3 direction;

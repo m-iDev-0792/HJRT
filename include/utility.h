@@ -16,24 +16,7 @@
 
 constexpr float ZERO = 0.0001;
 
-struct Object;
-struct HitInfo {
-	float t;
-	glm::vec3 hitpoint;
-	glm::vec3 normal;//WARNING!!! keep normal normalized!!!
-	glm::vec2 uv;
-	const Object *hitobject;
-	HitInfo(){t=10e10;hitobject= nullptr;};
-};
 
-struct Ray {
-	glm::vec3 origin;
-	glm::vec3 dir;
-
-	Ray() = default;
-
-	Ray(glm::vec3 _origin, glm::vec3 _dir) : origin(_origin), dir(_dir) {}
-};
 
 template<typename T>
 float sgn(T val) {
@@ -58,10 +41,17 @@ inline void toInt(glm::vec3 &color) {
 //-------------------generate random data---------------------------//
 float random0_1f();
 
-glm::vec3 randomVecUnitDisk();
+glm::vec3 sampleInsideDiskUniform();
 
-glm::vec3 randomVecUnitSphere();
+glm::vec3 sampleInsideSphereUniform();
 
+glm::vec3 sampleOnSphereUniform();
+
+glm::vec3 sampleOnSphereCosine();
+
+glm::vec3 sampleOnHemisphereUniform();
+
+glm::vec3 sampleOnHemisphereCosine();
 
 float fresnel(float cosine,float refractIndex);
 

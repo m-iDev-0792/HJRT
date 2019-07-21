@@ -61,10 +61,12 @@ Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2) : v0(_v0), v1(_v
 	glm::vec3 E2 = this->v2 - this->v0;
 	//NOTE. we expect v0 v1 v2 are placed in counter-clock-wise
 	normal = glm::normalize(glm::cross(E1, E2));
+	isDoubleSided=false;
 }
 
 Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2) : Triangle(_v0, _v1, _v2) {
 	setUVs(_uv0, _uv1, _uv2);
+	isDoubleSided=false;
 }
 void Triangle::transform(glm::mat4 mat) {
 	for(int i=0;i<3;++i)
@@ -143,7 +145,9 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	hitInfo->t = t;
 	hitInfo->uv = glm::vec2(u, v);
 	hitInfo->hitpoint = ray.origin + t * ray.dir;// same as :hitInfo->hitpoint=this->v0+u*E1+v*E2;
-	hitInfo->normal = this->normal * sgn(glm::dot(-t * ray.dir, this->normal));
+	//NOTE.It may cause potential reflection&refraction problem if a non-light-source face is assigned as double-sided face, be careful!!!
+	hitInfo->normal = isDoubleSided ? this->normal * sgn(glm::dot(-t * ray.dir, this->normal))
+	                               : this->normal;
 	hitInfo->hitobject = this;
 	return true;
 }

@@ -1,6 +1,5 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib highres_diamond_standing.mtl
 v 0.205447 0.000288 0.085079
 v 2.035300 2.210308 0.000001
 v 1.880208 2.210092 0.779890

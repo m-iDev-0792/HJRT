@@ -24,7 +24,7 @@ More results:
 
 ![](log/img/fog.png)
 
-![](log/img/diamond-1000samples.png)
+![](log/img/diamondGood.png)
 
 ![](log/img/Texture.png)
 

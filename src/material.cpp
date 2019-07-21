@@ -10,8 +10,9 @@ Lambertian::Lambertian(glm::vec3 _albedo) {
 }
 
 bool Lambertian::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	if(glm::dot(ray.dir,hitInfo.normal)>=0)return false;
 	scatteredRay->origin = hitInfo.hitpoint;
-	scatteredRay->dir = glm::normalize(hitInfo.normal + randomVecUnitSphere());
+	scatteredRay->dir = glm::normalize(hitInfo.normal + sampleInsideSphereUniform());
 	*attenuation = (albedoTex == nullptr ? albedo : albedoTex->getColor(hitInfo.uv));
 	return true;
 }
@@ -23,9 +24,10 @@ Metal::Metal(glm::vec3 _albedo, float _fuzz) {
 }
 
 bool Metal::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	if(glm::dot(ray.dir,hitInfo.normal)>=0)return false;
 	scatteredRay->origin = hitInfo.hitpoint;
 	if (fuzz == 0)scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
-	else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal) + fuzz * randomVecUnitSphere());
+	else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal) + fuzz * sampleInsideSphereUniform());
 	*attenuation = (albedoTex == nullptr ? albedo : albedoTex->getColor(hitInfo.uv));
 	return (dot(scatteredRay->dir, hitInfo.normal) > 0);
 }
@@ -77,6 +79,6 @@ Isotropy::Isotropy(glm::vec3 _albedo) {
 bool Isotropy::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
 	*attenuation = (albedoTex == nullptr ? albedo : albedoTex->getColor(hitInfo.uv));
 	scatteredRay->origin=ray.origin;
-	scatteredRay->dir=randomVecUnitSphere();
+	scatteredRay->dir= sampleInsideSphereUniform();
 	return true;
 }

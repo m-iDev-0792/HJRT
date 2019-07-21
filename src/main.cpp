@@ -32,9 +32,10 @@ int main() {
 	light->name = "light";
 	light->material = make_shared<Lambertian>(vec3(0));
 	light->material->emission = vec3(10);
+	light->material->emitDirection=vec3(0);
 
 	const int PlaneR = 4;
-	auto white = make_shared<Lambertian>(vec3(0.8));
+	auto white = make_shared<Lambertian>(vec3(0.73));
 
 	auto floor1 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(PlaneR, -2, -PlaneR),
 	                                    vec3(-PlaneR, -2, -PlaneR));
@@ -52,8 +53,7 @@ int main() {
 	auto greenWall2 = make_shared<Triangle>(vec3(PlaneR, -2, -PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, PlaneR),
 	                                        vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
 	greenWall2->name = "greenWall2";
-	greenWall1->material = greenWall2->material = make_shared<Lambertian>(
-			vec3(0.25, 0.75, 0.25));
+	greenWall1->material = greenWall2->material = make_shared<Lambertian>(vec3(0.12, 0.45, 0.15));
 
 	auto redWall1 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(-PlaneR, -2, -PlaneR),
 	                                      vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
@@ -62,7 +62,7 @@ int main() {
 	                                      vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR));
 	redWall2->name = "redWall2";
 	redWall1->material = redWall2->material = make_shared<Lambertian>(
-			vec3(0.75, 0.25, 0.25));
+			vec3(0.65, 0.05, 0.05));
 
 	auto ceil1 = make_shared<Triangle>(vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR),
 	                                   vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
@@ -70,6 +70,7 @@ int main() {
 	auto ceil2 = make_shared<Triangle>(vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, PlaneR),
 	                                   vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
 	ceil2->name = "ceil2";
+	ceil1->normal=ceil2->normal=vec3(0,-1,0);
 	ceil1->material = ceil2->material = white;
 
 	auto back1 = make_shared<Triangle>(vec3(-PlaneR, -2, -PlaneR), vec3(PlaneR, -2, -PlaneR),
@@ -89,6 +90,8 @@ int main() {
 	                                    vec3(PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4));
 	light2->name = "light2";
 	light1->material = light2->material = light->material;
+	light1->normal=light2->normal=vec3(0,-1,0);
+
 	mat4 enlarge(1.0f);
 	enlarge=scale(enlarge,vec3(1.5,1,1.5));
 //	light1->transform(enlarge);light2->transform(enlarge);

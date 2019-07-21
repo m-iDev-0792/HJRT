@@ -137,14 +137,10 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 			glm::vec2 uv;
 			bool hasUV = hitInfo.hitobject->getUV(hitInfo, &uv);
 			hitInfo.uv = uv;
-			glm::vec3 emission = hitInfo.hitobject->material->emissionTex == nullptr ?
-			                     hitInfo.hitobject->material->emission :
-			                     hitInfo.hitobject->material->emissionTex->getColor(uv);
+			glm::vec3 emission = hitInfo.hitobject->material->emitted(ray,hitInfo.uv);
 			float RRWeight=1.0f;//Russian roulette weight
 			if (depth > RRCutBounce) {
-				const glm::vec3 &f = hitInfo.hitobject->material->albedoTex == nullptr ?
-				                     hitInfo.hitobject->material->albedo :
-				                     hitInfo.hitobject->material->albedoTex->getColor(uv);
+				const glm::vec3 &f = hitInfo.hitobject->material->albedoed(hitInfo.uv);
 				//Set Russian roulette probability as max color contribution
 				float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
 
@@ -188,14 +184,10 @@ glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
 		glm::vec2 uv;
 		bool hasUV = hitInfo.hitobject->getUV(hitInfo, &uv);
 		hitInfo.uv = uv;
-		glm::vec3 emission = hitInfo.hitobject->material->emissionTex == nullptr ?
-		                     hitInfo.hitobject->material->emission :
-		                     hitInfo.hitobject->material->emissionTex->getColor(uv);
+		glm::vec3 emission = hitInfo.hitobject->material->emitted(ray,hitInfo.uv);
 		float RRWeight = 1.0f;//Russian roulette weight
 		if (depth > RRCutBounce) {
-			const glm::vec3 &f = hitInfo.hitobject->material->albedoTex == nullptr ?
-			                     hitInfo.hitobject->material->albedo :
-			                     hitInfo.hitobject->material->albedoTex->getColor(uv);
+			const glm::vec3 &f = hitInfo.hitobject->material->albedoed(hitInfo.uv);
 			//Set Russian roulette probability as max color contribution
 			float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
 			if (random0_1f() > RRProbability)return emission;
