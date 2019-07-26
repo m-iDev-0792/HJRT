@@ -1,16 +1,15 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
-#include <chrono>
-#include "objects.h"
+#include "geometry.h"
 #include "mesh.h"
 #include "pathtracer.h"
 #include "rtui.h"
+
 using namespace std;
 using namespace glm;
 
 int main() {
-	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512/2, 512/2, 45);
+	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512 / 2, 512 / 2, 45);
 
 	auto sphere = make_shared<Sphere>(vec3(0, -1, 0), 1);
 	sphere->name = "diffuse";
@@ -31,70 +30,58 @@ int main() {
 	auto light = make_shared<Sphere>(vec3(0, 6, 0), 1);
 	light->name = "light";
 	light->material = make_shared<Lambertian>(vec3(0));
-	light->material->emission = vec3(10);
-	light->material->emitDirection=vec3(0);
+	light->material->emission = vec3(20);
+	light->material->emitDirection = vec3(0);
 
 	const int PlaneR = 4;
 	auto white = make_shared<Lambertian>(vec3(0.73));
 
-	auto floor1 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(PlaneR, -2, -PlaneR),
-	                                    vec3(-PlaneR, -2, -PlaneR));
-	floor1->name = "floor1";
-	floor1->setUVs(vec2(0, 0),vec2(1, 1),vec2(0, 1));
+	//Floor
+	auto floor = make_shared<Plane>(vec3(-PlaneR, -2,  PlaneR),
+	                                vec3( PlaneR, -2,  PlaneR),
+	                                vec3( PlaneR, -2, -PlaneR),
+	                                vec3(-PlaneR, -2, -PlaneR));
+	floor->setMaterial(white);
 
-	auto floor2 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(PlaneR, -2, PlaneR), vec3(PlaneR, -2, -PlaneR));
-	floor2->name = "floor2";
-	floor2->setUVs(vec2(0, 0),vec2(1, 0),vec2(1, 1));
-	floor1->material = floor2->material = white;
+	//Green Wall
+	auto greenWall = make_shared<Plane>(vec3(PlaneR, -2, -PlaneR),
+	                                    vec3(PlaneR, -2, PlaneR),
+	                                    vec3(PlaneR, -2 + 2 * PlaneR, PlaneR),
+	                                    vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
+	greenWall->setMaterial(make_shared<Lambertian>(make_shared<SolidColorTexture>(0.12, 0.45, 0.15)));
 
-	auto greenWall1 = make_shared<Triangle>(vec3(PlaneR, -2, -PlaneR), vec3(PlaneR, -2, PlaneR),
-	                                        vec3(PlaneR, -2 + 2 * PlaneR, PlaneR));
-	greenWall1->name = "greenWall1";
-	auto greenWall2 = make_shared<Triangle>(vec3(PlaneR, -2, -PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, PlaneR),
-	                                        vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
-	greenWall2->name = "greenWall2";
-	greenWall1->material = greenWall2->material = make_shared<Lambertian>(vec3(0.12, 0.45, 0.15));
+	//Red Wall
+	auto redWall = make_shared<Plane>(vec3(-PlaneR, -2, PlaneR),
+	                                  vec3(-PlaneR, -2, -PlaneR),
+	                                  vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR),
+	                                  vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR));
+	redWall->setMaterial(make_shared<Lambertian>(vec3(0.65, 0.05, 0.05)));
 
-	auto redWall1 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(-PlaneR, -2, -PlaneR),
-	                                      vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
-	redWall1->name = "redWall1";
-	auto redWall2 = make_shared<Triangle>(vec3(-PlaneR, -2, PlaneR), vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR),
-	                                      vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR));
-	redWall2->name = "redWall2";
-	redWall1->material = redWall2->material = make_shared<Lambertian>(
-			vec3(0.65, 0.05, 0.05));
+	//Ceil
+	auto ceil = make_shared<Plane>(vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR),
+	                               vec3( PlaneR, -2 + 2 * PlaneR, -PlaneR),
+	                               vec3( PlaneR, -2 + 2 * PlaneR,  PlaneR),
+	                               vec3(-PlaneR, -2 + 2 * PlaneR,  PlaneR));
+	ceil->setMaterial(white);
 
-	auto ceil1 = make_shared<Triangle>(vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR),
-	                                   vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
-	ceil1->name = "ceil1";
-	auto ceil2 = make_shared<Triangle>(vec3(-PlaneR, -2 + 2 * PlaneR, PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, PlaneR),
-	                                   vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
-	ceil2->name = "ceil2";
-	ceil1->normal=ceil2->normal=vec3(0,-1,0);
-	ceil1->material = ceil2->material = white;
+	//Back
+	auto back = make_shared<Plane>(vec3(-PlaneR, -2, -PlaneR),
+	                               vec3( PlaneR, -2, -PlaneR),
+	                               vec3( PlaneR, -2 + 2 * PlaneR, -PlaneR),
+	                               vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
+	back->setMaterial(white);
 
-	auto back1 = make_shared<Triangle>(vec3(-PlaneR, -2, -PlaneR), vec3(PlaneR, -2, -PlaneR),
-	                                   vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
-	back1->name = "back1";
-	auto back2 = make_shared<Triangle>(vec3(-PlaneR, -2, -PlaneR), vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR),
-	                                   vec3(-PlaneR, -2 + 2 * PlaneR, -PlaneR));
-	back2->name = "back2";
-	back1->material = back2->material = white;
-
-	auto light1 = make_shared<Triangle>(vec3(-PlaneR / 4, -2.05 + 2 * PlaneR, PlaneR / 4),
-	                                    vec3(PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4),
-	                                    vec3(-PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4));
-	light1->name = "light1";
-	auto light2 = make_shared<Triangle>(vec3(-PlaneR / 4, -2.05 + 2 * PlaneR, PlaneR / 4),
-	                                    vec3(PlaneR / 4, -2.05 + 2 * PlaneR, PlaneR / 4),
-	                                    vec3(PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4));
-	light2->name = "light2";
-	light1->material = light2->material = light->material;
-	light1->normal=light2->normal=vec3(0,-1,0);
+	//Ceil Light
+	auto rectangleLight = make_shared<Plane>(vec3(-PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4),
+	                                         vec3( PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4),
+	                                         vec3( PlaneR / 4, -2.05 + 2 * PlaneR,  PlaneR / 4),
+	                                         vec3(-PlaneR / 4, -2.05 + 2 * PlaneR,  PlaneR / 4));
+	auto ceilLightMaterial = make_shared<Lambertian>(vec3(0),vec3(20));
+	ceilLightMaterial->emitDirection=vec3(0,-1,0);
+	rectangleLight->setMaterial(ceilLightMaterial);
 
 	mat4 enlarge(1.0f);
-	enlarge=scale(enlarge,vec3(1.5,1,1.5));
-//	light1->transform(enlarge);light2->transform(enlarge);
+	enlarge = scale(enlarge, vec3(1.5, 1, 1.5));
 
 	Scene scene;
 	scene.useBVH = false;
@@ -102,24 +89,13 @@ int main() {
 //	scene.objects.push_back(sphere);
 //	scene.objects.push_back(ground);
 //	scene.objects.push_back(metalSphere);
-	scene.objects.push_back(light1);
-	scene.objects.push_back(light2);
 
-	scene.objects.push_back(floor1);
-	scene.objects.push_back(floor2);
-
-	scene.objects.push_back(ceil1);
-	scene.objects.push_back(ceil2);
-
-	scene.objects.push_back(redWall1);
-	scene.objects.push_back(redWall2);
-
-	scene.objects.push_back(greenWall1);
-	scene.objects.push_back(greenWall2);
-
-	scene.objects.push_back(back1);
-	scene.objects.push_back(back2);
-
+	scene.objects.push_back(rectangleLight);
+	scene.objects.push_back(floor);
+	scene.objects.push_back(ceil);
+	scene.objects.push_back(redWall);
+	scene.objects.push_back(greenWall);
+	scene.objects.push_back(back);
 
 //	auto model=make_shared<Mesh>();
 //	model->transMat=scale(model->transMat,vec3(1.5f));
@@ -129,13 +105,14 @@ int main() {
 //	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
 //	scene.objects.push_back(model);
 
-	auto huaji=make_shared<Mesh>();
-	huaji->material=make_shared<Dielectric>(2.417);
-	huaji->transMat=translate(huaji->transMat,vec3(0,-2,0));
-	huaji->loadMesh("../mesh/diamondStanding.obj");
-	cout<<"loaded model: "<<huaji->name<<"  triangle num: "<<huaji->triangles.size()<<endl;
-	scene.objects.push_back(huaji);
+	auto mesh = make_shared<Mesh>();
+	mesh->material = make_shared<Dielectric>(2.417);
+	mesh->transMat = translate(mesh->transMat, vec3(0, -2, 0));
+	mesh->loadMesh("../mesh/diamondStanding.obj");
+	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
+	scene.objects.push_back(mesh);
 
+//-----fog example-----
 //	auto fogBoundary=make_shared<Sphere>(vec3(0,0,0),2);
 //	auto fog=make_shared<Fog>(0.3,fogBoundary);
 //	fog->material=make_shared<Isotropy>(vec3(0.576, 0.451, 0.647));
@@ -144,7 +121,18 @@ int main() {
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 20;
+	const int samples = 200;
+
+	//!Multiple Importance Sampling!
+	auto directSampler = make_shared<DirectLightSampler>();
+	directSampler->size = vec3(PlaneR / 2, 0, PlaneR / 2);
+	directSampler->lightDirection = vec3(0, -1, 0);
+	directSampler->startPoint = vec3(-PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4);
+	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
+	auto cosineSampler = make_shared<CosineHemisphereSampler>();
+	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.3);
+//	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->material->sampler = mixSampler;
+	//!Multiple Importance Sampling!
 
 	scene.constructBVH();
 
@@ -158,9 +146,9 @@ int main() {
 	path.render(image, camera, scene);
 
 
-	RTUI ui(800,600,"HJRT");
-	ui.film=&image;
-	ui.pathTracer=&path;
+	RTUI ui(800, 600, "HJRT");
+	ui.film = &image;
+	ui.pathTracer = &path;
 	ui.run();
 	glfwTerminate();
 

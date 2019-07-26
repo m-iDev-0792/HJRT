@@ -9,37 +9,41 @@ SolidColorTexture::SolidColorTexture(glm::vec3 _color) : color(_color) {
 
 }
 
-glm::vec3 SolidColorTexture::getColor(const glm::vec2 &uv) const {
+SolidColorTexture::SolidColorTexture(float _r, float _g, float _b) {
+	color = glm::vec3(_r, _g, _b);
+}
+
+glm::vec3 SolidColorTexture::getColor(const glm::vec2 &_uv) const {
 	return color;
 }
 
-ImageTexture::ImageTexture(std::string path) {
-	loadFromPath(path);
+ImageTexture::ImageTexture(std::string _path) {
+	loadFromPath(_path);
 }
 
-ImageTexture::ImageTexture(const ImageTexture &imgTex) {
-	width = imgTex.width;
-	height = imgTex.height;
-	channel = imgTex.channel;
+ImageTexture::ImageTexture(const ImageTexture &_imgTex) {
+	width = _imgTex.width;
+	height = _imgTex.height;
+	channel = _imgTex.channel;
 	if (data != nullptr)stbi_image_free(data);
 	data = new unsigned char[width * height * channel];
-	std::memcpy(data, imgTex.data, width * height * channel);
+	std::memcpy(data, _imgTex.data, width * height * channel);
 }
 
-ImageTexture &ImageTexture::operator=(const ImageTexture &imgTex) {
-	width = imgTex.width;
-	height = imgTex.height;
-	channel = imgTex.channel;
+ImageTexture &ImageTexture::operator=(const ImageTexture &_imgTex) {
+	width = _imgTex.width;
+	height = _imgTex.height;
+	channel = _imgTex.channel;
 	if (data != nullptr)stbi_image_free(data);
 	data = new unsigned char[width * height * channel];
-	std::memcpy(data, imgTex.data, width * height * channel);
+	std::memcpy(data, _imgTex.data, width * height * channel);
 	return *this;
 }
 
-bool ImageTexture::loadFromPath(std::string path) {
-	auto tempdata = stbi_load(path.c_str(), &width, &height, &channel, 0);
+bool ImageTexture::loadFromPath(std::string _path) {
+	auto tempdata = stbi_load(_path.c_str(), &width, &height, &channel, 0);
 	if (tempdata == nullptr) {
-		std::cout << "unable to load texture data from image:" << path << std::endl;
+		std::cout << "unable to load texture data from image:" << _path << std::endl;
 		return false;
 	}
 	if (data != nullptr)stbi_image_free(data);
@@ -47,12 +51,12 @@ bool ImageTexture::loadFromPath(std::string path) {
 	return true;
 }
 
-glm::vec3 ImageTexture::getColor(const glm::vec2 &uv) const {
+glm::vec3 ImageTexture::getColor(const glm::vec2 &_uv) const {
 	if (data == nullptr)return glm::vec3(0);
 	float u, v;
 	//TODO. extend filter method
-	u = uv.x < 0 ? 0 : uv.x > 1 ? 1 : uv.x;
-	v = uv.y < 0 ? 0 : uv.y > 1 ? 1 : uv.y;
+	u = _uv.x < 0 ? 0 : _uv.x > 1 ? 1 : _uv.x;
+	v = _uv.y < 0 ? 0 : _uv.y > 1 ? 1 : _uv.y;
 	int x = u * (width - 1);
 	int y = v * (height - 1);
 	return glm::vec3(static_cast<int>(data[(height - 1 - y) * width * channel + x * channel]) / 255.0,

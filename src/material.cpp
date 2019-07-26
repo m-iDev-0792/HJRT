@@ -3,17 +3,34 @@
 //
 
 #include "material.h"
-
-Lambertian::Lambertian(glm::vec3 _albedo) {
-	emission = glm::vec3(0);
+std::shared_ptr<Sampler> Material::defaultSampler = std::make_shared<CosineHemisphereSampler>();
+Lambertian::Lambertian(glm::vec3 _albedo, glm::vec3 _emission) {
+	emission = _emission;
 	albedo = _albedo;
+}
+Lambertian::Lambertian(std::shared_ptr<Texture> _albedoTex, std::shared_ptr<Texture> _emissionTex){
+	albedoTex=_albedoTex;
+	emissionTex=_emissionTex;
+}
+glm::vec3 Lambertian::brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const {
+	return albedoed(_hitInfo.uv) * static_cast<float>(M_1_PI);
 }
 
 bool Lambertian::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
 	if(glm::dot(ray.dir,hitInfo.normal)>=0)return false;
 	scatteredRay->origin = hitInfo.hitpoint;
 	scatteredRay->dir = glm::normalize(hitInfo.normal + sampleInsideSphereUniform());
-	*attenuation = (albedoTex == nullptr ? albedo : albedoTex->getColor(hitInfo.uv));
+	*attenuation = albedoed(hitInfo.uv);
+	return true;
+}
+
+bool Lambertian::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	if (glm::dot(ray.dir, hitInfo.normal) >= 0)return false;
+	scatteredRay->origin = hitInfo.hitpoint;
+	float samplingPDF = sampler->sample(hitInfo, &(scatteredRay->dir));
+	if(glm::dot(scatteredRay->dir,hitInfo.normal)<0||samplingPDF<=0)return false;//invalid ray sampling
+	//rendering equation
+	*attenuation = brdf(ray.dir, scatteredRay->dir, hitInfo) * glm::dot(hitInfo.normal, scatteredRay->dir) / samplingPDF;
 	return true;
 }
 
@@ -28,8 +45,12 @@ bool Metal::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuati
 	scatteredRay->origin = hitInfo.hitpoint;
 	if (fuzz == 0)scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
 	else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal) + fuzz * sampleInsideSphereUniform());
-	*attenuation = (albedoTex == nullptr ? albedo : albedoTex->getColor(hitInfo.uv));
+	*attenuation = albedoed(hitInfo.uv);
 	return (dot(scatteredRay->dir, hitInfo.normal) > 0);
+}
+
+bool Metal::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
 
 Dielectric::Dielectric(float _refractIndex) : refractIndex(_refractIndex) {
@@ -73,12 +94,18 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 
 	return true;
 }
+bool Dielectric::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	return scatter(ray, hitInfo, attenuation, scatteredRay);
+}
 Isotropy::Isotropy(glm::vec3 _albedo) {
 	albedo=_albedo;
 }
 bool Isotropy::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
-	*attenuation = (albedoTex == nullptr ? albedo : albedoTex->getColor(hitInfo.uv));
+	*attenuation = albedoed(hitInfo.uv);
 	scatteredRay->origin=ray.origin;
 	scatteredRay->dir= sampleInsideSphereUniform();
 	return true;
+}
+bool Isotropy::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }

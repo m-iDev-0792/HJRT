@@ -12,7 +12,7 @@ struct HitInfo {
 	glm::vec3 normal;//WARNING!!! keep normal normalized!!!
 	glm::vec2 uv;
 	const Object *hitobject;
-	HitInfo(){t=10e10;hitobject= nullptr;};
+	HitInfo(){t=10e10;hitobject= nullptr;}
 };
 
 struct Ray {

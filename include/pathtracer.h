@@ -6,6 +6,7 @@
 #define HJRT_PATHTRACER_H
 
 #include "integrator.h"
+#include "material.h"
 #include <thread>
 #include <mutex>
 constexpr int MAX_THREAD=128;

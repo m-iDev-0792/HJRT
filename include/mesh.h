@@ -5,28 +5,29 @@
 #ifndef HJRT_MESH_H
 #define HJRT_MESH_H
 
-#include "objects.h"
+#include "geometry.h"
 #include "bvh.h"
+#include "material.h"
 
 // NOTE.when use Mesh class for rendering
 // call transform() first
 // then call constructBVH()
 struct Mesh : Object {
-	glm::mat4 transMat;
+	glm::mat4 transMat;//WARNING tranMat actually doesn't work too much
 	std::shared_ptr<BVH> bvhRoot;
 	std::vector<std::shared_ptr<Object>> triangles;
 
 	Mesh();
 
-	Mesh(std::string path);
+	Mesh(const std::string &path);
 
-	Mesh(std::string path, std::shared_ptr<Material> _mat);
+	Mesh(const std::string &path, std::shared_ptr<Material> _mat);
 
 	void constructBVH();
 
-	bool loadMesh(std::string path);
+	bool loadMesh(const std::string &path);
 
-	void transform(glm::mat4 mat)override ;
+	void transform(glm::mat4 mat) override;
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 

@@ -7,14 +7,14 @@ Mesh::Mesh() : transMat(1.0f) {
 
 }
 
-Mesh::Mesh(std::string path) {
+Mesh::Mesh(const std::string &path) {
 	loadMesh(path);
 }
-Mesh::Mesh(std::string path, std::shared_ptr<Material> _mat){
+Mesh::Mesh(const std::string &path, std::shared_ptr<Material> _mat){
 	material=_mat;
 	loadMesh(path);
 }
-bool Mesh::loadMesh(std::string path) {
+bool Mesh::loadMesh(const std::string &path) {
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
 	std::vector<tinyobj::material_t> materials;
