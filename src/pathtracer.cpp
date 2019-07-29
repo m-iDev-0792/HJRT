@@ -98,8 +98,8 @@ void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Sce
 					for (int v = 0; v < antiAliasNum; ++v) {
 
 						for (int s = 0; s < samples; ++s) {
-							color = color + shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v));
-//							color = color + shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v), 1);
+							color = color + deNanInf(shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v)));
+//							color = color + deNanInf(shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v), 1));
 						}
 
 					}

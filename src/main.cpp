@@ -9,7 +9,7 @@ using namespace std;
 using namespace glm;
 
 int main() {
-	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512 / 2, 512 / 2, 45);
+	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512, 512, 45);
 
 	auto sphere = make_shared<Sphere>(vec3(0, -1, 0), 1);
 	sphere->name = "diffuse";
@@ -19,7 +19,7 @@ int main() {
 	metalSphere->name = "metal";
 	metalSphere->material = make_shared<Metal>(vec3(0.8), 0);
 
-	auto glassSphere = make_shared<Sphere>(vec3(2, -1, 0), 1);
+	auto glassSphere = make_shared<Sphere>(vec3(2, 0, 0), 1);
 	glassSphere->name = "glass";
 	glassSphere->material = make_shared<Dielectric>(1.5);
 
@@ -83,6 +83,7 @@ int main() {
 	mat4 enlarge(1.0f);
 	enlarge = scale(enlarge, vec3(1.5, 1, 1.5));
 
+
 	Scene scene;
 	scene.useBVH = false;
 	scene.ambient = vec3(0);
@@ -121,7 +122,7 @@ int main() {
 	Film image(camera.width, camera.height);
 
 	const int antiAliasNum = 2;
-	const int samples = 200;
+	const int samples = 20;
 
 	//!Multiple Importance Sampling!
 	auto directSampler = make_shared<DirectLightSampler>();
@@ -130,8 +131,8 @@ int main() {
 	directSampler->startPoint = vec3(-PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4);
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
-	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.3);
-//	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->material->sampler = mixSampler;
+	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.4);
+	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->material->sampler = mixSampler;
 	//!Multiple Importance Sampling!
 
 	scene.constructBVH();

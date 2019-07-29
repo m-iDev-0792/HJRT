@@ -52,7 +52,7 @@ float DirectLightSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDir
 	*_sampledDirection = glm::normalize(toLight);
 	float lightCosine = std::fabs(glm::dot(lightDirection, *_sampledDirection));
 //	if(test)std::cout<<"lightCosine: "<<lightCosine<<std::endl;
-	if (lightCosine < 0.0001)return -1;
+	if (lightCosine < 0.0001)return 0;
 //	if(test)std::cout<<"pdf "<<(glm::dot(toLight, toLight) / (lightCosine * size.x * size.z))<<std::endl;
 	return glm::dot(toLight, toLight) / (lightCosine * size.x * size.z);
 
@@ -71,7 +71,7 @@ float MixtureSampler::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) 
 }
 
 float MixtureSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
-	if (p1 < 0 || p1 > 1)return -1;
+	if (p1 < 0 || p1 > 1)return 0;
 	if (random0_1f() < p1) {
 		float p = p1 * sampler1->sample(_hitInfo, _sampledDirection);
 		return p + (1 - p) * sampler2->pdf(_hitInfo, *_sampledDirection);

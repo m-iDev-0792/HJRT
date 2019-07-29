@@ -6,6 +6,7 @@
 #define HJRT_GEOMETRY_H
 
 #include "objects.h"
+
 struct Triangle : public SampleableObject {
 	struct {
 		glm::vec3 v0;
@@ -94,7 +95,7 @@ struct Plane : public SampleableObject {
 	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
 };
 
-struct Sphere : public Object {
+struct Sphere : public SampleableObject {
 	glm::vec3 origin;
 	float r;
 
@@ -109,6 +110,11 @@ struct Sphere : public Object {
 	bool getAABB(AABB *box) const override;
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
+
+	//derive from SampleableObject
+	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
+
+	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
 };
 
 struct Fog : public Object {

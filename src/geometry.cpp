@@ -3,6 +3,7 @@
 //
 
 #include "geometry.h"
+#include "onb.h"
 //----------------------------------
 //           Sphere
 //----------------------------------
@@ -51,6 +52,31 @@ bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo) const {
 
 }
 
+float Sphere::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
+	HitInfo info;
+	Ray ray(_hitInfo.hitpoint, _direction);
+	if (this->intersect(ray, &info)) {
+		glm::vec3 p2c = origin - _hitInfo.hitpoint;
+		float cosineMax = std::sqrt(1 - r * r / (glm::dot(p2c, p2c)));
+		float solidAngle = M_2_PI * (1 - cosineMax);
+		return 1 / solidAngle;
+	} else
+		return 0;
+}
+
+float Sphere::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
+	float r1 = random0_1f(), r2 = random0_1f();
+	glm::vec3 p2c = origin - _hitInfo.hitpoint;
+	float cosineMax = std::sqrt(1 - r * r / (glm::dot(p2c, p2c)));
+	float z = 1 + r2 * (cosineMax - 1);
+	float sinTheta = std::sqrt(1 - z * z);
+	float phi = M_2_PI * r1;
+	float x = std::cos(phi) * sinTheta;
+	float y = std::sin(phi) * sinTheta;
+	*_sampledDirection = ONB::localFromW(_hitInfo.normal, glm::vec3(x, y, z));
+	float solidAngle = M_2_PI * (1 - cosineMax);
+	return 1 / solidAngle;
+}
 //----------------------------------
 //           Triangle
 //----------------------------------
@@ -167,13 +193,14 @@ float Triangle::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const 
 }
 
 float Triangle::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
-	//generate random point
-	glm::vec3 l1 = v1 - v0;
-	glm::vec3 l2 = v2 - v0;
-	float u = random0_1f();
-	float v = 1 - u;
-	glm::vec3 point = v0 + u * l1 + v * l2;
-//	if(random0_1f()<0.01)std::cout<<"sampling point: "<<point.x<<" "<<point.y<<" "<<point.z<<std::endl;
+	//generate random point, random point picking algorithm from https://blog.csdn.net/noahzuo/article/details/52886447
+	float s = random0_1f(), t = random0_1f();
+	if (s + t > 1) {
+		s = 1 - s;
+		t = 1 - t;
+	}
+	float a = 1 - s - t, b = s, c = t;
+	glm::vec3 point = a * v0 + b * v1 + c * v2;
 	//direction
 	glm::vec3 dis = point - _hitInfo.hitpoint;
 	*_sampledDirection = glm::normalize(dis);
@@ -259,7 +286,7 @@ float Plane::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const
 	//calculate sampling pdf
 	float cosine = std::fabs(glm::dot(triangles[0].normal, *_sampledDirection));
 	if (cosine < 0.0001)return 0;
-	return glm::dot(dis, dis) / (cosine * getArea());
+	return pdf(_hitInfo,*_sampledDirection);
 }
 
 //----------------------------------

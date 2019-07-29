@@ -22,7 +22,14 @@ template<typename T>
 float sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
-
+inline glm::vec3 deNanInf(const glm::vec3 &data){
+	glm::vec3 temp=data;
+	for(int i=0;i<3;++i){
+		if(isnan(temp[i]))temp[i]=0;
+		else if(isinf(temp[i]))temp[i]=1;
+	}
+	return temp;
+}
 inline glm::vec3 reflect(const glm::vec3 &dir, const glm::vec3 &normal) {
 	return dir - 2 * glm::dot(dir, normal) * normal;
 }

@@ -28,9 +28,10 @@ bool Lambertian::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *a
 	if (glm::dot(ray.dir, hitInfo.normal) >= 0)return false;
 	scatteredRay->origin = hitInfo.hitpoint;
 	float samplingPDF = sampler->sample(hitInfo, &(scatteredRay->dir));
-	if(glm::dot(scatteredRay->dir,hitInfo.normal)<0||samplingPDF<=0)return false;//invalid ray sampling
+	if (glm::dot(scatteredRay->dir, hitInfo.normal) < 0 || samplingPDF <= 0)return false;//invalid ray sampling
 	//rendering equation
-	*attenuation = brdf(ray.dir, scatteredRay->dir, hitInfo) * glm::dot(hitInfo.normal, scatteredRay->dir) / samplingPDF;
+	*attenuation =
+			brdf(ray.dir, scatteredRay->dir, hitInfo) * glm::dot(hitInfo.normal, scatteredRay->dir) / samplingPDF;
 	return true;
 }
 
