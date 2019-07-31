@@ -13,17 +13,38 @@
   <component name="ChangeListManager">
     <list default="true" id="5a782f66-7925-4249-82ff-1ffba5bd5ee1" name="Default Changelist" comment="Add Texture Support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/HJRT" beforeDir="false" afterPath="$PROJECT_DIR$/bin/HJRT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/image.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/bin/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/mitsuba.exr" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mitsuba.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/aabb.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/aabb.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/bvh.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/bvh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/camera.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/geometry.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/geometry.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/integrator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/integrator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/mesh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/objects.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/objects.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/pathtracer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pathtracer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ray.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ray.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/scene.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/274 trans+bvh.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/Texture.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/cornell2.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/cornellbox100samples.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/image copy 3.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/image copy 4.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/image.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/image5.15.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/torus100sp.ppm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bvh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/bvh.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/camera.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/geometry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometry.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/material.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/material.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/mesh.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pathtracer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pathtracer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sampler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/sampler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,30 +56,6 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>-1.95</find>
-      <find>drand48</find>
-      <find>shared</find>
-      <find>mat4</find>
-      <find>vec4</find>
-      <find>normalize</find>
-      <find>vector</find>
-      <find>shared_ptr</find>
-      <find>make_shared</find>
-      <find>dot</find>
-      <find>vec3</find>
-      <find>vec2</find>
-      <find>string</find>
-      <find>HJGraphics::GLFWWindowObject</find>
-      <find>M_PI</find>
-      <find>PI</find>
-      <find>cout</find>
-      <find>ref</find>
-      <find>endl</find>
-      <find>flag</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -137,7 +134,7 @@
       <workItem from="1563782013175" duration="12033000" />
       <workItem from="1563868027210" duration="17382000" />
       <workItem from="1564107346138" duration="1037000" />
-      <workItem from="1564108467692" duration="24910000" />
+      <workItem from="1564108467692" duration="60310000" />
     </task>
     <servers />
   </component>

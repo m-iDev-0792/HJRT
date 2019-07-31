@@ -5,11 +5,18 @@
 #include "scene.h"
 
 void Scene::constructBVH() {
+	if (!useBVH)return;
 	auto objectCopy = objects;
-	bvhRoot = std::make_shared<BVH>(objectCopy.begin(), objectCopy.end());
+	bvhRoot = std::make_shared<BVH>(objectCopy.begin(), objectCopy.end(), TimePeriod(0, 0));
 }
 
-bool Scene::intersect(const Ray &ray, HitInfo *hitInfo)const {
+void Scene::constructBVH(const TimePeriod &period) {
+	if (!useBVH)return;
+	auto objectCopy = objects;
+	bvhRoot = std::make_shared<BVH>(objectCopy.begin(), objectCopy.end(), period);
+}
+
+bool Scene::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	bool hitAnything = false;
 	if (useBVH) {
 		hitAnything = bvhRoot->intersect(ray, hitInfo);

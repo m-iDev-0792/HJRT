@@ -36,9 +36,9 @@ public:
 
 	glm::vec3 shade(const Scene& scene,const Ray& ray, int depth);//recursive shade function
 
-	void render(Film &film, Camera camera, Scene &scene) override;
+	void render(Film &film, Camera camera, Scene &scene, const TimePeriod &period = TimePeriod(0,0)) override;
 
-	void renderPerformer(int threadNum, Film &film, Camera camera,Scene &scene);
+	void renderPerformer(int threadNum, Film &film, Camera camera, Scene &scene, const TimePeriod &period);
 
 	bool isFinish();
 

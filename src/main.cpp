@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "geometry.h"
+#include "movingobject.h"
 #include "mesh.h"
 #include "pathtracer.h"
 #include "rtui.h"
@@ -9,7 +10,7 @@ using namespace std;
 using namespace glm;
 
 int main() {
-	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512, 512, 45);
+	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512/2, 512/2, 45);
 
 	auto sphere = make_shared<Sphere>(vec3(0, -1, 0), 1);
 	sphere->name = "diffuse";
@@ -98,6 +99,12 @@ int main() {
 	scene.objects.push_back(greenWall);
 	scene.objects.push_back(back);
 
+	auto movingSphere=make_shared<MovingSphere>(vec3(0),1,vec3(0,1,0));
+	movingSphere->material=metalSphere->material;
+	movingSphere->name="movingSphere";
+	scene.objects.push_back(movingSphere);
+
+
 //	auto model=make_shared<Mesh>();
 //	model->transMat=scale(model->transMat,vec3(1.5f));
 //	model->transMat=translate(model->transMat,vec3(0,0.35,0));
@@ -106,12 +113,23 @@ int main() {
 //	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
 //	scene.objects.push_back(model);
 
-	auto mesh = make_shared<Mesh>();
+/*	auto mesh = make_shared<Mesh>();
 	mesh->material = make_shared<Dielectric>(2.417);
 	mesh->transMat = translate(mesh->transMat, vec3(0, -2, 0));
 	mesh->loadMesh("../mesh/diamondStanding.obj");
 	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
-	scene.objects.push_back(mesh);
+	scene.objects.push_back(mesh);*/
+
+/*	auto mesh = make_shared<Mesh>();
+	mesh->material = metalSphere->material;//make_shared<Dielectric>(2.417);
+	mesh->transMat = translate(mesh->transMat, vec3(0, -2, 0));
+	mesh->transMat = rotate(mesh->transMat, radians(150.0f),vec3(0,-1,0));
+	mesh->transMat = scale(mesh->transMat, vec3(4));
+	mesh->loadMesh("../mesh/dragon.obj");
+	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
+	scene.objects.push_back(mesh);*/
+
+
 
 //-----fog example-----
 //	auto fogBoundary=make_shared<Sphere>(vec3(0,0,0),2);
@@ -135,7 +153,7 @@ int main() {
 	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->material->sampler = mixSampler;
 	//!Multiple Importance Sampling!
 
-	scene.constructBVH();
+//	scene.constructBVH();
 
 	//----------------------Render---------------------------
 	PathTracer path;
@@ -144,7 +162,7 @@ int main() {
 	path.samples = samples;
 	path.renderPortionBlock = 8;//path.renderThreadNum;
 
-	path.render(image, camera, scene);
+	path.render(image, camera, scene,TimePeriod(0,0));
 
 
 	RTUI ui(800, 600, "HJRT");

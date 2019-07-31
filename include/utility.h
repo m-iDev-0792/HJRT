@@ -6,6 +6,7 @@
 #define RTTEST_UTILITY_H
 
 #define _USE_MATH_DEFINES
+
 #include <vector>
 #include <iostream>
 #include <random>
@@ -17,19 +18,28 @@
 constexpr float ZERO = 0.0001;
 
 
-
 template<typename T>
 float sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
-inline glm::vec3 deNanInf(const glm::vec3 &data){
-	glm::vec3 temp=data;
-	for(int i=0;i<3;++i){
-		if(isnan(temp[i]))temp[i]=0;
-		else if(isinf(temp[i]))temp[i]=1;
+
+inline glm::vec3 transformPoint(const glm::vec3 &point, const glm::mat4 &mat) {
+	return glm::vec3(mat * glm::vec4(point, 1.0f));
+}
+
+inline glm::vec3 transformVector(const glm::vec3 &vec, const glm::mat4 &mat) {
+	return glm::vec3(mat * glm::vec4(vec, 0.0f));
+}
+
+inline glm::vec3 deNanInf(const glm::vec3 &data) {
+	glm::vec3 temp = data;
+	for (int i = 0; i < 3; ++i) {
+		if (isnan(temp[i]))temp[i] = 0;
+		else if (isinf(temp[i]))temp[i] = 1;
 	}
 	return temp;
 }
+
 inline glm::vec3 reflect(const glm::vec3 &dir, const glm::vec3 &normal) {
 	return dir - 2 * glm::dot(dir, normal) * normal;
 }
@@ -45,6 +55,7 @@ inline void toInt(glm::vec3 &color) {
 	color.g = (color.g > 255 ? 255 : (color.g < 0 ? 0 : static_cast<int>(color.g)));
 	color.b = (color.b > 255 ? 255 : (color.b < 0 ? 0 : static_cast<int>(color.b)));
 }
+
 //-------------------generate random data---------------------------//
 float random0_1f();
 
@@ -60,8 +71,8 @@ glm::vec3 sampleOnHemisphereUniform();
 
 glm::vec3 sampleOnHemisphereCosine();
 
-float fresnel(float cosine,float refractIndex);
+float fresnel(float cosine, float refractIndex);
 
-bool refract(const glm::vec3& incidence,const glm::vec3& normal,float ni_over_nt,glm::vec3* refracted);
+bool refract(const glm::vec3 &incidence, const glm::vec3 &normal, float ni_over_nt, glm::vec3 *refracted);
 
 #endif //RTTEST_UTILITY_H

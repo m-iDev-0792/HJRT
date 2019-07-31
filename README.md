@@ -4,12 +4,12 @@ HJRT is a portable C++14 path tracing renderer which renders image using naive b
 
 ![](log/img/demo.gif)
 
-**Features**
+#### Features
 
 + basic material and texture
 + multi-thread and spiral block rendering
 + BVH 
-+ depth of field
++ depth of field and motion blur
 + obj model loading 
 + participating media rendering, like fog 
 + multi-format image export
@@ -21,21 +21,7 @@ HJRT uses [Dear Imgui](https://github.com/ocornut/imgui) as program GUI to show 
 
 More results:
 
-![](log/img/dragon500samples-1720s.png)
-
-Mesh rendering
-
-![](log/img/fog.png)
-
-Participating media rendering
-
-![](log/img/diamondGood.png)
-
-Caustic rendering
-
-![](log/img/Texture.png)
-
-Texture mapping
+![](log/img/dragon500samples-1720s.png) ![](log/img/fog.png) ![](log/img/diamondGood.png)
 
 ![](log/img/MIS20spp27s.png) ![](log/img/PT20spp35s.png) ![](log/img/PT200spp287s.png) 
  
@@ -43,7 +29,11 @@ left: MIS@20spp took 27s; center:PT@20spp took 35s;  right:PT@200spp took 287s
 
 Multiple Importance Sampling
 
-**Acknowledge**
+![](log/img/motionBlur1.png) ![](log/img/motionBlur2.png) ![](log/img/motionBlur3.png) 
+
+Motion Blur
+
+####  Acknowledge
 
 This project is inspired by
 

@@ -6,19 +6,27 @@
 #define RTTEST_CAMERA_H
 #include "utility.h"
 #include "ray.h"
+
 struct Camera {
 	glm::vec3 position;
 	glm::vec3 direction;
-	const float zNear=1.0;//TODO. remove zNear and zFar?
+	const float zNear = 1.0;//TODO. remove zNear and zFar?
 	float zFar;
 	float fov;
 	int width;
 	int height;
 	float aperture;
 	float zFocus;
-	Camera()= default;
-	Camera(glm::vec3 _position,glm::vec3 _direction,int _width,int _height,float _fov,float _aperture=-1,float _zFocus=1);
-	Ray getRay(const float& u,const float& v);
+
+	Camera() = default;
+
+	Camera(glm::vec3 _position, glm::vec3 _direction, int _width, int _height, float _fov, float _aperture = -1,
+	       float _zFocus = 1);
+
+	Ray castRay(const float &u, const float &v);
+
+	Ray castRay(const float &u, const float &v, const TimePeriod &period);
+
 private:
 	glm::vec3 right;
 	glm::vec3 up;

@@ -20,6 +20,7 @@ bool Lambertian::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 	if(glm::dot(ray.dir,hitInfo.normal)>=0)return false;
 	scatteredRay->origin = hitInfo.hitpoint;
 	scatteredRay->dir = glm::normalize(hitInfo.normal + sampleInsideSphereUniform());
+	scatteredRay->time=ray.time;
 	*attenuation = albedoed(hitInfo.uv);
 	return true;
 }
@@ -27,6 +28,7 @@ bool Lambertian::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 bool Lambertian::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
 	if (glm::dot(ray.dir, hitInfo.normal) >= 0)return false;
 	scatteredRay->origin = hitInfo.hitpoint;
+	scatteredRay->time=ray.time;
 	float samplingPDF = sampler->sample(hitInfo, &(scatteredRay->dir));
 	if (glm::dot(scatteredRay->dir, hitInfo.normal) < 0 || samplingPDF <= 0)return false;//invalid ray sampling
 	//rendering equation
@@ -44,6 +46,7 @@ Metal::Metal(glm::vec3 _albedo, float _fuzz) {
 bool Metal::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
 	if(glm::dot(ray.dir,hitInfo.normal)>=0)return false;
 	scatteredRay->origin = hitInfo.hitpoint;
+	scatteredRay->time=ray.time;
 	if (fuzz == 0)scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
 	else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal) + fuzz * sampleInsideSphereUniform());
 	*attenuation = albedoed(hitInfo.uv);
@@ -86,10 +89,12 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 	if (random0_1f() < reflect_prob) {
 		//do reflect
 		scatteredRay->origin = hitInfo.hitpoint;
+		scatteredRay->time=ray.time;
 		scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
 	} else {
 		//do refract
 		scatteredRay->origin = hitInfo.hitpoint;
+		scatteredRay->time=ray.time;
 		scatteredRay->dir = glm::normalize(refracted);
 	}
 
@@ -104,6 +109,7 @@ Isotropy::Isotropy(glm::vec3 _albedo) {
 bool Isotropy::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
 	*attenuation = albedoed(hitInfo.uv);
 	scatteredRay->origin=ray.origin;
+	scatteredRay->time=ray.time;
 	scatteredRay->dir= sampleInsideSphereUniform();
 	return true;
 }

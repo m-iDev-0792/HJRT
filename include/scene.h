@@ -18,6 +18,8 @@ struct Scene {
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const;
 
 	void constructBVH();
+
+	void constructBVH(const TimePeriod &period);
 };
 
 

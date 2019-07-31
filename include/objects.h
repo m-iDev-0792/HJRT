@@ -15,7 +15,7 @@ struct Object {
 
 	virtual bool intersect(const Ray &ray, HitInfo *hitInfo) const = 0;
 
-	virtual bool getAABB(AABB *box) const = 0;
+	virtual bool getAABB(const TimePeriod &period, AABB *box) const = 0;
 
 	virtual bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const;
 

@@ -15,6 +15,6 @@ struct Integrator{
 		RENDERING
 	};
 	int state;
-	virtual void render(Film& image,Camera camera,Scene& scene)=0;
+	virtual void render(Film &image, Camera camera, Scene &scene, const TimePeriod &period = TimePeriod(0,0)) =0;
 };
 #endif //HJRT_RENDERER_H

@@ -15,7 +15,9 @@ PathTracer::PathTracer() {
 	latestRenderSec = 99999999;
 }
 
-void PathTracer::render(Film &film, Camera camera, Scene &scene) {
+void PathTracer::render(Film &film, Camera camera, Scene &scene, const TimePeriod &period) {
+	//initialize scene
+	scene.constructBVH(period);
 
 	//set up parameters
 	runningThreadNum = renderThreadNum > 0 ? renderThreadNum : std::thread::hardware_concurrency();
@@ -66,12 +68,12 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 
 	for (int i = 0; i < runningThreadNum; ++i) {
 		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, std::ref(film), camera,
-		                                           std::ref(scene));
+		                                           std::ref(scene), period);
 		threads[i]->detach();
 	}
 }
 
-void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Scene &scene) {
+void PathTracer::renderPerformer(int threadNum, Film &film, Camera camera, Scene &scene, const TimePeriod &period) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
 	auto startTime = std::chrono::high_resolution_clock::now();
@@ -90,7 +92,7 @@ void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Sce
 			taskMutex.unlock();
 		}
 
-		blockProgress[threadIndex] = 0;
+		blockProgress[threadNum] = 0;
 		for (int i = start.y; i < end.y; ++i) {//row
 			for (int j = start.x; j < end.x; ++j) {//column
 				glm::vec3 color(0);
@@ -98,8 +100,9 @@ void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Sce
 					for (int v = 0; v < antiAliasNum; ++v) {
 
 						for (int s = 0; s < samples; ++s) {
-							color = color + deNanInf(shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v)));
-//							color = color + deNanInf(shade(scene, camera.getRay(j + subS + subR * u, i + subS + subR * v), 1));
+							color = color + deNanInf(shade(scene,
+							                               camera.castRay(j + subS + subR * u, i + subS + subR * v, period)));
+//							color = color + deNanInf(shade(scene, camera.castRay(j + subS + subR * u, i + subS + subR * v), 1));
 						}
 
 					}
@@ -110,16 +113,16 @@ void PathTracer::renderPerformer(int threadIndex, Film &film, Camera camera, Sce
 				toInt(color);
 				film.setPixel(i, j, color);
 			}
-			blockProgress[threadIndex] = static_cast<float>(i + 1 - start.y) / (end.y - start.y);
+			blockProgress[threadNum] = static_cast<float>(i + 1 - start.y) / (end.y - start.y);
 		}
-		blockProgress[threadIndex] = 1;
+		blockProgress[threadNum] = 1;
 	}
 	//finished
 	auto endTime = std::chrono::high_resolution_clock::now();
 	auto secDura = std::chrono::duration_cast<std::chrono::seconds>(endTime - startTime);
 	latestRenderSec = secDura.count();
 	if (isFinish())state = Integrator::IDLE;
-	std::cout << "thread " << threadIndex << " finished" << std::endl;
+	std::cout << "thread " << threadNum << " finished" << std::endl;
 }
 
 glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {

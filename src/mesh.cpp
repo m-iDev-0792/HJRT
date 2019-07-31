@@ -127,11 +127,11 @@ bool Mesh::intersect(const Ray &ray, HitInfo *hitInfo) const {
 
 void Mesh::constructBVH() {
 	auto objectCopy = triangles;
-	bvhRoot = std::make_shared<BVH>(objectCopy.begin(), objectCopy.end());
+	bvhRoot = std::make_shared<BVH>(objectCopy.begin(), objectCopy.end(), TimePeriod(0, 0));
 }
 
-bool Mesh::getAABB(AABB *box) const {
+bool Mesh::getAABB(const TimePeriod &period, AABB *box) const {
 	if (bvhRoot == nullptr)return false;
-	bvhRoot->getAABB(box);
+	bvhRoot->getAABB(period, box);
 	return true;
 }

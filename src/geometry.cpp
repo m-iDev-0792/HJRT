@@ -4,13 +4,15 @@
 
 #include "geometry.h"
 #include "onb.h"
+
 //----------------------------------
 //           Sphere
 //----------------------------------
 void Sphere::transform(glm::mat4 mat) {
-	origin=glm::vec3(mat*glm::vec4(origin,1.0f));
+	origin = glm::vec3(mat * glm::vec4(origin, 1.0f));
 }
-bool Sphere::getAABB(AABB *box) const {
+
+bool Sphere::getAABB(const TimePeriod &period, AABB *box) const {
 	*box = AABB(origin - glm::vec3(r), origin + glm::vec3(r));
 	return true;
 }
@@ -48,13 +50,14 @@ bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	hitInfo->hitpoint = ray.origin + t * ray.dir;
 	hitInfo->normal = glm::normalize(hitInfo->hitpoint - origin);
 	hitInfo->hitobject = this;
+	hitInfo->hittime = ray.time;
 	return true;
 
 }
 
 float Sphere::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
 	HitInfo info;
-	Ray ray(_hitInfo.hitpoint, _direction);
+	Ray ray(_hitInfo.hitpoint, _direction, _hitInfo.hittime);
 	if (this->intersect(ray, &info)) {
 		glm::vec3 p2c = origin - _hitInfo.hitpoint;
 		float cosineMax = std::sqrt(1 - r * r / (glm::dot(p2c, p2c)));
@@ -77,6 +80,7 @@ float Sphere::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) cons
 	float solidAngle = M_2_PI * (1 - cosineMax);
 	return 1 / solidAngle;
 }
+
 //----------------------------------
 //           Triangle
 //----------------------------------
@@ -85,25 +89,28 @@ Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2) : v0(_v0), v1(_v
 	glm::vec3 E2 = this->v2 - this->v0;
 	//NOTE. we expect v0 v1 v2 are placed in counter-clock-wise
 	normal = glm::normalize(glm::cross(E1, E2));
-	isDoubleSided=false;
+	isDoubleSided = false;
 }
 
-Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2) : Triangle(_v0, _v1, _v2) {
+Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2)
+		: Triangle(_v0, _v1, _v2) {
 	setUVs(_uv0, _uv1, _uv2);
-	isDoubleSided=false;
+	isDoubleSided = false;
 }
+
 void Triangle::transform(glm::mat4 mat) {
-	for(int i=0;i<3;++i)
-		(*this)[i]=glm::vec3(mat*glm::vec4((*this)[i],1.0f));
-	normal=glm::normalize(glm::vec3(mat*glm::vec4(normal,0.0f)));
+	for (int i = 0; i < 3; ++i)
+		(*this)[i] = glm::vec3(mat * glm::vec4((*this)[i], 1.0f));
+	normal = glm::normalize(glm::vec3(mat * glm::vec4(normal, 0.0f)));
 }
+
 void Triangle::setUVs(glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2) {
 	uv[0] = _uv0;
 	uv[1] = _uv1;
 	uv[2] = _uv2;
 }
 
-bool Triangle::getAABB(AABB *box) const {
+bool Triangle::getAABB(const TimePeriod &period, AABB *box) const {
 	glm::vec3 min, max;
 	for (int i = 0; i < 3; ++i) {
 		min[i] = std::fmin(v0[i], std::fmin(v1[i], v2[i])) - 0.01;
@@ -165,7 +172,7 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	u *= fInvDet;
 	v *= fInvDet;
 	//
-	const float selfIntersectBias=1e-4;
+	const float selfIntersectBias = 1e-4;
 	if (t > hitInfo->t || t < selfIntersectBias)return false;
 	hitInfo->t = t;
 	hitInfo->uv = uv[0] * (1.0f - u - v) + uv[1] * u + uv[2] * v;//glm::vec2(u, v); //modified in 2019-7-25
@@ -174,6 +181,7 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	hitInfo->normal = isDoubleSided ? this->normal * sgn(glm::dot(-t * ray.dir, this->normal))
 	                                : this->normal;
 	hitInfo->hitobject = this;
+	hitInfo->hittime = ray.time;
 	return true;
 }
 
@@ -184,7 +192,7 @@ float Triangle::getArea() const {
 }
 
 float Triangle::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
-	Ray ray(_hitInfo.hitpoint, _direction);
+	Ray ray(_hitInfo.hitpoint, _direction, _hitInfo.hittime);
 	HitInfo info;
 	if (!this->intersect(ray, &info))return 0;
 	float cosine = std::fabs(glm::dot(normal, _direction));
@@ -242,27 +250,34 @@ Plane::Plane(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _v3, glm::ve
 	triangles[0] = Triangle(_v0, _v1, _v3, _normal, _uv0, _uv1, _uv3);
 	triangles[1] = Triangle(_v1, _v2, _v3, _normal, _uv1, _uv2, _uv3);
 }
+
 void Plane::transform(glm::mat4 mat) {
 	triangles[0].transform(mat);
 	triangles[1].transform(mat);
 }
-bool Plane::getAABB(AABB *box) const {
+
+bool Plane::getAABB(const TimePeriod &period, AABB *box) const {
 	glm::vec3 min, max;
 	for (int i = 0; i < 3; ++i) {
 		//------------------------------v0---------------------------v1----------------------------v2------------------v3-------------
-		min[i] = std::fmin(triangles[0].v0[i],std::fmin(triangles[1].v0[i], std::fmin(triangles[1].v1[i], triangles[1].v2[i]))) - 0.01;
-		max[i] = std::fmax(triangles[0].v0[i],std::fmax(triangles[1].v0[i], std::fmax(triangles[1].v1[i], triangles[1].v2[i]))) + 0.01;
+		min[i] = std::fmin(triangles[0].v0[i],
+		                   std::fmin(triangles[1].v0[i], std::fmin(triangles[1].v1[i], triangles[1].v2[i]))) - 0.01;
+		max[i] = std::fmax(triangles[0].v0[i],
+		                   std::fmax(triangles[1].v0[i], std::fmax(triangles[1].v1[i], triangles[1].v2[i]))) + 0.01;
 	}
 	*box = AABB(min, max);
 	return true;
 }
+
 void Plane::setUVs(glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2, glm::vec2 _uv3) {
-	triangles[0].setUVs(_uv0,_uv1,_uv3);
-	triangles[1].setUVs(_uv1,_uv2,_uv3);
+	triangles[0].setUVs(_uv0, _uv1, _uv3);
+	triangles[1].setUVs(_uv1, _uv2, _uv3);
 }
+
 bool Plane::intersect(const Ray &ray, HitInfo *hitInfo) const {
-	return triangles[0].intersect(ray,hitInfo)||triangles[1].intersect(ray,hitInfo);
+	return triangles[0].intersect(ray, hitInfo) || triangles[1].intersect(ray, hitInfo);
 }
+
 bool Plane::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
 	return true;
 }
@@ -277,16 +292,16 @@ float Plane::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
 }
 
 float Plane::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
-	glm::vec3 v0=triangles[0].v0,v1=triangles[1].v0,v3=triangles[1].v2;
-	glm::vec3 l1=v1-v0,l2=v3-v0;
-	glm::vec3 point=v0+random0_1f()*l1+random0_1f()*l2;
+	glm::vec3 v0 = triangles[0].v0, v1 = triangles[1].v0, v3 = triangles[1].v2;
+	glm::vec3 l1 = v1 - v0, l2 = v3 - v0;
+	glm::vec3 point = v0 + random0_1f() * l1 + random0_1f() * l2;
 	//direction
 	glm::vec3 dis = point - _hitInfo.hitpoint;
 	*_sampledDirection = glm::normalize(dis);
 	//calculate sampling pdf
 	float cosine = std::fabs(glm::dot(triangles[0].normal, *_sampledDirection));
 	if (cosine < 0.0001)return 0;
-	return pdf(_hitInfo,*_sampledDirection);
+	return pdf(_hitInfo, *_sampledDirection);
 }
 
 //----------------------------------
@@ -299,9 +314,8 @@ void Fog::transform(glm::mat4 mat) {
 bool Fog::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	HitInfo info1, info2;
 	if (boundary->intersect(ray, &info1)) {
-		Ray ray2(ray.origin + (info1.t + 0.0001f) * ray.dir, ray.dir);
+		Ray ray2(ray.origin + (info1.t + 0.0001f) * ray.dir, ray.dir, ray.time);
 		if (boundary->intersect(ray2, &info2)) {
-//			std::cout<<"info1 "<<info1.t<<"  info2 "<<info2.t<<std::endl;
 			float distance = info2.t;
 			float randomDistance = -(1 / density) * std::log(random0_1f());
 			if (randomDistance > distance)return false;
@@ -309,14 +323,15 @@ bool Fog::intersect(const Ray &ray, HitInfo *hitInfo) const {
 			hitInfo->normal = glm::vec3(0, 1, 0);
 			hitInfo->hitobject = this;
 			hitInfo->hitpoint = ray.origin + (randomDistance + info1.t) * ray.dir;
+			hitInfo->hittime = ray.time;
 			return true;
 		}
 	}
 	return false;
 }
 
-bool Fog::getAABB(AABB *box) const {
-	return boundary->getAABB(box);
+bool Fog::getAABB(const TimePeriod &period, AABB *box) const {
+	return boundary->getAABB(period, box);
 }
 
 bool Fog::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {

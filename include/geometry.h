@@ -41,7 +41,7 @@ struct Triangle : public SampleableObject {
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 
-	bool getAABB(AABB *box) const override;
+	bool getAABB(const TimePeriod &period, AABB *box) const override;
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
@@ -83,7 +83,7 @@ struct Plane : public SampleableObject {
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 
-	bool getAABB(AABB *box) const override;
+	bool getAABB(const TimePeriod &period, AABB *box) const override;
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
@@ -107,7 +107,7 @@ struct Sphere : public SampleableObject {
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 
-	bool getAABB(AABB *box) const override;
+	bool getAABB(const TimePeriod &period, AABB *box) const override;
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
@@ -127,7 +127,7 @@ struct Fog : public Object {
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 
-	bool getAABB(AABB *box) const override;
+	bool getAABB(const TimePeriod &period, AABB *box) const override;
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 

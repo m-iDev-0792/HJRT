@@ -31,7 +31,7 @@ struct Mesh : Object {
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
 
-	bool getAABB(AABB *box) const override;
+	bool getAABB(const TimePeriod &period, AABB *box) const override;
 };
 
 
