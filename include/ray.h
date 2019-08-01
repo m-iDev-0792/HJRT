@@ -5,7 +5,7 @@
 #ifndef HJRT_RAY_H
 #define HJRT_RAY_H
 
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
 
 struct Object;
 

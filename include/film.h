@@ -5,23 +5,28 @@
 #ifndef RTTEST_IMAGEEXPORTER_H
 #define RTTEST_IMAGEEXPORTER_H
 
-#include <glm/glm.hpp>
-#include <iostream>
+#include "glm/glm.hpp"
+#include "stb/stb_image_write.h"
+#include "tinyexr/tinyexr.h"
+#include "utility.h"
 #include <fstream>
-#include <stb/stb_image_write.h>
 
 struct Film {
 	int width;
 	int height;
 	unsigned char *data;
+	glm::vec3 *rawData;
 
 	Film(int _width, int _height);
 
 	~Film() {
 		delete[] data;
+		delete[] rawData;
 	}
 
 	const unsigned char *getData() { return data; }
+
+	const glm::vec3 *getRawData() { return rawData; }
 
 	void setPixel(int row, int column, const glm::vec3 &color);
 

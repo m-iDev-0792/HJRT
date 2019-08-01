@@ -202,13 +202,7 @@ float Triangle::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const 
 
 float Triangle::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
 	//generate random point, random point picking algorithm from https://blog.csdn.net/noahzuo/article/details/52886447
-	float s = random0_1f(), t = random0_1f();
-	if (s + t > 1) {
-		s = 1 - s;
-		t = 1 - t;
-	}
-	float a = 1 - s - t, b = s, c = t;
-	glm::vec3 point = a * v0 + b * v1 + c * v2;
+	glm::vec3 point = sampleInsideTriangleUniform(v0, v1, v2);
 	//direction
 	glm::vec3 dis = point - _hitInfo.hitpoint;
 	*_sampledDirection = glm::normalize(dis);

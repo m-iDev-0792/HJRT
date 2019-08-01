@@ -108,9 +108,6 @@ void PathTracer::renderPerformer(int threadNum, Film &film, Camera camera, Scene
 					}
 				}
 				color = color * (1.0f / (antiAliasNum * antiAliasNum * samples));
-				gammaCorrection(color);
-				color *= 255;
-				toInt(color);
 				film.setPixel(i, j, color);
 			}
 			blockProgress[threadNum] = static_cast<float>(i + 1 - start.y) / (end.y - start.y);

@@ -74,7 +74,16 @@ glm::vec3 sampleOnHemisphereCosine() {
 	                 std::sin(2 * M_PI * r1) * sinTheta,
 	                 std::sqrt(1 - r2));
 }
-
+//Sampling Triangle
+glm::vec3 sampleInsideTriangleUniform(const glm::vec3 &v0, const glm::vec3 &v1, const glm::vec3 &v2){
+	//generate random point, random point picking algorithm from https://blog.csdn.net/noahzuo/article/details/52886447
+	//derivation described in pbrt book
+	float sq = std::sqrt(random0_1f());
+	float s = 1 - sq;
+	float t = random0_1f() * sq;
+	float p = 1 - s - t;
+	return p * v0 + s * v1 + t * v2;
+}
 //use Schlick's approximation see https://en.wikipedia.org/wiki/Schlick%27s_approximation
 float fresnel(float cosine, float refractIndex) {
 	float r0 = (1 - refractIndex) / (1 + refractIndex);

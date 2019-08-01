@@ -31,16 +31,6 @@ struct CosineHemisphereSampler : Sampler {
 
 	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
 };
-//TODO. clean this class, this class is for test right now
-struct DirectLightSampler : Sampler {
-	glm::vec3 size;
-	glm::vec3 startPoint;
-	glm::vec3 lightDirection;
-
-	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
-
-	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
-};
 
 struct ObjectSampler : Sampler {
 	std::shared_ptr<SampleableObject> target;

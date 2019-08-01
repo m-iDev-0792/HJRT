@@ -102,7 +102,7 @@ int main() {
 	auto movingSphere=make_shared<MovingSphere>(vec3(0),1,vec3(0,1,0));
 	movingSphere->material=metalSphere->material;
 	movingSphere->name="movingSphere";
-	scene.objects.push_back(movingSphere);
+//	scene.objects.push_back(movingSphere);
 
 
 //	auto model=make_shared<Mesh>();
@@ -113,12 +113,12 @@ int main() {
 //	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
 //	scene.objects.push_back(model);
 
-/*	auto mesh = make_shared<Mesh>();
+	auto mesh = make_shared<Mesh>();
 	mesh->material = make_shared<Dielectric>(2.417);
 	mesh->transMat = translate(mesh->transMat, vec3(0, -2, 0));
 	mesh->loadMesh("../mesh/diamondStanding.obj");
 	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
-	scene.objects.push_back(mesh);*/
+	scene.objects.push_back(mesh);
 
 /*	auto mesh = make_shared<Mesh>();
 	mesh->material = metalSphere->material;//make_shared<Dielectric>(2.417);
@@ -143,13 +143,9 @@ int main() {
 	const int samples = 20;
 
 	//!Multiple Importance Sampling!
-	auto directSampler = make_shared<DirectLightSampler>();
-	directSampler->size = vec3(PlaneR / 2, 0, PlaneR / 2);
-	directSampler->lightDirection = vec3(0, -1, 0);
-	directSampler->startPoint = vec3(-PlaneR / 4, -2.05 + 2 * PlaneR, -PlaneR / 4);
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
-	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.4);
+	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.3);
 	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->material->sampler = mixSampler;
 	//!Multiple Importance Sampling!
 
@@ -162,7 +158,7 @@ int main() {
 	path.samples = samples;
 	path.renderPortionBlock = 8;//path.renderThreadNum;
 
-	path.render(image, camera, scene,TimePeriod(0,0));
+	path.render(image, camera, scene,TimePeriod(0,1.0));
 
 
 	RTUI ui(800, 600, "HJRT");
@@ -172,7 +168,7 @@ int main() {
 	glfwTerminate();
 
 	//----------------------Write image----------------------
-	image.save("image.png", "png");
+	image.save("image.exr", "exr");
 	cout << "finished" << endl;
 	return 0;
 }

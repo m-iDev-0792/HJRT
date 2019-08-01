@@ -1,5 +1,6 @@
 # TODO
 
-+ add Sampleable for triangle
-+ test Sampleable pdf function stabability
-+ add range t for Ray (big refactor)
++ refactor film class for HDR support
++ add Box object
++ add xml parser for loading scene
++ add tmin and tmax for intersect function
