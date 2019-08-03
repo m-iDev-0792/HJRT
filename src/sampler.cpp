@@ -44,9 +44,9 @@ float MixtureSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirecti
 	if (p1 < 0 || p1 > 1)return 0;
 	if (random0_1f() < p1) {
 		float p = p1 * sampler1->sample(_hitInfo, _sampledDirection);
-		return p + (1 - p) * sampler2->pdf(_hitInfo, *_sampledDirection);
+		return p + (1 - p1) * sampler2->pdf(_hitInfo, *_sampledDirection);
 	} else {
-		float p = sampler2->sample(_hitInfo, _sampledDirection);
+		float p = (1 - p1) * sampler2->sample(_hitInfo, _sampledDirection);
 		return p + p1 * sampler1->pdf(_hitInfo, *_sampledDirection);
 	}
 }

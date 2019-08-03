@@ -196,7 +196,7 @@ float Triangle::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const 
 	HitInfo info;
 	if (!this->intersect(ray, &info))return 0;
 	float cosine = std::fabs(glm::dot(normal, _direction));
-	if (cosine < 0.0001)return 0;
+	if (cosine < 0.00001)return 0;
 	return info.t * info.t / (cosine * getArea());
 }
 
@@ -208,7 +208,7 @@ float Triangle::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) co
 	*_sampledDirection = glm::normalize(dis);
 	//calculate sampling pdf
 	float cosine = std::fabs(glm::dot(normal, *_sampledDirection));
-	if (cosine < 0.0001)return 0;
+	if (cosine < 0.00001)return 0;
 	return glm::dot(dis, dis) / (cosine * getArea());
 }
 
@@ -294,7 +294,7 @@ float Plane::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const
 	*_sampledDirection = glm::normalize(dis);
 	//calculate sampling pdf
 	float cosine = std::fabs(glm::dot(triangles[0].normal, *_sampledDirection));
-	if (cosine < 0.0001)return 0;
+	if (cosine < 0.00001)return 0;
 	return pdf(_hitInfo, *_sampledDirection);
 }
 

@@ -14,17 +14,17 @@
 struct Film {
 	int width;
 	int height;
-	unsigned char *data;
+	unsigned char *discretizedData;
 	glm::vec3 *rawData;
 
 	Film(int _width, int _height);
 
 	~Film() {
-		delete[] data;
+		delete[] discretizedData;
 		delete[] rawData;
 	}
 
-	const unsigned char *getData() { return data; }
+	const unsigned char *getDiscretizedData() { return discretizedData; }
 
 	const glm::vec3 *getRawData() { return rawData; }
 

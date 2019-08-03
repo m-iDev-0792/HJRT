@@ -15,19 +15,12 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/HJRT" beforeDir="false" afterPath="$PROJECT_DIR$/bin/HJRT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/diamond-good943s.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/mitsuba.exr" beforeDir="false" afterPath="$PROJECT_DIR$/bin/mitsuba.exr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/image.exr" beforeDir="false" afterPath="$PROJECT_DIR$/bin/image.exr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/film.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/film.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ray.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ray.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/rtui.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/rtui.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/sampler.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/sampler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/film.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/film.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/geometry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometry.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pathtracer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pathtracer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtui.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sampler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/sampler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -117,7 +110,7 @@
       <workItem from="1563782013175" duration="12033000" />
       <workItem from="1563868027210" duration="17382000" />
       <workItem from="1564107346138" duration="1037000" />
-      <workItem from="1564108467692" duration="76773000" />
+      <workItem from="1564108467692" duration="81372000" />
     </task>
     <servers />
   </component>

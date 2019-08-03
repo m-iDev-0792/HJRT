@@ -73,7 +73,7 @@ void RTUI::render() {
 				glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 				glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, film->width, film->height, 0, GL_RGB,
-				             GL_UNSIGNED_BYTE, film->getData());
+				             GL_UNSIGNED_BYTE, film->getDiscretizedData());
 			}
 		}
 
@@ -118,7 +118,7 @@ void RTUI::customInit() {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, film->width, film->height, 0, GL_RGB,
-		             GL_UNSIGNED_BYTE, film->getData());
+		             GL_UNSIGNED_BYTE, film->getDiscretizedData());
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 	lasttime=std::chrono::high_resolution_clock::now();

@@ -14,7 +14,7 @@ inline void toInt(glm::vec3 &color) {
 }
 
 Film::Film(int _width, int _height) : width(_width), height(_height) {
-	data = new unsigned char[width * height * 3];
+	discretizedData = new unsigned char[width * height * 3];
 	rawData = new glm::vec3[width * height * 3];
 }
 
@@ -23,9 +23,9 @@ void Film::setPixel(int row, int column, const glm::vec3 &color) {
 	rawData[((height - 1 - row) * width + column)] = c;
 	gammaCorrection(c);
 	toInt(c);
-	data[((height - 1 - row) * width + column) * 3] = c.x;
-	data[((height - 1 - row) * width + column) * 3 + 1] = c.y;
-	data[((height - 1 - row) * width + column) * 3 + 2] = c.z;
+	discretizedData[((height - 1 - row) * width + column) * 3] = c.x;
+	discretizedData[((height - 1 - row) * width + column) * 3 + 1] = c.y;
+	discretizedData[((height - 1 - row) * width + column) * 3 + 2] = c.z;
 }
 
 bool SaveEXR(const float *rgb, int width, int height, const char *outfilename);
@@ -33,13 +33,13 @@ bool SaveEXR(const float *rgb, int width, int height, const char *outfilename);
 bool Film::save(std::string fileName, std::string format) const {
 
 	if (format == "png") {
-		return stbi_write_png(fileName.c_str(), width, height, 3, data, 0);
+		return stbi_write_png(fileName.c_str(), width, height, 3, discretizedData, 0);
 	} else if (format == "jpg") {
-		return stbi_write_jpg(fileName.c_str(), width, height, 3, data, 0);
+		return stbi_write_jpg(fileName.c_str(), width, height, 3, discretizedData, 0);
 	} else if (format == "bmp") {
-		return stbi_write_bmp(fileName.c_str(), width, height, 3, data);
+		return stbi_write_bmp(fileName.c_str(), width, height, 3, discretizedData);
 	} else if (format == "tga") {
-		return stbi_write_tga(fileName.c_str(), width, height, 3, data);
+		return stbi_write_tga(fileName.c_str(), width, height, 3, discretizedData);
 	} else if (format == "ppm") {
 		std::ofstream file(fileName);
 		if (!file.is_open())return false;
@@ -48,7 +48,7 @@ bool Film::save(std::string fileName, std::string format) const {
 		file << "255\n";
 		for (int i = 0; i < height; ++i) {
 			for (int j = 0; j < width; ++j) {
-				unsigned char *color = &data[(i * width + j) * 3];
+				unsigned char *color = &discretizedData[(i * width + j) * 3];
 				file << static_cast<int>(color[0]) << " " << static_cast<int>(color[1]) << " "
 				     << static_cast<int>(color[2]) << " ";
 			}
