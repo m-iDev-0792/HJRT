@@ -5,24 +5,24 @@
 #ifndef RTTEST_UTILITY_H
 #define RTTEST_UTILITY_H
 
-#define _USE_MATH_DEFINES
-
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "tinyobjloader/tiny_obj_loader.h"
+#include "constants.h"
 #include <vector>
 #include <iostream>
 #include <random>
 #include <string>
 
-constexpr float ZERO = 0.0001;
-
-
 template<typename T>
 float sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
+
+std::ostream& operator <<(std::ostream &s,const glm::vec2 vec);
+
+std::ostream& operator <<(std::ostream &s,const glm::vec3 vec);
 
 inline glm::vec3 transformPoint(const glm::vec3 &point, const glm::mat4 &mat) {
 	return glm::vec3(mat * glm::vec4(point, 1.0f));

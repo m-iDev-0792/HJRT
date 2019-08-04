@@ -8,10 +8,10 @@
 #include "bvh.h"
 
 struct Scene {
-	//TODO. tidy code
-	std::vector<std::shared_ptr<Object>> objects;
+	std::vector<std::shared_ptr<Shape>> objects;
 	std::shared_ptr<BVH> bvhRoot;
 	glm::vec3 ambient;
+	TimePeriod shutterPeriod;
 
 	bool useBVH;
 
@@ -20,6 +20,16 @@ struct Scene {
 	void constructBVH();
 
 	void constructBVH(const TimePeriod &period);
+
+	void addShape(std::shared_ptr<Shape> shape);
+
+	void addShape(std::string name, std::shared_ptr<Shape> shape);
+
+	void removeShape(std::shared_ptr<Shape> shape);
+
+	//WARNNING!! integrator MUST call this funtion before performing actual rendering jobs!
+	void prepareRendering();
+
 };
 
 

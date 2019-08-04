@@ -7,7 +7,7 @@
 
 #include "geometry.h"
 struct MovingObjectSubstitue{
-	std::shared_ptr<Object> ptr;//NOTE. our substitue.ptr doesn't have a material
+	std::shared_ptr<Shape> ptr;//NOTE. our substitue.ptr doesn't have a material
 	float timeTag;
 	MovingObjectSubstitue(){
 		timeTag=0;
@@ -20,7 +20,7 @@ protected:
 public:
 	MovingObject() = default;
 
-	virtual std::shared_ptr<Object> getSubstitute(float time) const =0;
+	virtual std::shared_ptr<Shape> getSubstitute(float time) const =0;
 
 	virtual glm::mat4 movementMat(float time) const = 0;
 };
@@ -51,13 +51,13 @@ struct MovingSphere : public Sphere, public UniformLinearMovingObject {
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
-	//derive from SampleableObject
+	//derive from SampleableShape
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
 
 	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
 
 	//derive from MovingObject
-	std::shared_ptr<Object> getSubstitute(float time) const override;
+	std::shared_ptr<Shape> getSubstitute(float time) const override;
 
 };
 

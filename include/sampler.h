@@ -8,7 +8,7 @@
 #include "utility.h"
 #include "onb.h"
 #include "ray.h"
-#include "objects.h"
+#include "shape.h"
 
 struct Sampler {
 	virtual float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const = 0;
@@ -33,11 +33,11 @@ struct CosineHemisphereSampler : Sampler {
 };
 
 struct ObjectSampler : Sampler {
-	std::shared_ptr<SampleableObject> target;
+	std::shared_ptr<SampleableShape> target;
 
 	ObjectSampler() = default;
 
-	ObjectSampler(std::shared_ptr<SampleableObject> _target) : target(_target) {}
+	ObjectSampler(std::shared_ptr<SampleableShape> _target) : target(_target) {}
 
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
 

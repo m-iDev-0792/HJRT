@@ -8,6 +8,10 @@
 //----------------------------------
 //           Sphere
 //----------------------------------
+void Sphere::describe() const {
+	std::cout << "Sphere " << name << ", r=" << r << ", origin=" << origin << std::endl;
+}
+
 void Sphere::transform(glm::mat4 mat) {
 	origin = glm::vec3(mat * glm::vec4(origin, 1.0f));
 }
@@ -21,15 +25,19 @@ bool Sphere::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
 	const glm::vec3 p = hitInfo.hitpoint - origin;
 	float v = asin(p.z);
 	float u = atan2(p.y, p.x);
-	u = 1 - (u + M_PI) / (2 * M_PI);
-	v = (v + M_PI / 2) / M_PI;
+	u = 1 - (u + C_PI) / (2 * C_PI);
+	v = (v + C_PI_OVER_TWO) / C_PI;
 	*uvCoord = glm::vec2(u, v);
 	return true;
 }
 
+float Sphere::getArea() const {
+	return C_FOUR_PI * r * r;
+}
+
 bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	glm::vec3 op = origin - ray.origin; // Solve t^2*d.d + 2*t*(o-p).d + (o-p).(o-p)-R^2 = 0
-	float eps = 1e-4, b = glm::dot(op, ray.dir), det = b * b - glm::dot(op, op) + r * r;
+	float b = glm::dot(op, ray.dir), det = b * b - glm::dot(op, op) + r * r;
 
 	if (det < 0)
 		return false;
@@ -37,15 +45,15 @@ bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo) const {
 		det = sqrt(det);
 	float t;
 
-	if ((t = b - det) > eps) {
+	if ((t = b - det) > ray.tMin) {
 		goto HIT;
-	} else if ((t = b + det) > eps) {
+	} else if ((t = b + det) > ray.tMin) {
 		goto HIT;
 	} else {
 		return false;
 	}
 	HIT:
-	if (t > hitInfo->t)return false;
+	if (t > hitInfo->t || t > ray.tMax)return false;
 	hitInfo->t = t;
 	hitInfo->hitpoint = ray.origin + t * ray.dir;
 	hitInfo->normal = glm::normalize(hitInfo->hitpoint - origin);
@@ -61,7 +69,7 @@ float Sphere::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
 	if (this->intersect(ray, &info)) {
 		glm::vec3 p2c = origin - _hitInfo.hitpoint;
 		float cosineMax = std::sqrt(1 - r * r / (glm::dot(p2c, p2c)));
-		float solidAngle = M_2_PI * (1 - cosineMax);
+		float solidAngle = C_TWO_PI * (1 - cosineMax);
 		return 1 / solidAngle;
 	} else
 		return 0;
@@ -73,11 +81,11 @@ float Sphere::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) cons
 	float cosineMax = std::sqrt(1 - r * r / (glm::dot(p2c, p2c)));
 	float z = 1 + r2 * (cosineMax - 1);
 	float sinTheta = std::sqrt(1 - z * z);
-	float phi = M_2_PI * r1;
+	float phi = C_TWO_PI * r1;
 	float x = std::cos(phi) * sinTheta;
 	float y = std::sin(phi) * sinTheta;
 	*_sampledDirection = ONB::localFromW(_hitInfo.normal, glm::vec3(x, y, z));
-	float solidAngle = M_2_PI * (1 - cosineMax);
+	float solidAngle = C_TWO_PI * (1 - cosineMax);
 	return 1 / solidAngle;
 }
 
@@ -96,6 +104,10 @@ Triangle::Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec2 _uv0, 
 		: Triangle(_v0, _v1, _v2) {
 	setUVs(_uv0, _uv1, _uv2);
 	isDoubleSided = false;
+}
+
+void Triangle::describe() const {
+	std::cout << "Triangle " << name << ", v0=" << v0 << ", v1=" << v1 << ", v2=" << v2 << std::endl;
 }
 
 void Triangle::transform(glm::mat4 mat) {
@@ -171,9 +183,8 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	t *= fInvDet;
 	u *= fInvDet;
 	v *= fInvDet;
-	//
-	const float selfIntersectBias = 1e-4;
-	if (t > hitInfo->t || t < selfIntersectBias)return false;
+
+	if (t > hitInfo->t || t < ray.tMin || t > ray.tMax)return false;
 	hitInfo->t = t;
 	hitInfo->uv = uv[0] * (1.0f - u - v) + uv[1] * u + uv[2] * v;//glm::vec2(u, v); //modified in 2019-7-25
 	hitInfo->hitpoint = ray.origin + t * ray.dir;// same as :hitInfo->hitpoint=this->v0+u*E1+v*E2;
@@ -245,6 +256,13 @@ Plane::Plane(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _v3, glm::ve
 	triangles[1] = Triangle(_v1, _v2, _v3, _normal, _uv1, _uv2, _uv3);
 }
 
+void Plane::describe() const {
+	auto &t1 = triangles[0];
+	auto &t2 = triangles[1];
+	std::cout << "Plane " << name << "\n v0=" << t1.v0 << ", v1=" << t2.v0 << "\nv2=" << t2.v1 << ", v3=" << t2.v2
+	          << std::endl;
+}
+
 void Plane::transform(glm::mat4 mat) {
 	triangles[0].transform(mat);
 	triangles[1].transform(mat);
@@ -301,6 +319,11 @@ float Plane::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const
 //----------------------------------
 //           Fog
 //----------------------------------
+void Fog::describe() const {
+	std::cout << "Fog " << name << " boundary: ";
+	boundary->describe();
+}
+
 void Fog::transform(glm::mat4 mat) {
 	boundary->transform(mat);
 }
@@ -308,7 +331,7 @@ void Fog::transform(glm::mat4 mat) {
 bool Fog::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	HitInfo info1, info2;
 	if (boundary->intersect(ray, &info1)) {
-		Ray ray2(ray.origin + (info1.t + 0.0001f) * ray.dir, ray.dir, ray.time);
+		Ray ray2(ray.origin + (info1.t + 0.0001f) * ray.dir, ray.dir, ray.time, ray.tMin, ray.tMax);
 		if (boundary->intersect(ray2, &info2)) {
 			float distance = info2.t;
 			float randomDistance = -(1 / density) * std::log(random0_1f());
@@ -330,4 +353,8 @@ bool Fog::getAABB(const TimePeriod &period, AABB *box) const {
 
 bool Fog::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
 	return false;
+}
+
+float Fog::getArea() const {
+	return boundary->getArea();
 }

@@ -3,17 +3,19 @@
 //
 #include "mesh.h"
 
-Mesh::Mesh() : transMat(1.0f) {
+Mesh::Mesh() {
 
 }
 
 Mesh::Mesh(const std::string &path) {
 	loadMesh(path);
 }
-Mesh::Mesh(const std::string &path, std::shared_ptr<Material> _mat){
-	material=_mat;
+
+Mesh::Mesh(const std::string &path, std::shared_ptr<Material> _mat) {
+	material = _mat;
 	loadMesh(path);
 }
+
 bool Mesh::loadMesh(const std::string &path) {
 	tinyobj::attrib_t attrib;
 	std::vector<tinyobj::shape_t> shapes;
@@ -36,21 +38,21 @@ bool Mesh::loadMesh(const std::string &path) {
 	}
 	//create Material object for each obj material
 	std::vector<std::shared_ptr<Material>> materialPtr;
-	for(int i=0;i<materials.size();++i){
-		glm::vec3 albedo(materials[i].diffuse[0],materials[i].diffuse[1],materials[i].diffuse[2]);
-		glm::vec3 emission(materials[i].emission[0],materials[i].emission[1],materials[i].emission[2]);
-		auto newMtl=std::make_shared<Lambertian>(albedo);
-		newMtl->emission=emission;
-		if(!materials[i].diffuse_texname.empty()){
-			newMtl->albedoTex=std::make_shared<ImageTexture>(materials[i].diffuse_texname);
+	for (int i = 0; i < materials.size(); ++i) {
+		glm::vec3 albedo(materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
+		glm::vec3 emission(materials[i].emission[0], materials[i].emission[1], materials[i].emission[2]);
+		auto newMtl = std::make_shared<Lambertian>(albedo, emission);
+
+		if (!materials[i].diffuse_texname.empty()) {
+			newMtl->albedoTex = std::make_shared<ImageTexture>(materials[i].diffuse_texname);
 		}
-		if(!materials[i].emissive_texname.empty()){
-			newMtl->emissionTex=std::make_shared<ImageTexture>(materials[i].emissive_texname);
+		if (!materials[i].emissive_texname.empty()) {
+			newMtl->emissionTex = std::make_shared<ImageTexture>(materials[i].emissive_texname);
 		}
 		materialPtr.push_back(newMtl);
 	}
 	//if mesh doesn't have a material yet then use default material
-	if(material== nullptr)material=std::make_shared<Lambertian>(glm::vec3(0.8));
+	if (material == nullptr)material = std::make_shared<Lambertian>(glm::vec3(0.8));
 	triangles.clear();
 	//Loop over shapes
 	for (size_t s = 0; s < shapes.size(); s++) {
@@ -64,7 +66,7 @@ bool Mesh::loadMesh(const std::string &path) {
 
 			// Loop over vertices in the face.
 			for (size_t v = 0; v < vertexNum; v++) {
-				if(v>=3)break;
+				if (v >= 3)break;
 				// access to vertex
 				tinyobj::index_t idx = shapes[s].mesh.indices[index_offset + v];
 
@@ -86,35 +88,51 @@ bool Mesh::loadMesh(const std::string &path) {
 			}
 			std::shared_ptr<Triangle> face;
 			glm::vec3 faceNormal(0);
-			for(auto& n:normal)faceNormal+=n;
-			faceNormal*=1/3.0f;
+			for (auto &n:normal)faceNormal += n;
+			faceNormal *= 1 / 3.0f;
 
-			if(hasNormal)face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2],normal[0]);
-			else{
-				face=std::make_shared<Triangle>(vertex[0],vertex[1],vertex[2]);
+			if (hasNormal)face = std::make_shared<Triangle>(vertex[0], vertex[1], vertex[2], normal[0]);
+			else {
+				face = std::make_shared<Triangle>(vertex[0], vertex[1], vertex[2]);
 			}
 
-			if(hasTexCoord)face->setUVs(texCoord[0],texCoord[1],texCoord[2]);
+			if (hasTexCoord)face->setUVs(texCoord[0], texCoord[1], texCoord[2]);
 
-			face->name=shapes[s].name+std::string("_face_")+std::to_string(f);
+			face->name = shapes[s].name + std::string("_face_") + std::to_string(f);
 			triangles.push_back(face);
 			index_offset += vertexNum;
 
-			int mtlIndex=shapes[s].mesh.material_ids[f];
-			if(mtlIndex<materials.size()&&mtlIndex>0)face->material=materialPtr[mtlIndex];
-			else face->material=material;
+			int mtlIndex = shapes[s].mesh.material_ids[f];
+			if (mtlIndex < materials.size() && mtlIndex > 0)face->material = materialPtr[mtlIndex];
+			else face->material = material;
 		}
 	}
 
 	if (triangles.empty())return false;
 	else {
 		name = path;
-		transform(transMat);
-		constructBVH();
 		return true;
 	}
 }
 
+void Mesh::describe() const {
+	std::cout << "Mesh " << name << ", trianglesNum=" << triangles.size() << std::endl;
+}
+
+float Mesh::getArea() const {
+	float area = 0;
+	for (auto &t:triangles) {
+		area += t->getArea();
+	}
+	return area;
+}
+
+void Mesh::setMaterial(std::shared_ptr<Material> _material) {
+	material = _material;
+	for (auto &t:triangles) {
+		t->setMaterial(_material);
+	}
+}
 void Mesh::transform(glm::mat4 mat) {
 	if (mat == glm::mat4(1.0f))return;
 	for (auto &t:triangles)
@@ -134,4 +152,8 @@ bool Mesh::getAABB(const TimePeriod &period, AABB *box) const {
 	if (bvhRoot == nullptr)return false;
 	bvhRoot->getAABB(period, box);
 	return true;
+}
+
+void Mesh::prepareRendering() {
+	constructBVH();
 }

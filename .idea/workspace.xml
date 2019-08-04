@@ -13,14 +13,34 @@
   <component name="ChangeListManager">
     <list default="true" id="5a782f66-7925-4249-82ff-1ffba5bd5ee1" name="Default Changelist" comment="Add Texture Support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/HJRT" beforeDir="false" afterPath="$PROJECT_DIR$/bin/HJRT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/bugFixed.exr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/image copy.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/image.exr" beforeDir="false" afterPath="$PROJECT_DIR$/bin/image.exr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/film.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/film.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/film.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/film.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/original.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/bvh.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/bvh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/geometry.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/geometry.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/integrator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/integrator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/material.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/material.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/mesh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/movingobject.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/movingobject.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/objects.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/shape.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/pathtracer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pathtracer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ray.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ray.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/sampler.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/sampler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/scene.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bvh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/bvh.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/geometry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometry.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtui.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/material.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/material.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/mesh.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/movingobject.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/movingobject.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/objects.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/shape.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pathtracer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pathtracer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/sampler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/sampler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -110,18 +130,9 @@
       <workItem from="1563782013175" duration="12033000" />
       <workItem from="1563868027210" duration="17382000" />
       <workItem from="1564107346138" duration="1037000" />
-      <workItem from="1564108467692" duration="81372000" />
+      <workItem from="1564108467692" duration="104651000" />
     </task>
     <servers />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />

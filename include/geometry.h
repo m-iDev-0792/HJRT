@@ -5,9 +5,9 @@
 #ifndef HJRT_GEOMETRY_H
 #define HJRT_GEOMETRY_H
 
-#include "objects.h"
+#include "shape.h"
 
-struct Triangle : public SampleableObject {
+struct Triangle : public SampleableShape {
 	struct {
 		glm::vec3 v0;
 		glm::vec3 v1;
@@ -25,7 +25,8 @@ struct Triangle : public SampleableObject {
 
 	Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2);
 
-	Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _normal) : v0(_v0), v1(_v1), v2(_v2), normal(_normal) {
+	Triangle(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _normal) : v0(_v0), v1(_v1), v2(_v2),
+	                                                                           normal(_normal) {
 		isDoubleSided = false;
 	}
 
@@ -34,6 +35,8 @@ struct Triangle : public SampleableObject {
 		setUVs(_uv0, _uv1, _uv2);
 		isDoubleSided = false;
 	}
+
+	void describe() const override;
 
 	void setUVs(glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2);
 
@@ -45,9 +48,9 @@ struct Triangle : public SampleableObject {
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
-	float getArea() const;
+	float getArea() const override;
 
-	//derive from SampleableObject
+	//derive from SampleableShape
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
 
 	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
@@ -58,7 +61,7 @@ struct Triangle : public SampleableObject {
 	}
 };
 
-struct Plane : public SampleableObject {
+struct Plane : public SampleableShape {
 	Triangle triangles[2];
 
 	Plane() = default;
@@ -73,8 +76,10 @@ struct Plane : public SampleableObject {
 	Plane(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _v3, glm::vec3 _normal, glm::vec3 _uv0, glm::vec3 _uv1,
 	      glm::vec3 _uv2, glm::vec3 _uv3);
 
-	void setMaterial(std::shared_ptr<Material> _material){
-		triangles[0].material=triangles[1].material=material=_material;
+	void describe() const override;
+
+	void setMaterial(std::shared_ptr<Material> _material) override {
+		triangles[0].material = triangles[1].material = material = _material;
 	}
 
 	void setUVs(glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2, glm::vec2 _uv3);
@@ -87,15 +92,15 @@ struct Plane : public SampleableObject {
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
-	float getArea() const;
+	float getArea() const override;
 
-	//derive from SampleableObject
+	//derive from SampleableShape
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
 
 	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
 };
 
-struct Sphere : public SampleableObject {
+struct Sphere : public SampleableShape {
 	glm::vec3 origin;
 	float r;
 
@@ -103,6 +108,8 @@ struct Sphere : public SampleableObject {
 
 	Sphere(glm::vec3 _origin, float _r) : origin(_origin), r(_r) {}
 
+	void describe() const override;
+
 	void transform(glm::mat4 mat) override;
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;
@@ -111,17 +118,21 @@ struct Sphere : public SampleableObject {
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
-	//derive from SampleableObject
+	float getArea() const override;
+
+	//derive from SampleableShape
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
 
 	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
 };
 
-struct Fog : public Object {
-	std::shared_ptr<Object> boundary;
+struct Fog : public Shape {
+	std::shared_ptr<Shape> boundary;
 	float density;
 
-	Fog(float _density, std::shared_ptr<Object> _boundary) : density(_density), boundary(_boundary) {};
+	Fog(float _density, std::shared_ptr<Shape> _boundary) : density(_density), boundary(_boundary) {};
+
+	void describe() const override;
 
 	void transform(glm::mat4 mat) override;
 
@@ -131,5 +142,8 @@ struct Fog : public Object {
 
 	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
 
+	float getArea() const override;
+
 };
+
 #endif //HJRT_GEOMETRY_H

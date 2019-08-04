@@ -7,7 +7,9 @@
 
 #include "glm/glm.hpp"
 
-struct Object;
+constexpr float RAY_T_INFINITY = 10e10;
+constexpr float RAY_T_DEFAULT_MIN = 10e-4;
+struct Shape;
 
 struct TimePeriod {
 	float start;
@@ -24,10 +26,10 @@ struct HitInfo {
 	glm::vec3 hitpoint;
 	glm::vec3 normal;//WARNING!!! keep normal normalized!!!
 	glm::vec2 uv;
-	const Object *hitobject;
+	const Shape *hitobject;
 
 	HitInfo() {
-		t = 10e10;
+		t = RAY_T_INFINITY;
 		hitobject = nullptr;
 	}
 };
@@ -36,12 +38,19 @@ struct Ray {
 	glm::vec3 origin;
 	glm::vec3 dir;
 	float time;
+	float tMax;
+	float tMin;
 
-	Ray() = default;
-
-	Ray(glm::vec3 _origin, glm::vec3 _dir) : origin(_origin), dir(_dir) { time = 0; }
-
-	Ray(glm::vec3 _origin, glm::vec3 _dir, float _time) : origin(_origin), dir(_dir), time(_time) {}
+	Ray() {
+		time = 0;
+		tMin = RAY_T_DEFAULT_MIN;
+		tMax = RAY_T_INFINITY;
+	}
+	//NOTE!! in Camera::castRay dosen's use tMin and tMax parameters
+	Ray(glm::vec3 _origin, glm::vec3 _dir, float _time = 0, float _tMin = RAY_T_DEFAULT_MIN,
+	    float _tMax = RAY_T_INFINITY) : origin(_origin), dir(_dir),
+	                                    time(_time), tMin(_tMin),
+	                                    tMax(_tMax) {}
 };
 
 

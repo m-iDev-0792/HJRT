@@ -5,6 +5,15 @@
 
 #include "utility.h"
 
+std::ostream& operator <<(std::ostream &s,const glm::vec2 vec){
+	s<<"("<<vec.x<<","<<vec.y<<")";
+	return s;
+}
+std::ostream& operator <<(std::ostream &s,const glm::vec3 vec){
+	s<<"("<<vec.x<<","<<vec.y<<","<<vec.z<<")";
+	return s;
+}
+
 float random0_1f() {
 	static std::random_device seed;
 	static std::mt19937 engine(seed());
@@ -13,7 +22,7 @@ float random0_1f() {
 }
 
 glm::vec3 sampleInsideDiskUniform() {
-	float theta = 2 * M_PI * random0_1f();
+	float theta = C_TWO_PI * random0_1f();
 	float r = std::sqrt(random0_1f());
 	return glm::vec3(r * std::cos(theta), r * std::sin(theta), 0);
 	//Rejection sampling, Legacy code, not efficient
@@ -29,8 +38,8 @@ glm::vec3 sampleInsideSphereUniform() {
 	float r2 = random0_1f();
 	float r3 = std::cbrt(random0_1f());
 	float sinTheta = 2 * std::sqrt(r2 * (1 - r2));
-	return glm::vec3(r3 * std::cos(2 * M_PI * r1) * sinTheta,
-	                 r3 * std::sin(2 * M_PI * r1) * sinTheta,
+	return glm::vec3(r3 * std::cos(C_TWO_PI * r1) * sinTheta,
+	                 r3 * std::sin(C_TWO_PI * r1) * sinTheta,
 	                 r3 * (1 - 2 * r2));
 	//Rejection sampling, Legacy code, not efficient
 //	glm::vec3 p;
@@ -44,8 +53,8 @@ glm::vec3 sampleOnSphereUniform() {
 	float r1 = random0_1f();
 	float r2 = random0_1f();
 	float sinTheta = 2 * std::sqrt(r2 * (1 - r2));
-	return glm::vec3(std::cos(2 * M_PI * r1) * sinTheta,
-	                 std::sin(2 * M_PI * r1) * sinTheta,
+	return glm::vec3(std::cos(C_TWO_PI * r1) * sinTheta,
+	                 std::sin(C_TWO_PI * r1) * sinTheta,
 	                 1 - 2 * r2);
 }
 glm::vec3 sampleOnSphereCosine() {
@@ -53,8 +62,8 @@ glm::vec3 sampleOnSphereCosine() {
 	float r2 = random0_1f();
 	float cosTheta = sgn(2 * r2 - 1) * std::sqrt(std::abs(2 * r2 - 1));
 	float sinTheta = 2 * std::sqrt(1 - cosTheta * cosTheta);
-	return glm::vec3(std::cos(2 * M_PI * r1) * sinTheta,
-	                 std::sin(2 * M_PI * r1) * sinTheta,
+	return glm::vec3(std::cos(C_TWO_PI * r1) * sinTheta,
+	                 std::sin(C_TWO_PI * r1) * sinTheta,
 	                 cosTheta);
 }
 //Sampling Hemisphere
@@ -62,16 +71,16 @@ glm::vec3 sampleOnHemisphereUniform() {
 	float r1 = random0_1f();
 	float r2 = random0_1f();
 	float sinTheta = std::sqrt(1 - r2 * r2);
-	return glm::vec3(std::cos(2 * M_PI * r1) * sinTheta,
-	                 std::sin(2 * M_PI * r1) * sinTheta,
+	return glm::vec3(std::cos(C_TWO_PI * r1) * sinTheta,
+	                 std::sin(C_TWO_PI * r1) * sinTheta,
 	                 r2);
 }
 glm::vec3 sampleOnHemisphereCosine() {
 	float r1 = random0_1f();
 	float r2 = random0_1f();
 	float sinTheta = std::sqrt(r2);
-	return glm::vec3(std::cos(2 * M_PI * r1) * sinTheta,
-	                 std::sin(2 * M_PI * r1) * sinTheta,
+	return glm::vec3(std::cos(C_TWO_PI * r1) * sinTheta,
+	                 std::sin(C_TWO_PI * r1) * sinTheta,
 	                 std::sqrt(1 - r2));
 }
 //Sampling Triangle

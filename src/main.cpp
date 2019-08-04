@@ -30,8 +30,7 @@ int main() {
 
 	auto light = make_shared<Sphere>(vec3(0, 6, 0), 1);
 	light->name = "light";
-	light->material = make_shared<Lambertian>(vec3(0));
-	light->material->emission = vec3(20);
+	light->material = make_shared<Lambertian>(vec3(0), vec3(20));
 	light->material->emitDirection = vec3(0);
 
 	const int PlaneR = 4;
@@ -49,7 +48,7 @@ int main() {
 	                                    vec3(PlaneR, -2, PlaneR),
 	                                    vec3(PlaneR, -2 + 2 * PlaneR, PlaneR),
 	                                    vec3(PlaneR, -2 + 2 * PlaneR, -PlaneR));
-	greenWall->setMaterial(make_shared<Lambertian>(make_shared<SolidColorTexture>(0.12, 0.45, 0.15)));
+	greenWall->setMaterial(make_shared<Lambertian>(vec3(0.12, 0.45, 0.15)));
 
 	//Red Wall
 	auto redWall = make_shared<Plane>(vec3(-PlaneR, -2, PlaneR),
@@ -88,21 +87,22 @@ int main() {
 	Scene scene;
 	scene.useBVH = false;
 	scene.ambient = vec3(0);
-//	scene.objects.push_back(sphere);
-//	scene.objects.push_back(ground);
-//	scene.objects.push_back(metalSphere);
+	scene.shutterPeriod=TimePeriod(0,1.0);
+//	scene.addShape(sphere);
+//	scene.addShape(ground);
+//	scene.addShape(metalSphere);
 
-	scene.objects.push_back(rectangleLight);
-	scene.objects.push_back(floor);
-	scene.objects.push_back(ceil);
-	scene.objects.push_back(redWall);
-	scene.objects.push_back(greenWall);
-	scene.objects.push_back(back);
+	scene.addShape(rectangleLight);
+	scene.addShape(floor);
+	scene.addShape(ceil);
+	scene.addShape(redWall);
+	scene.addShape(greenWall);
+	scene.addShape(back);
 
 	auto movingSphere=make_shared<MovingSphere>(vec3(0),1,vec3(0,1,0));
 	movingSphere->material=metalSphere->material;
 	movingSphere->name="movingSphere";
-//	scene.objects.push_back(movingSphere);
+//	scene.addShape(movingSphere);
 
 
 //	auto model=make_shared<Mesh>();
@@ -111,14 +111,16 @@ int main() {
 //	model->material=glassSphere->material;
 //	model->loadMesh("../mesh/bunny.obj");
 //	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
-//	scene.objects.push_back(model);
+//	scene.addShape(model);
 
 	auto mesh = make_shared<Mesh>();
 	mesh->material = make_shared<Dielectric>(2.417);
-	mesh->transMat = translate(mesh->transMat, vec3(0, -2, 0));
+	glm::mat4 meshTransMat(1.0f);
+	meshTransMat = translate(meshTransMat, vec3(0, -2, 0));
 	mesh->loadMesh("../mesh/diamondStanding.obj");
+	mesh->transform(meshTransMat);
 	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
-	scene.objects.push_back(mesh);
+	scene.addShape(mesh);
 
 /*	auto mesh = make_shared<Mesh>();
 	mesh->material = metalSphere->material;//make_shared<Dielectric>(2.417);
@@ -127,7 +129,7 @@ int main() {
 	mesh->transMat = scale(mesh->transMat, vec3(4));
 	mesh->loadMesh("../mesh/dragon.obj");
 	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
-	scene.objects.push_back(mesh);*/
+	scene.addShape(mesh);*/
 
 
 
@@ -135,7 +137,7 @@ int main() {
 //	auto fogBoundary=make_shared<Sphere>(vec3(0,0,0),2);
 //	auto fog=make_shared<Fog>(0.3,fogBoundary);
 //	fog->material=make_shared<Isotropy>(vec3(0.576, 0.451, 0.647));
-//	scene.objects.push_back(fog);
+//	scene.addShape(fog);
 
 	Film image(camera.width, camera.height);
 
@@ -145,7 +147,7 @@ int main() {
 	//!Multiple Importance Sampling!
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
-	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.3);
+	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.5);
 	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->material->sampler = mixSampler;
 	//!Multiple Importance Sampling!
 
@@ -158,7 +160,7 @@ int main() {
 	path.samples = samples;
 	path.renderPortionBlock = 8;//path.renderThreadNum;
 
-	path.render(image, camera, scene,TimePeriod(0,1.0));
+	path.render(image, camera, scene);
 
 
 	RTUI ui(800, 600, "HJRT");

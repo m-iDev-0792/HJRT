@@ -4,37 +4,6 @@
 
 #include "bvh.h"
 
-bool compX(const std::shared_ptr<Object> a, const std::shared_ptr<Object> b) {
-	AABB abox, bbox;
-	TimePeriod p(0, 0);
-	if ((!a->getAABB(p, &abox)) || (!b->getAABB(p, &bbox))) {
-		std::cout << "unable get AABB" << std::endl;
-		return false;
-	}
-	return abox.min.x < bbox.min.x;
-}
-
-bool compY(const std::shared_ptr<Object> a, const std::shared_ptr<Object> b) {
-	AABB abox, bbox;
-	TimePeriod p(0, 0);
-	if ((!a->getAABB(p, &abox)) || (!b->getAABB(p, &bbox))) {
-		std::cout << "unable get AABB" << std::endl;
-		return false;
-	}
-	return abox.min.y < bbox.min.y;
-}
-
-bool compZ(const std::shared_ptr<Object> a, const std::shared_ptr<Object> b) {
-	AABB abox, bbox;
-	TimePeriod p(0, 0);
-	if ((!a->getAABB(p, &abox)) || (!b->getAABB(p, &bbox))) {
-		std::cout << "unable get AABB" << std::endl;
-		return false;
-	}
-	return abox.min.z < bbox.min.z;
-}
-
-decltype(&compX) compList[] = {&compX, &compY, &compZ};
 
 struct Comparer {
 	int axis;
@@ -46,7 +15,7 @@ struct Comparer {
 
 	Comparer(int _axis, float start, float end) : axis(_axis) { period = TimePeriod(start, end); }
 
-	bool operator()(const std::shared_ptr<Object> &a, const std::shared_ptr<Object> &b) const {
+	bool operator()(const std::shared_ptr<Shape> &a, const std::shared_ptr<Shape> &b) const {
 		AABB abox, bbox;
 		if ((!a->getAABB(period, &abox)) || (!b->getAABB(period, &bbox))) {
 			std::cout << "unable get AABB" << std::endl;
@@ -57,8 +26,9 @@ struct Comparer {
 
 };
 
-BVH::BVH(std::vector<std::shared_ptr<Object>>::iterator begin, std::vector<std::shared_ptr<Object>>::iterator end,
+BVH::BVH(std::vector<std::shared_ptr<Shape>>::iterator begin, std::vector<std::shared_ptr<Shape>>::iterator end,
          const TimePeriod &period) {
+	nodeNum = end - begin;
 	if (begin == end) {
 		leftNode = rightNode = nullptr;
 		aabb = AABB(glm::vec3(1), glm::vec3(-1));
@@ -83,7 +53,7 @@ BVH::BVH(std::vector<std::shared_ptr<Object>>::iterator begin, std::vector<std::
 
 		int initAxis = 3 * random0_1f();
 		//sort objects
-		Comparer comparer(initAxis,period);
+		Comparer comparer(initAxis, period);
 
 		std::sort(begin, end, comparer);//std::sort(begin,end,compList[initAxis]);
 		auto middle = begin + (end - begin) / 2;
@@ -124,4 +94,8 @@ bool BVH::intersect(const Ray &ray, HitInfo *hitInfo) const {
 bool BVH::getAABB(const TimePeriod &period, AABB *box) const {
 	*box = aabb;
 	return true;
+}
+
+void BVH::describe() const {
+	std::cout << "BVH " << name << " node num=" << nodeNum << std::endl;
 }

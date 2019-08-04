@@ -15,6 +15,8 @@ struct Integrator{
 		RENDERING
 	};
 	int state;
-	virtual void render(Film &image, Camera camera, Scene &scene, const TimePeriod &period = TimePeriod(0,0)) =0;
+	//Plan: modify "render" to render(Film &image, Camera camera, Scene &scene, *!* RenderInfo info*!*)
+	//we store some rendering info in RenderInfo class, and pass it to scene for preprocess before rendering
+	virtual void render(Film &image, Camera camera, Scene &scene) =0;
 };
 #endif //HJRT_RENDERER_H

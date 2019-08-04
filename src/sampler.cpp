@@ -7,7 +7,7 @@
 
 float UniformHemisphereSampler::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
 	float cosine = glm::dot(_direction, _hitInfo.normal);
-	return cosine > 0 ? M_1_PI * 0.5 : 0;
+	return cosine > 0 ? C_INV_PI * 0.5 : 0;
 }
 
 float UniformHemisphereSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
@@ -18,7 +18,7 @@ float UniformHemisphereSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_samp
 
 float CosineHemisphereSampler::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
 	float cosine = glm::dot(_direction, _hitInfo.normal);
-	return (cosine > 0 ? cosine : 0) * M_1_PI;
+	return (cosine > 0 ? cosine : 0) * C_INV_PI;
 }
 
 float CosineHemisphereSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {

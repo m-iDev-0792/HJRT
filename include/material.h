@@ -11,9 +11,7 @@
 #include <memory>
 
 struct Material {
-	glm::vec3 emission;
 	glm::vec3 emitDirection;//vec3(0) means emitting rays everywhere
-	glm::vec3 albedo;
 	std::shared_ptr<Texture> emissionTex;
 	std::shared_ptr<Texture> albedoTex;
 	static std::shared_ptr<Sampler> defaultSampler;
@@ -23,12 +21,12 @@ struct Material {
 
 	virtual glm::vec3 brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const { return glm::vec3(0); }
 
-	virtual glm::vec3 albedoed(const glm::vec2 &_uv) const {
-		return albedoTex == nullptr ? albedo : albedoTex->getColor(_uv);
+	virtual glm::vec3 albedo(const glm::vec2 &_uv) const {
+		return albedoTex == nullptr ? glm::vec3(1) : albedoTex->getColor(_uv);
 	}
 
 	virtual glm::vec3 emitted(const Ray &_ray, const glm::vec2 &_uv) const {
-		glm::vec3 e = emissionTex == nullptr ? emission : emissionTex->getColor(_uv);
+		glm::vec3 e = emissionTex == nullptr ? glm::vec3(0) : emissionTex->getColor(_uv);
 		return glm::dot(emitDirection, _ray.dir) < 0 ? e :
 		       (std::fabs(emitDirection[0]) + std::fabs(emitDirection[1]) + std::fabs(emitDirection[2]) < 0.0001 ?
 		        e : glm::vec3(0));
@@ -36,7 +34,7 @@ struct Material {
 
 	//Standby, only for test now, do not use it!
 	virtual glm::vec3 emitted(const Ray &ray, const HitInfo &hitInfo) const {
-		glm::vec3 e = emissionTex == nullptr ? emission : emissionTex->getColor(hitInfo.uv);
+		glm::vec3 e = emissionTex == nullptr ? glm::vec3(0) : emissionTex->getColor(hitInfo.uv);
 		return glm::dot(hitInfo.normal, ray.dir) < 0 ? e : glm::vec3(0);
 	}
 
@@ -68,7 +66,7 @@ struct Metal : Material {
 
 	Metal() = default;
 
-	Metal(glm::vec3 _albedo, float _fuzz = 0.2);
+	Metal(glm::vec3 _albedo, float _fuzz = 0.0);
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 

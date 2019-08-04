@@ -15,9 +15,9 @@ PathTracer::PathTracer() {
 	latestRenderSec = 99999999;
 }
 
-void PathTracer::render(Film &film, Camera camera, Scene &scene, const TimePeriod &period) {
-	//initialize scene
-	scene.constructBVH(period);
+void PathTracer::render(Film &film, Camera camera, Scene &scene) {
+	//initialize scene, it may take a while
+	scene.prepareRendering();
 
 	//set up parameters
 	runningThreadNum = renderThreadNum > 0 ? renderThreadNum : std::thread::hardware_concurrency();
@@ -68,12 +68,12 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene, const TimePerio
 
 	for (int i = 0; i < runningThreadNum; ++i) {
 		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, std::ref(film), camera,
-		                                           std::ref(scene), period);
+		                                           std::ref(scene));
 		threads[i]->detach();
 	}
 }
 
-void PathTracer::renderPerformer(int threadNum, Film &film, Camera camera, Scene &scene, const TimePeriod &period) {
+void PathTracer::renderPerformer(int threadNum, Film &film, Camera camera, Scene &scene) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
 	auto startTime = std::chrono::high_resolution_clock::now();
@@ -101,7 +101,7 @@ void PathTracer::renderPerformer(int threadNum, Film &film, Camera camera, Scene
 
 						for (int s = 0; s < samples; ++s) {
 							color = color + deNanInf(shade(scene,
-							                               camera.castRay(j + subS + subR * u, i + subS + subR * v, period)));
+							                               camera.castRay(j + subS + subR * u, i + subS + subR * v, scene.shutterPeriod)));
 //							color = color + deNanInf(shade(scene, camera.castRay(j + subS + subR * u, i + subS + subR * v), 1));
 						}
 
@@ -140,7 +140,7 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 			glm::vec3 emission = hitInfo.hitobject->material->emitted(ray,hitInfo.uv);
 			float RRWeight=1.0f;//Russian roulette weight
 			if (depth > RRCutBounce) {
-				const glm::vec3 &f = hitInfo.hitobject->material->albedoed(hitInfo.uv);
+				const glm::vec3 &f = hitInfo.hitobject->material->albedo(hitInfo.uv);
 				//Set Russian roulette probability as max color contribution
 				float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
 
@@ -187,7 +187,7 @@ glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
 		glm::vec3 emission = hitInfo.hitobject->material->emitted(ray,hitInfo.uv);
 		float RRWeight = 1.0f;//Russian roulette weight
 		if (depth > RRCutBounce) {
-			const glm::vec3 &f = hitInfo.hitobject->material->albedoed(hitInfo.uv);
+			const glm::vec3 &f = hitInfo.hitobject->material->albedo(hitInfo.uv);
 			//Set Russian roulette probability as max color contribution
 			float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
 			if (random0_1f() > RRProbability)return emission;

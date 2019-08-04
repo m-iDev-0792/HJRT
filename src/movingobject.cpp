@@ -10,7 +10,7 @@ glm::mat4 UniformLinearMovingObject::movementMat(float time) const {
 	return glm::translate(mat, movement);
 }
 
-std::shared_ptr<Object> MovingSphere::getSubstitute(float time) const {
+std::shared_ptr<Shape> MovingSphere::getSubstitute(float time) const {
 	std::shared_ptr<Sphere> ptr = std::dynamic_pointer_cast<Sphere>(substitute.ptr);
 	ptr->origin = transformPoint(origin, movementMat(time));
 	ptr->r = this->r;

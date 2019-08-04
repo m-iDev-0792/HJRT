@@ -16,6 +16,24 @@ void Scene::constructBVH(const TimePeriod &period) {
 	bvhRoot = std::make_shared<BVH>(objectCopy.begin(), objectCopy.end(), period);
 }
 
+void Scene::addShape(std::shared_ptr<Shape> shape) {
+	this->objects.push_back(shape);
+}
+
+void Scene::addShape(std::string name, std::shared_ptr<Shape> shape) {
+	shape->name = name;
+	this->objects.push_back(shape);
+}
+
+void Scene::removeShape(std::shared_ptr<Shape> shape) {
+	for (int i = 0; i < objects.size(); ++i) {
+		if (objects[i] == shape) {
+			objects.erase(objects.begin() + i);
+			return;
+		}
+	}
+}
+
 bool Scene::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	bool hitAnything = false;
 	if (useBVH) {
@@ -27,4 +45,9 @@ bool Scene::intersect(const Ray &ray, HitInfo *hitInfo) const {
 		}
 	}
 	return hitAnything;
+}
+
+void Scene::prepareRendering() {
+	for(auto& o:objects)o->prepareRendering();
+	constructBVH(shutterPeriod);
 }
