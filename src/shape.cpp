@@ -5,7 +5,7 @@
 #include "shape.h"
 
 bool Shape::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
-	//do nothing
+	*uvCoord = hitInfo.uv;
 	return false;
 }
 void Shape::transform(glm::mat4 mat) {

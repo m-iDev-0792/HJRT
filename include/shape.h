@@ -11,7 +11,7 @@
 #include <memory>
 
 struct Material;
-
+struct Sampler;
 struct Shape : Object {
 	std::shared_ptr<Material> material;
 
@@ -23,14 +23,16 @@ struct Shape : Object {
 
 	virtual void transform(glm::mat4 mat);
 
-	virtual void setMaterial(std::shared_ptr<Material> _material){
-		material=_material;
+	virtual void setMaterial(std::shared_ptr<Material> _material) {
+		material = _material;
 	}
+	virtual void setSampler(std::shared_ptr<Sampler> _sampler) { }
 
-	virtual float getArea() const{
+	virtual float getArea() const {
 		return 0;
 	}
-	virtual void prepareRendering(){}
+
+	virtual void prepareRendering() {}
 };
 
 struct SampleableShape : public Shape {

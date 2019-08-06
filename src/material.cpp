@@ -38,7 +38,7 @@ bool Lambertian::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *a
 	scatteredRay->tMin = ray.tMin;
 	scatteredRay->tMax = ray.tMax;
 	float samplingPDF = sampler->sample(hitInfo, &(scatteredRay->dir));
-	if (glm::dot(scatteredRay->dir, hitInfo.normal) < 0 || samplingPDF <= 0)return false;//invalid ray sampling
+	if (glm::dot(scatteredRay->dir, hitInfo.normal) < 0.00001 || samplingPDF <= 0)return false;//invalid ray sampling
 	//rendering equation
 	*attenuation =
 			brdf(ray.dir, scatteredRay->dir, hitInfo) * glm::dot(hitInfo.normal, scatteredRay->dir) / samplingPDF;
@@ -84,19 +84,19 @@ bool Metal::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenu
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
 
-Dielectric::Dielectric(float _refractIndex, float _reflectFuzz, float _refractFuzz) : refractIndex(_refractIndex) {
-	albedoTex = std::make_shared<SolidColorTexture>(glm::vec3(1));
-	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+Dielectric::Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz, float _refractFuzz) : refractIndex(_refractIndex) {
+	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
 	reflectFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_reflectFuzz));
 	refractFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_refractFuzz));
+	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
 }
 
-Dielectric::Dielectric(float _refractIndex, std::shared_ptr<Texture> _reflectFuzz,
+Dielectric::Dielectric(std::shared_ptr<Texture> _albedo, float _refractIndex, std::shared_ptr<Texture> _reflectFuzz,
                        std::shared_ptr<Texture> _refractFuzz) : refractIndex(_refractIndex) {
-	albedoTex = std::make_shared<SolidColorTexture>(glm::vec3(1));
+	albedoTex = _albedo;
+	reflectFuzz = _reflectFuzz == nullptr ? std::make_shared<SolidColorTexture>(glm::vec3(0)) : _reflectFuzz;
+	refractFuzz = _refractFuzz == nullptr ? std::make_shared<SolidColorTexture>(glm::vec3(0)) : _refractFuzz;
 	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
-	reflectFuzz = _reflectFuzz;
-	refractFuzz = _refractFuzz;
 }
 
 bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {

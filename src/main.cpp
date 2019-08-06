@@ -12,7 +12,7 @@ using namespace glm;
 int main() {
 	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512/2, 512/2, 45);
 
-	auto sphere = make_shared<Sphere>(vec3(0, -1, 0), 1);
+	auto sphere = make_shared<Sphere>(vec3(0, 0, 0), 2);
 	sphere->name = "diffuse";
 	sphere->material = make_shared<Lambertian>(vec3(230, 173, 104) * (1 / 255.0f));
 
@@ -22,13 +22,9 @@ int main() {
 
 	auto glassSphere = make_shared<Sphere>(vec3(-2, 1, 0), 1);
 	glassSphere->name = "glass";
-	glassSphere->material = make_shared<Dielectric>(1.5);
+	glassSphere->material = make_shared<Dielectric>(vec3(1), 1.5);
 
-	auto ground = make_shared<Sphere>(vec3(0, -2 - 100, 0), 100);
-	ground->name = "ground";
-	ground->material = make_shared<Lambertian>(vec3(189, 211, 223) * (1 / 255.0f));
-
-	auto light = make_shared<Sphere>(vec3(0, 6, 0), 1);
+	auto light = make_shared<Sphere>(vec3(0, 5, 0), 1);
 	light->name = "light";
 	light->material = make_shared<Lambertian>(vec3(0), vec3(20));
 	light->material->emitDirection = vec3(0);
@@ -89,7 +85,6 @@ int main() {
 	scene.ambient = vec3(0);
 	scene.shutterPeriod=TimePeriod(0,1.0);
 //	scene.addShape(sphere);
-//	scene.addShape(ground);
 //	scene.addShape(glassSphere);
 
 	scene.addShape(rectangleLight);
@@ -99,22 +94,8 @@ int main() {
 	scene.addShape(greenWall);
 	scene.addShape(back);
 
-	auto movingSphere=make_shared<MovingSphere>(vec3(0),1,vec3(0,1,0));
-	movingSphere->material=metalSphere->material;
-	movingSphere->name="movingSphere";
-//	scene.addShape(movingSphere);
-
-
-//	auto model=make_shared<Mesh>();
-//	model->transMat=scale(model->transMat,vec3(1.5f));
-//	model->transMat=translate(model->transMat,vec3(0,0.35,0));
-//	model->material=glassSphere->material;
-//	model->loadMesh("../mesh/bunny.obj");
-//	cout<<"loaded model: "<<model->name<<"  triangle num: "<<model->triangles.size()<<endl;
-//	scene.addShape(model);
-
 	auto mesh = make_shared<Mesh>();
-	mesh->material = make_shared<Dielectric>(2.417);
+	mesh->material = make_shared<Dielectric>(vec3(1), 2.417);
 	glm::mat4 meshTransMat(1.0f);
 	meshTransMat = translate(meshTransMat, vec3(0, -2, 0));
 	mesh->loadMesh("../mesh/diamondStanding.obj");
@@ -122,22 +103,6 @@ int main() {
 	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
 	scene.addShape(mesh);
 
-/*	auto mesh = make_shared<Mesh>();
-	mesh->material = metalSphere->material;//make_shared<Dielectric>(2.417);
-	mesh->transMat = translate(mesh->transMat, vec3(0, -2, 0));
-	mesh->transMat = rotate(mesh->transMat, radians(150.0f),vec3(0,-1,0));
-	mesh->transMat = scale(mesh->transMat, vec3(4));
-	mesh->loadMesh("../mesh/dragon.obj");
-	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
-	scene.addShape(mesh);*/
-
-
-
-//-----fog example-----
-//	auto fogBoundary=make_shared<Sphere>(vec3(0,0,0),2);
-//	auto fog=make_shared<Fog>(0.3,fogBoundary);
-//	fog->material=make_shared<Isotropy>(vec3(0.576, 0.451, 0.647));
-//	scene.addShape(fog);
 
 	Film image(camera.width, camera.height);
 
@@ -148,10 +113,9 @@ int main() {
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
 	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.5);
-	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->material->sampler = mixSampler;
+	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->setSampler(mixSampler);
 	//!Multiple Importance Sampling!
 
-//	scene.constructBVH();
 
 	//----------------------Render---------------------------
 	PathTracer path;
@@ -167,6 +131,7 @@ int main() {
 	ui.film = &image;
 	ui.pathTracer = &path;
 	ui.run();
+	cout<<"rendering time:"<<path.latestRenderSec<<"s"<<endl;
 	glfwTerminate();
 
 	//----------------------Write image----------------------

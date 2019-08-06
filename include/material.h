@@ -86,9 +86,9 @@ struct Dielectric : Material {
 
 	Dielectric() = default;
 
-	Dielectric(float _refractIndex, float _reflectFuzz = 0.0, float _refractFuzz = 0.0);
+	Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz = 0.0, float _refractFuzz = 0.0);
 
-	Dielectric(float _refractIndex, std::shared_ptr<Texture> _reflectFuzz , std::shared_ptr<Texture> _refractFuzz );
+	Dielectric(std::shared_ptr<Texture> _albedo, float _refractIndex, std::shared_ptr<Texture> _reflectFuzz = nullptr, std::shared_ptr<Texture> _refractFuzz = nullptr);
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 

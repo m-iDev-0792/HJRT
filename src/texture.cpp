@@ -18,6 +18,7 @@ glm::vec3 SolidColorTexture::getColor(const glm::vec2 &_uv) const {
 }
 
 ImageTexture::ImageTexture(std::string _path) {
+	data = nullptr;
 	loadFromPath(_path);
 }
 
@@ -25,7 +26,6 @@ ImageTexture::ImageTexture(const ImageTexture &_imgTex) {
 	width = _imgTex.width;
 	height = _imgTex.height;
 	channel = _imgTex.channel;
-	if (data != nullptr)stbi_image_free(data);
 	data = new unsigned char[width * height * channel];
 	std::memcpy(data, _imgTex.data, width * height * channel);
 }

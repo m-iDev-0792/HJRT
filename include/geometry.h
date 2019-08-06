@@ -6,7 +6,7 @@
 #define HJRT_GEOMETRY_H
 
 #include "shape.h"
-
+#include "material.h"
 struct Triangle : public SampleableShape {
 	struct {
 		glm::vec3 v0;
@@ -46,9 +46,11 @@ struct Triangle : public SampleableShape {
 
 	bool getAABB(const TimePeriod &period, AABB *box) const override;
 
-	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
-
 	float getArea() const override;
+
+	void setSampler(std::shared_ptr<Sampler> _sampler) override {
+		material->sampler=_sampler;
+	}
 
 	//derive from SampleableShape
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
@@ -90,9 +92,13 @@ struct Plane : public SampleableShape {
 
 	bool getAABB(const TimePeriod &period, AABB *box) const override;
 
-	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
-
 	float getArea() const override;
+
+	void setSampler(std::shared_ptr<Sampler> _sampler) override {
+		material->sampler=_sampler;
+		triangles[0].material->sampler=_sampler;
+		triangles[1].material->sampler=_sampler;
+	}
 
 	//derive from SampleableShape
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
@@ -120,6 +126,10 @@ struct Sphere : public SampleableShape {
 
 	float getArea() const override;
 
+	void setSampler(std::shared_ptr<Sampler> _sampler) override {
+		material->sampler=_sampler;
+	}
+
 	//derive from SampleableShape
 	float pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const override;
 
@@ -140,9 +150,11 @@ struct Fog : public Shape {
 
 	bool getAABB(const TimePeriod &period, AABB *box) const override;
 
-	bool getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const override;
-
 	float getArea() const override;
+
+	void setSampler(std::shared_ptr<Sampler> _sampler) override {
+		material->sampler=_sampler;
+	}
 
 };
 

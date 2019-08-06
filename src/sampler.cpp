@@ -12,7 +12,7 @@ float UniformHemisphereSampler::pdf(const HitInfo &_hitInfo, const glm::vec3 &_d
 
 float UniformHemisphereSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
 	glm::vec3 randVec = sampleOnHemisphereUniform();
-	(*_sampledDirection) = ONB::localFromW(_hitInfo.normal,randVec);
+	(*_sampledDirection) = glm::normalize(ONB::localFromW(_hitInfo.normal,randVec));
 	return pdf(_hitInfo, *_sampledDirection);
 }
 
@@ -23,7 +23,7 @@ float CosineHemisphereSampler::pdf(const HitInfo &_hitInfo, const glm::vec3 &_di
 
 float CosineHemisphereSampler::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
 	glm::vec3 randVec = sampleOnHemisphereCosine();
-	(*_sampledDirection) = ONB::localFromW(_hitInfo.normal,randVec);
+	(*_sampledDirection) = glm::normalize(ONB::localFromW(_hitInfo.normal,randVec));
 //	(*_sampledDirection) = glm::normalize(_hitInfo.normal + sampleOnSphereUniform());//equal to previous line of code
 	return pdf(_hitInfo, *_sampledDirection);
 }

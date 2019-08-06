@@ -34,6 +34,8 @@ struct Mesh : Shape {
 
 	void setMaterial(std::shared_ptr<Material> _material) override;
 
+	void setSampler(std::shared_ptr<Sampler> _sampler) override ;
+
 	void transform(glm::mat4 mat) override;
 
 	bool intersect(const Ray &ray, HitInfo *hitInfo) const override;

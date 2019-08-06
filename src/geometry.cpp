@@ -22,9 +22,9 @@ bool Sphere::getAABB(const TimePeriod &period, AABB *box) const {
 }
 
 bool Sphere::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
-	const glm::vec3 p = hitInfo.hitpoint - origin;
-	float v = asin(p.z);
-	float u = atan2(p.y, p.x);
+	const glm::vec3 p = (hitInfo.hitpoint - origin) / r;
+	float v = asin(p.y);
+	float u = atan2(p.z, p.x);
 	u = 1 - (u + C_PI) / (2 * C_PI);
 	v = (v + C_PI_OVER_TWO) / C_PI;
 	*uvCoord = glm::vec2(u, v);
@@ -84,7 +84,7 @@ float Sphere::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) cons
 	float phi = C_TWO_PI * r1;
 	float x = std::cos(phi) * sinTheta;
 	float y = std::sin(phi) * sinTheta;
-	*_sampledDirection = ONB::localFromW(_hitInfo.normal, glm::vec3(x, y, z));
+	*_sampledDirection = glm::normalize(ONB::localFromW(glm::normalize(p2c), glm::vec3(x, y, z)));
 	float solidAngle = C_TWO_PI * (1 - cosineMax);
 	return 1 / solidAngle;
 }
@@ -129,14 +129,6 @@ bool Triangle::getAABB(const TimePeriod &period, AABB *box) const {
 		max[i] = std::fmax(v0[i], std::fmax(v1[i], v2[i])) + 0.01;
 	}
 	*box = AABB(min, max);
-	return true;
-}
-
-bool Triangle::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
-	//TODO. test modification stability, we already done this in **intersection** function
-	*uvCoord = hitInfo.uv;
-//	const glm::vec2 old = hitInfo.uv;
-//	*uvCoord = uv[0] * (1.0f - old.x - old.y) + uv[1] * old.x + uv[2] * old.y;
 	return true;
 }
 
@@ -291,11 +283,6 @@ bool Plane::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	return triangles[0].intersect(ray, hitInfo) || triangles[1].intersect(ray, hitInfo);
 }
 
-bool Plane::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
-	*uvCoord = hitInfo.uv;
-	return true;
-}
-
 float Plane::getArea() const {
 	return triangles[0].getArea() + triangles[1].getArea();
 }
@@ -351,11 +338,6 @@ bool Fog::intersect(const Ray &ray, HitInfo *hitInfo) const {
 
 bool Fog::getAABB(const TimePeriod &period, AABB *box) const {
 	return boundary->getAABB(period, box);
-}
-
-bool Fog::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
-	*uvCoord = hitInfo.uv;
-	return false;
 }
 
 float Fog::getArea() const {

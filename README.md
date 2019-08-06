@@ -21,9 +21,9 @@ HJRT uses [Dear Imgui](https://github.com/ocornut/imgui) as program GUI to show 
 
 More results:
 
-![](log/img/dragon500samples-1720s.png) ![](log/img/fog.png) ![](log/img/diamondGood.png)
+![](log/img/dragon500samples-1720s.png) ![](log/img/Toasters.png) ![](log/img/diamondGood.png)
 
-![](log/img/MIS20spp27s.png) ![](log/img/PT20spp35s.png) ![](log/img/PT200spp287s.png) 
+![](log/img/HJRTDiamond.jpg) ![](log/img/PT20spp35s.png) ![](log/img/PT200spp287s.png) 
  
 left: MIS@20spp took 27s; center:PT@20spp took 35s;  right:PT@200spp took 287s
 
