@@ -48,7 +48,20 @@ bool Lambertian::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *a
 Metal::Metal(glm::vec3 _albedo, float _fuzz) {
 	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
 	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
-	fuzz = (_fuzz > 1) ? 1 : _fuzz;
+	float f = (_fuzz > 1) ? 1 : _fuzz;
+	fuzz = std::make_shared<SolidColorTexture>(glm::vec3(f));
+}
+
+Metal::Metal(glm::vec3 _albedo, std::shared_ptr<Texture> _fuzz) {
+	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
+	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	fuzz = _fuzz;
+}
+
+Metal::Metal(std::shared_ptr<Texture> _albedo, std::shared_ptr<Texture> _fuzz) {
+	albedoTex = _albedo;
+	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	fuzz = _fuzz;
 }
 
 bool Metal::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
@@ -57,8 +70,12 @@ bool Metal::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuati
 	scatteredRay->time = ray.time;
 	scatteredRay->tMin = ray.tMin;
 	scatteredRay->tMax = ray.tMax;
-	if (fuzz == 0)scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
-	else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal) + fuzz * sampleInsideSphereUniform());
+	float FUZZ = fuzz->getColor(hitInfo.uv).x;
+
+	if (FUZZ > 0.001)
+		scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal) + FUZZ * sampleInsideSphereUniform());
+	else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
+
 	*attenuation = albedo(hitInfo.uv);
 	return (dot(scatteredRay->dir, hitInfo.normal) > 0);
 }
@@ -67,9 +84,19 @@ bool Metal::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenu
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
 
-Dielectric::Dielectric(float _refractIndex) : refractIndex(_refractIndex) {
+Dielectric::Dielectric(float _refractIndex, float _reflectFuzz, float _refractFuzz) : refractIndex(_refractIndex) {
 	albedoTex = std::make_shared<SolidColorTexture>(glm::vec3(1));
 	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	reflectFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_reflectFuzz));
+	refractFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_refractFuzz));
+}
+
+Dielectric::Dielectric(float _refractIndex, std::shared_ptr<Texture> _reflectFuzz,
+                       std::shared_ptr<Texture> _refractFuzz) : refractIndex(_refractIndex) {
+	albedoTex = std::make_shared<SolidColorTexture>(glm::vec3(1));
+	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	reflectFuzz = _reflectFuzz;
+	refractFuzz = _refractFuzz;
 }
 
 bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
@@ -100,14 +127,25 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 		//do reflect
 		scatteredRay->origin = hitInfo.hitpoint;
 		scatteredRay->time = ray.time;
-		scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
+
+		float FUZZ = reflectFuzz->getColor(hitInfo.uv).x;
+		if (FUZZ > 0.001)
+			scatteredRay->dir = glm::normalize(
+					glm::normalize(reflect(ray.dir, hitInfo.normal)) + FUZZ * sampleInsideSphereUniform());
+		else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
+
 		scatteredRay->tMin = ray.tMin;
 		scatteredRay->tMax = ray.tMax;
 	} else {
 		//do refract
 		scatteredRay->origin = hitInfo.hitpoint;
 		scatteredRay->time = ray.time;
-		scatteredRay->dir = glm::normalize(refracted);
+
+		float FUZZ = refractFuzz->getColor(hitInfo.uv).x;
+		if (FUZZ > 0.001)
+			scatteredRay->dir = glm::normalize(glm::normalize(refracted) + FUZZ * sampleInsideSphereUniform());
+		else scatteredRay->dir = glm::normalize(refracted);
+
 		scatteredRay->tMin = ray.tMin;
 		scatteredRay->tMax = ray.tMax;
 	}

@@ -17,8 +17,11 @@ bool AABB::hit(const Ray& ray)const{
 		if(ray.dir[i]==0.0)continue;//if ray.dir[i] is zero, we simply ignore it
 		float t0=(min[i]-ray.origin[i])/ray.dir[i];
 		float t1=(max[i]-ray.origin[i])/ray.dir[i];
-		if(t1<t0)
-			std::swap(t0,t1);
+		if(t1<t0){
+			float temp=t0;
+			t0=t1;
+			t1=temp;
+		}
 		tmin=std::fmax(t0,tmin);
 		tmax=std::fmin(t1,tmax);
 		if(tmax<=tmin)return false;

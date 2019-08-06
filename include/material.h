@@ -17,9 +17,10 @@ struct Material {
 	static std::shared_ptr<Sampler> defaultSampler;
 	std::shared_ptr<Sampler> sampler;
 
-	Material(){sampler = defaultSampler;}
+	Material() { sampler = defaultSampler; }
 
-	virtual glm::vec3 brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const { return glm::vec3(0); }
+	virtual glm::vec3
+	brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const { return glm::vec3(0); }
 
 	virtual glm::vec3 albedo(const glm::vec2 &_uv) const {
 		return albedoTex == nullptr ? glm::vec3(1) : albedoTex->getColor(_uv);
@@ -40,7 +41,8 @@ struct Material {
 
 	virtual bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const = 0;
 
-	virtual bool scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const = 0;
+	virtual bool
+	scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const = 0;
 };
 
 //NOTE. Lambertian does not scatter ray uniformly at hemisphere space, ray intensity obeys Lambert Cosine Law
@@ -62,11 +64,15 @@ struct Lambertian : Material {
 };
 
 struct Metal : Material {
-	float fuzz;
+	std::shared_ptr<Texture> fuzz;
 
 	Metal() = default;
 
 	Metal(glm::vec3 _albedo, float _fuzz = 0.0);
+
+	Metal(glm::vec3 _albedo, std::shared_ptr<Texture> _fuzz );
+
+	Metal(std::shared_ptr<Texture> _albedo, std::shared_ptr<Texture> _fuzz );
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 
@@ -75,10 +81,14 @@ struct Metal : Material {
 
 struct Dielectric : Material {
 	float refractIndex;
+	std::shared_ptr<Texture> reflectFuzz;
+	std::shared_ptr<Texture> refractFuzz;
 
 	Dielectric() = default;
 
-	Dielectric(float _refractIndex);
+	Dielectric(float _refractIndex, float _reflectFuzz = 0.0, float _refractFuzz = 0.0);
+
+	Dielectric(float _refractIndex, std::shared_ptr<Texture> _reflectFuzz , std::shared_ptr<Texture> _refractFuzz );
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 

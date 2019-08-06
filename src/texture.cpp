@@ -59,7 +59,10 @@ glm::vec3 ImageTexture::getColor(const glm::vec2 &_uv) const {
 	v = _uv.y < 0 ? 0 : _uv.y > 1 ? 1 : _uv.y;
 	int x = u * (width - 1);
 	int y = v * (height - 1);
-	return glm::vec3(static_cast<int>(data[(height - 1 - y) * width * channel + x * channel]) / 255.0,
-	            static_cast<int>(data[(height - 1 - y) * width * channel + x * channel + 1]) / 255.0,
-	            static_cast<int>(data[(height - 1 - y) * width * channel + x * channel + 2]) / 255.0);
+	if (channel == 1)
+		return glm::vec3(static_cast<int>(data[(height - 1 - y) * width + x]) / 255.0);
+	else
+		return glm::vec3(static_cast<int>(data[(height - 1 - y) * width * channel + x * channel]) / 255.0,
+		                 static_cast<int>(data[(height - 1 - y) * width * channel + x * channel + 1]) / 255.0,
+		                 static_cast<int>(data[(height - 1 - y) * width * channel + x * channel + 2]) / 255.0);
 }

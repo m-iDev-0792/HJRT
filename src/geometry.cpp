@@ -134,6 +134,7 @@ bool Triangle::getAABB(const TimePeriod &period, AABB *box) const {
 
 bool Triangle::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
 	//TODO. test modification stability, we already done this in **intersection** function
+	*uvCoord = hitInfo.uv;
 //	const glm::vec2 old = hitInfo.uv;
 //	*uvCoord = uv[0] * (1.0f - old.x - old.y) + uv[1] * old.x + uv[2] * old.y;
 	return true;
@@ -235,13 +236,13 @@ float Triangle::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) co
 Plane::Plane(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _v3) {
 	glm::vec2 defulatUV[4] = {glm::vec2(0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1)};
 	triangles[0] = Triangle(_v0, _v1, _v3, defulatUV[0], defulatUV[1], defulatUV[3]);
-	triangles[1] = Triangle(_v1, _v2, _v3, defulatUV[0], defulatUV[2], defulatUV[3]);
+	triangles[1] = Triangle(_v1, _v2, _v3, defulatUV[1], defulatUV[2], defulatUV[3]);
 }
 
 Plane::Plane(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _v3, glm::vec3 _normal) {
 	glm::vec2 defulatUV[4] = {glm::vec2(0), glm::vec2(1, 0), glm::vec2(1, 1), glm::vec2(0, 1)};
 	triangles[0] = Triangle(_v0, _v1, _v3, _normal, defulatUV[0], defulatUV[1], defulatUV[3]);
-	triangles[1] = Triangle(_v1, _v2, _v3, _normal, defulatUV[0], defulatUV[2], defulatUV[3]);
+	triangles[1] = Triangle(_v1, _v2, _v3, _normal, defulatUV[1], defulatUV[2], defulatUV[3]);
 }
 
 Plane::Plane(glm::vec3 _v0, glm::vec3 _v1, glm::vec3 _v2, glm::vec3 _v3, glm::vec3 _uv0, glm::vec3 _uv1, glm::vec3 _uv2,
@@ -291,6 +292,7 @@ bool Plane::intersect(const Ray &ray, HitInfo *hitInfo) const {
 }
 
 bool Plane::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
+	*uvCoord = hitInfo.uv;
 	return true;
 }
 
@@ -352,6 +354,7 @@ bool Fog::getAABB(const TimePeriod &period, AABB *box) const {
 }
 
 bool Fog::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
+	*uvCoord = hitInfo.uv;
 	return false;
 }
 

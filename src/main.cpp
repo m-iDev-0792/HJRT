@@ -16,11 +16,11 @@ int main() {
 	sphere->name = "diffuse";
 	sphere->material = make_shared<Lambertian>(vec3(230, 173, 104) * (1 / 255.0f));
 
-	auto metalSphere = make_shared<Sphere>(vec3(2, -1, -2), 1);
+	auto metalSphere = make_shared<Sphere>(vec3(0, 0, 0), 2);
 	metalSphere->name = "metal";
-	metalSphere->material = make_shared<Metal>(vec3(0.8), 0);
+	metalSphere->material = make_shared<Metal>(vec3(0.8), 0.3);
 
-	auto glassSphere = make_shared<Sphere>(vec3(2, 0, 0), 1);
+	auto glassSphere = make_shared<Sphere>(vec3(-2, 1, 0), 1);
 	glassSphere->name = "glass";
 	glassSphere->material = make_shared<Dielectric>(1.5);
 
@@ -90,7 +90,7 @@ int main() {
 	scene.shutterPeriod=TimePeriod(0,1.0);
 //	scene.addShape(sphere);
 //	scene.addShape(ground);
-//	scene.addShape(metalSphere);
+//	scene.addShape(glassSphere);
 
 	scene.addShape(rectangleLight);
 	scene.addShape(floor);
@@ -170,7 +170,7 @@ int main() {
 	glfwTerminate();
 
 	//----------------------Write image----------------------
-	image.save("image.exr", "exr");
+	image.save("image.png", "png");
 	cout << "finished" << endl;
 	return 0;
 }
