@@ -27,7 +27,7 @@ HJRT uses [Dear Imgui](https://github.com/ocornut/imgui) as program GUI to show 
 
 ![](log/img/HJRTDiamond.jpg) ![](log/img/PT20spp35s.png) ![](log/img/PT200spp287s.png) 
  
-**left: MIS @ 20spp took 27s; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; center:PT @ 20spp took 35s; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; right:PT @ 200spp took 287s**
+**left: MIS @ 20spp took 27s; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; center:PT @ 20spp took 35s; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; right:PT @ 200spp took 287s**
 
 *Multiple Importance Sampling*
 
