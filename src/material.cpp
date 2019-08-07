@@ -84,7 +84,8 @@ bool Metal::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenu
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
 
-Dielectric::Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz, float _refractFuzz) : refractIndex(_refractIndex) {
+Dielectric::Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz, float _refractFuzz) : refractIndex(
+		_refractIndex) {
 	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
 	reflectFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_reflectFuzz));
 	refractFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_refractFuzz));
@@ -173,4 +174,45 @@ bool Isotropy::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenu
 
 bool Isotropy::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
+}
+
+
+EnvironmentMap::EnvironmentMap(glm::vec3 _emission, glm::vec3 _albedo) {
+	emissionTex = std::make_shared<SolidColorTexture>(_emission);
+	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
+}
+
+EnvironmentMap::EnvironmentMap(std::shared_ptr<Texture> _emissionTex, std::shared_ptr<Texture> _albedoTex) {
+	emissionTex = _emissionTex;
+	if (_albedoTex == nullptr)
+		albedoTex = std::make_shared<SolidColorTexture>(glm::vec3(1));
+	else
+		albedoTex = _albedoTex;
+}
+
+glm::vec3 EnvironmentMap::brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const {
+	return glm::vec3(1);
+}
+
+bool EnvironmentMap::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	//environment map does not do scattering cause we already hit a light source
+	return false;
+}
+
+bool EnvironmentMap::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation,
+                                Ray *scatteredRay) const {
+	//environment map does not do scattering cause we already hit a light source
+	return false;
+}
+
+glm::vec3 EnvironmentMap::albedo(const glm::vec2 &_uv) const {
+	return glm::vec3(1);
+}
+
+glm::vec3 EnvironmentMap::emitted(const Ray &_ray, const glm::vec2 &_uv) const {
+	glm::vec3 e = emissionTex == nullptr ? glm::vec3(0) : emissionTex->getColor(_uv);
+	return albedoTex->getColor(_uv) * (glm::dot(emitDirection, _ray.dir) < 0 ? e :
+	                                   (std::fabs(emitDirection[0]) + std::fabs(emitDirection[1]) +
+	                                    std::fabs(emitDirection[2]) < 0.0001 ?
+	                                    e : glm::vec3(0)));
 }

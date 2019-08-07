@@ -4,9 +4,10 @@ HJRT is a portable C++14 path tracing renderer which renders image using naive b
 
 ![](log/img/demo.gif)
 
-#### Features
+### Features
 
 + basic material and texture
++ spherical environment map
 + multi-thread and spiral block rendering
 + BVH 
 + depth of field and motion blur
@@ -19,21 +20,22 @@ HJRT uses [Dear Imgui](https://github.com/ocornut/imgui) as program GUI to show 
 
 ![](log/img/huajigeUI.png)
 
-More results:
+### More results:
 
-![](log/img/dragon500samples-1720s.png) ![](log/img/Toasters.png) ![](log/img/diamondGood.png)
+![](log/img/castle.png) ![](log/img/Toasters.png) ![](log/img/diamondGood.png)
+
 
 ![](log/img/HJRTDiamond.jpg) ![](log/img/PT20spp35s.png) ![](log/img/PT200spp287s.png) 
  
-left: MIS@20spp took 27s; center:PT@20spp took 35s;  right:PT@200spp took 287s
+**left: MIS @ 20spp took 27s; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; center:PT @ 20spp took 35s; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; right:PT @ 200spp took 287s**
 
-Multiple Importance Sampling
+*Multiple Importance Sampling*
 
 ![](log/img/motionBlur1.png) ![](log/img/motionBlur2.png) ![](log/img/motionBlur3.png) 
 
-Motion Blur
+*Motion Blur*
 
-####  Acknowledge
+###  Acknowledge
 
 This project is inspired by
 

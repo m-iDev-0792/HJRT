@@ -14,23 +14,13 @@
 #include <iostream>
 #include <random>
 #include <string>
-
+#include <regex>
 template<typename T>
 float sgn(T val) {
 	return (T(0) < val) - (val < T(0));
 }
 
-std::ostream& operator <<(std::ostream &s,const glm::vec2 vec);
 
-std::ostream& operator <<(std::ostream &s,const glm::vec3 vec);
-
-inline glm::vec3 transformPoint(const glm::vec3 &point, const glm::mat4 &mat) {
-	return glm::vec3(mat * glm::vec4(point, 1.0f));
-}
-
-inline glm::vec3 transformVector(const glm::vec3 &vec, const glm::mat4 &mat) {
-	return glm::vec3(mat * glm::vec4(vec, 0.0f));
-}
 
 inline glm::vec3 deNanInf(const glm::vec3 &data) {
 	glm::vec3 temp = data;
@@ -51,6 +41,28 @@ inline void gammaCorrection(glm::vec3 &color, float gamma = 2.2) {
 	color.b = std::pow(color.b, 1.0 / gamma);
 }
 
+inline glm::vec3 transformPoint(const glm::vec3 &point, const glm::mat4 &mat) {
+	return glm::vec3(mat * glm::vec4(point, 1.0f));
+}
+
+inline glm::vec3 transformVector(const glm::vec3 &vec, const glm::mat4 &mat) {
+	return glm::vec3(mat * glm::vec4(vec, 0.0f));
+}
+
+inline std::string getFileType(std::string fileName){
+	std::regex pattern("[a-zA-Z0-9]+$");
+	std::smatch result;
+	if(regex_search(fileName,result,pattern))return result[result.size()-1];
+	else return std::string();
+}
+
+std::string secondToFormatTime(int seconds);
+
+//----------------------print vector data---------------------------//
+std::ostream &operator<<(std::ostream &s, const glm::vec2 vec);
+
+std::ostream &operator<<(std::ostream &s, const glm::vec3 vec);
+
 //-------------------generate random data---------------------------//
 float random0_1f();
 
@@ -68,6 +80,7 @@ glm::vec3 sampleOnHemisphereCosine();
 
 glm::vec3 sampleInsideTriangleUniform(const glm::vec3 &v0, const glm::vec3 &v1, const glm::vec3 &v2);
 
+//-------------------calculate refraction---------------------------//
 float fresnel(float cosine, float refractIndex);
 
 bool refract(const glm::vec3 &incidence, const glm::vec3 &normal, float ni_over_nt, glm::vec3 *refracted);

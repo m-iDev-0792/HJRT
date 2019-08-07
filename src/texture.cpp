@@ -31,6 +31,7 @@ ImageTexture::ImageTexture(const ImageTexture &_imgTex) {
 }
 
 ImageTexture &ImageTexture::operator=(const ImageTexture &_imgTex) {
+	if (&_imgTex == this)return *this;//avoid self assignment
 	width = _imgTex.width;
 	height = _imgTex.height;
 	channel = _imgTex.channel;

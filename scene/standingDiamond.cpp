@@ -1,3 +1,7 @@
+//
+// Created by 何振邦 on 2019-08-07.
+//
+
 #include <iostream>
 #include <vector>
 #include "geometry.h"
@@ -11,18 +15,6 @@ using namespace glm;
 
 int main() {
 	Camera camera(vec3(0, 2, 14), vec3(0, 0, -1), 512 / 2, 512 / 2, 45);
-
-	auto sphere = make_shared<Sphere>(vec3(0, 0, 0), 2);
-	sphere->name = "diffuse";
-	sphere->material = make_shared<Lambertian>(vec3(230, 173, 104) * (1 / 255.0f));
-
-	auto metalSphere = make_shared<Sphere>(vec3(0, 0, 0), 2);
-	metalSphere->name = "metal";
-	metalSphere->material = make_shared<Metal>(vec3(0.8), 0.3);
-
-	auto glassSphere = make_shared<Sphere>(vec3(-2, 1, 0), 1);
-	glassSphere->name = "glass";
-	glassSphere->material = make_shared<Dielectric>(vec3(1), 1.5);
 
 	auto light = make_shared<Sphere>(vec3(0, 5, 0), 1);
 	light->name = "light";
@@ -76,16 +68,11 @@ int main() {
 	ceilLightMaterial->emitDirection = vec3(0, -1, 0);
 	rectangleLight->setMaterial(ceilLightMaterial);
 
-	mat4 enlarge(1.0f);
-	enlarge = scale(enlarge, vec3(1.5, 1, 1.5));
-
 
 	Scene scene;
-	scene.useBVH = false;//turn on when there are many objects in the scene
+	scene.useBVH = false;
 	scene.ambient = vec3(0);
 	scene.shutterPeriod = TimePeriod(0, 1.0);
-//	scene.addShape(sphere);
-//	scene.addShape(glassSphere);
 
 	scene.addShape(rectangleLight);
 	scene.addShape(floor);

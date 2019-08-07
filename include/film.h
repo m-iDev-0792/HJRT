@@ -30,7 +30,7 @@ struct Film {
 
 	void setPixel(int row, int column, const glm::vec3 &color);
 
-	bool save(std::string fileName, std::string format) const;
+	bool save(std::string fileName) const;
 };
 
 

@@ -14,23 +14,22 @@
     <list default="true" id="5a782f66-7925-4249-82ff-1ffba5bd5ee1" name="Default Changelist" comment="Add Texture Support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SceneSetUp.md" beforeDir="false" afterPath="$PROJECT_DIR$/scene/SceneSetUp.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TODO.md" beforeDir="false" afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/HJRT" beforeDir="false" afterPath="$PROJECT_DIR$/bin/HJRT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/image copy.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/bin/image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/constants.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/geometry.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/geometry.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/bin/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/film.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/film.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/material.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/material.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/mesh.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/shape.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/shape.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/texture.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/texture.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/geometry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometry.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/demo.gif" beforeDir="false" afterPath="$PROJECT_DIR$/log/img/demo.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/film.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/film.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/material.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/material.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/mesh.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sampler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/sampler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shape.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/shape.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtui.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/texture.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/texture.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/utility.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,6 +66,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scene" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
@@ -121,7 +121,7 @@
       <workItem from="1563868027210" duration="17382000" />
       <workItem from="1564107346138" duration="1037000" />
       <workItem from="1564108467692" duration="105253000" />
-      <workItem from="1564969493852" duration="32611000" />
+      <workItem from="1564969493852" duration="48589000" />
     </task>
     <servers />
   </component>

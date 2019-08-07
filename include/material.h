@@ -70,9 +70,9 @@ struct Metal : Material {
 
 	Metal(glm::vec3 _albedo, float _fuzz = 0.0);
 
-	Metal(glm::vec3 _albedo, std::shared_ptr<Texture> _fuzz );
+	Metal(glm::vec3 _albedo, std::shared_ptr<Texture> _fuzz);
 
-	Metal(std::shared_ptr<Texture> _albedo, std::shared_ptr<Texture> _fuzz );
+	Metal(std::shared_ptr<Texture> _albedo, std::shared_ptr<Texture> _fuzz);
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 
@@ -88,7 +88,8 @@ struct Dielectric : Material {
 
 	Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz = 0.0, float _refractFuzz = 0.0);
 
-	Dielectric(std::shared_ptr<Texture> _albedo, float _refractIndex, std::shared_ptr<Texture> _reflectFuzz = nullptr, std::shared_ptr<Texture> _refractFuzz = nullptr);
+	Dielectric(std::shared_ptr<Texture> _albedo, float _refractIndex, std::shared_ptr<Texture> _reflectFuzz = nullptr,
+	           std::shared_ptr<Texture> _refractFuzz = nullptr);
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 
@@ -99,6 +100,29 @@ struct Isotropy : Material {
 	Isotropy() = default;
 
 	Isotropy(glm::vec3 _albedo);
+
+	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
+
+	bool scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
+};
+
+
+//NOTE. EnivronmentMap material dose not scatter ray because it is a light source;
+//      EnvironmentMap uses albedoTex as intensity measurement of emissionTex since EnvironmentMap does not do scattering
+//      and does not need albedoTex data.
+struct EnvironmentMap : Material {
+	EnvironmentMap() = default;
+
+	//Be careful about parameter order
+	EnvironmentMap(glm::vec3 _emission, glm::vec3 _albedo = glm::vec3(1));
+
+	EnvironmentMap(std::shared_ptr<Texture> _emissionTex, std::shared_ptr<Texture> _albedoTex = nullptr);
+
+	glm::vec3 albedo(const glm::vec2 &_uv) const override;
+
+	glm::vec3 emitted(const Ray &_ray, const glm::vec2 &_uv) const override;
+
+	glm::vec3 brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const override;
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 

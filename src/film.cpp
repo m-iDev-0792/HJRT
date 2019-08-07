@@ -30,8 +30,8 @@ void Film::setPixel(int row, int column, const glm::vec3 &color) {
 
 bool SaveEXR(const float *rgb, int width, int height, const char *outfilename);
 
-bool Film::save(std::string fileName, std::string format) const {
-
+bool Film::save(std::string fileName) const {
+	std::string format = getFileType(fileName);
 	if (format == "png") {
 		return stbi_write_png(fileName.c_str(), width, height, 3, discretizedData, 0);
 	} else if (format == "jpg") {

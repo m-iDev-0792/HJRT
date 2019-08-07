@@ -5,6 +5,18 @@
 
 #include "utility.h"
 
+std::string secondToFormatTime(int seconds){
+	int hour=seconds/3600;
+	seconds-=hour*3600;
+	int minute=seconds/60;
+	seconds-=minute*60;
+	std::string t;
+	if(hour>0)t+=std::to_string(hour)+std::string("h");
+	if(minute>0)t+=std::to_string(minute)+std::string("m");
+	t+=std::to_string(seconds)+std::string("s");
+	return t;
+}
+
 std::ostream& operator <<(std::ostream &s,const glm::vec2 vec){
 	s<<"("<<vec.x<<","<<vec.y<<")";
 	return s;

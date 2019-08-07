@@ -122,8 +122,10 @@ bool Mesh::loadMesh(const std::string &path) {
 			index_offset += vertexNum;
 
 			int mtlIndex = shapes[s].mesh.material_ids[f];
-			if (mtlIndex < materials.size() && mtlIndex > 0)face->material = materialPtr[mtlIndex];
-			else face->material = material;
+			if (mtlIndex < materials.size() && mtlIndex >= 0)face->material = materialPtr[mtlIndex];
+			else {
+				face->material = material;
+			}
 		}
 	}
 

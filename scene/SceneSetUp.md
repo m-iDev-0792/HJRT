@@ -10,6 +10,13 @@
 	scene.addShape(mesh);
 ```
 
+### Environment Map
+```cpp
+	auto env=make_shared<Sphere>(vec3(0),100);
+	env->setMaterial(make_shared<EnvironmentMap>(make_shared<ImageTexture>("sky.jpg")));
+	scene.addShape(env);
+```
+
 ### Toasters
 ```cpp
 	auto mesh = make_shared<Mesh>();
