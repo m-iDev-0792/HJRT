@@ -6,6 +6,7 @@
 #define RTTEST_CAMERA_H
 #include "utility.h"
 #include "ray.h"
+#include "film.h"
 
 struct Camera {
 	glm::vec3 position;
@@ -17,10 +18,10 @@ struct Camera {
 	int height;
 	float aperture;
 	float zFocus;
+	Film film;
 
-	Camera() = default;
 
-	Camera(glm::vec3 _position, glm::vec3 _direction, int _width, int _height, float _fov, float _aperture = -1,
+	Camera(glm::vec3 _position, glm::vec3 _target, int _width, int _height, float _fov, float _aperture = -1,
 	       float _zFocus = 1);
 
 	Ray castRay(const float &u, const float &v);

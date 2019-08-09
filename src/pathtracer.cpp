@@ -8,14 +8,14 @@ PathTracer::PathTracer() {
 	maxBounce = 25;
 	RRCutBounce = 5;
 	state = Integrator::IDLE;
-	samples = 20;
+	samplingTex.setSamples(20);
 	antiAliasNum = 2;
 	renderThreadNum = 0;
 	renderPortionBlock = 8;
 	latestRenderSec = 99999999;
 }
 
-void PathTracer::render(Film &film, Camera camera, Scene &scene) {
+void PathTracer::render(Camera &camera, Scene &scene) {
 	//initialize scene, it may take a while
 	scene.prepareRendering();
 
@@ -67,13 +67,13 @@ void PathTracer::render(Film &film, Camera camera, Scene &scene) {
 	state = Integrator::RENDERING;
 
 	for (int i = 0; i < runningThreadNum; ++i) {
-		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, std::ref(film), camera,
+		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, std::ref(camera),
 		                                           std::ref(scene));
 		threads[i]->detach();
 	}
 }
 
-void PathTracer::renderPerformer(int threadNum, Film &film, Camera camera, Scene &scene) {
+void PathTracer::renderPerformer(int threadNum, Camera &camera, Scene &scene) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
 	auto startTime = std::chrono::high_resolution_clock::now();
@@ -96,19 +96,21 @@ void PathTracer::renderPerformer(int threadNum, Film &film, Camera camera, Scene
 		for (int i = start.y; i < end.y; ++i) {//row
 			for (int j = start.x; j < end.x; ++j) {//column
 				glm::vec3 color(0);
+				int actualSamples;
 				for (int u = 0; u < antiAliasNum; ++u) {
 					for (int v = 0; v < antiAliasNum; ++v) {
-
-						for (int s = 0; s < samples; ++s) {
+						actualSamples=samplingTex.getColor(glm::vec2(j + subS + subR * u, i + subS + subR * v)).x;
+						for (int s = 0; s < actualSamples; ++s) {
 							color = color + deNanInf(shade(scene,
-							                               camera.castRay(j + subS + subR * u, i + subS + subR * v, scene.shutterPeriod)));
+							                               camera.castRay(j + subS + subR * u, i + subS + subR * v,
+							                                              scene.shutterPeriod)));
 //							color = color + deNanInf(shade(scene, camera.castRay(j + subS + subR * u, i + subS + subR * v), 1));
 						}
 
 					}
 				}
-				color = color * (1.0f / (antiAliasNum * antiAliasNum * samples));
-				film.setPixel(i, j, color);
+				color = color * (1.0f / (antiAliasNum * antiAliasNum * actualSamples));
+				camera.film.setPixel(i, j, color);
 			}
 			blockProgress[threadNum] = static_cast<float>(i + 1 - start.y) / (end.y - start.y);
 		}
@@ -137,8 +139,8 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 			glm::vec2 uv;
 			bool hasUV = hitInfo.hitobject->getUV(hitInfo, &uv);
 			hitInfo.uv = uv;
-			glm::vec3 emission = hitInfo.hitobject->material->emitted(ray,hitInfo.uv);
-			float RRWeight=1.0f;//Russian roulette weight
+			glm::vec3 emission = hitInfo.hitobject->material->emitted(ray, hitInfo.uv);
+			float RRWeight = 1.0f;//Russian roulette weight
 			if (depth > RRCutBounce) {
 				const glm::vec3 &f = hitInfo.hitobject->material->albedo(hitInfo.uv);
 				//Set Russian roulette probability as max color contribution
@@ -147,16 +149,16 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 				if (random0_1f() > RRProbability) {
 					emissionHistory[depth] = emission;
 					break;
-				}else{
-					RRWeight/=RRProbability;
+				} else {
+					RRWeight /= RRProbability;
 				}
 			}
 			glm::vec3 attenuation;
 			Ray newRay;
 			if (hitInfo.hitobject->material->scatterPro(ray, hitInfo, &attenuation, &newRay)) {
-				attenuationHistory[depth] = attenuation*RRWeight;
+				attenuationHistory[depth] = attenuation * RRWeight;
 				emissionHistory[depth] = emission;
-				ray=newRay;
+				ray = newRay;
 				++depth;
 				continue;
 			} else {
@@ -184,7 +186,7 @@ glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
 		glm::vec2 uv;
 		bool hasUV = hitInfo.hitobject->getUV(hitInfo, &uv);
 		hitInfo.uv = uv;
-		glm::vec3 emission = hitInfo.hitobject->material->emitted(ray,hitInfo.uv);
+		glm::vec3 emission = hitInfo.hitobject->material->emitted(ray, hitInfo.uv);
 		float RRWeight = 1.0f;//Russian roulette weight
 		if (depth > RRCutBounce) {
 			const glm::vec3 &f = hitInfo.hitobject->material->albedo(hitInfo.uv);

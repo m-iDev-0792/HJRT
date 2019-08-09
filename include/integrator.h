@@ -9,14 +9,16 @@
 #include "film.h"
 #include "camera.h"
 
-struct Integrator{
+struct Integrator {
 	enum {
 		IDLE,
 		RENDERING
 	};
 	int state;
-	//Plan: modify "render" to render(Film &image, Camera camera, Scene &scene, *!* RenderInfo info*!*)
+
+	//Plan: modify "render" to render(Camera &camera, Scene &scene, *!* RenderInfo info*!*)
 	//we store some rendering info in RenderInfo class, and pass it to scene for preprocess before rendering
-	virtual void render(Film &image, Camera camera, Scene &scene) =0;
+	virtual void render(Camera &camera, Scene &scene) = 0;
 };
+
 #endif //HJRT_RENDERER_H

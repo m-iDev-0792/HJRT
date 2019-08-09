@@ -4,10 +4,15 @@
 
 #include "camera.h"
 
-Camera::Camera(glm::vec3 _position, glm::vec3 _direction, int _width, int _height, float _fov, float _aperture,
+Camera::Camera(glm::vec3 _position, glm::vec3 _target, int _width, int _height, float _fov, float _aperture,
                float _zFocus)
-		: position(_position), direction(_direction), width(_width), height(_height), fov(_fov), aperture(_aperture),
-		  zFocus(_zFocus) {
+		: position(_position), direction(glm::normalize(_target - _position)), width(_width), height(_height),
+		  fov(_fov), aperture(_aperture),
+		  zFocus(_zFocus), film(_width, _height) {
+	if (glm::length(direction) < 0.0001) {
+		direction = glm::vec3(0, 0, -1);//avoid bad direction
+		std::cout << "input a invalid direction, set default direction(0,0,-1)" << std::endl;
+	}
 	if (glm::length(direction - glm::vec3(0, 1, 0)) > 0.01f)
 		right = -glm::normalize(glm::cross(glm::vec3(0, 1, 0), direction));
 	else

@@ -9,9 +9,11 @@
 #include "material.h"
 #include <thread>
 #include <mutex>
-constexpr int MAX_THREAD=128;
+
+constexpr int MAX_THREAD = 128;
+
 struct PathTracer : Integrator {
-	int samples;
+	SamplingTexture samplingTex;
 	int antiAliasNum;
 	int maxBounce;
 	int RRCutBounce;
@@ -27,18 +29,18 @@ struct PathTracer : Integrator {
 	std::vector<std::shared_ptr<std::thread>> threads;
 private:
 	std::mutex taskMutex;
-	std::vector<std::pair<glm::vec2,glm::vec2>> taskList;
+	std::vector<std::pair<glm::vec2, glm::vec2>> taskList;
 	int idleTaskNum;
 public:
 	PathTracer();
 
-	glm::vec3 shade(const Scene& _scene,const Ray& _ray);//non-recursive shade function
+	glm::vec3 shade(const Scene &_scene, const Ray &_ray);//non-recursive shade function
 
-	glm::vec3 shade(const Scene& scene,const Ray& ray, int depth);//recursive shade function
+	glm::vec3 shade(const Scene &scene, const Ray &ray, int depth);//recursive shade function
 
-	void render(Film &film, Camera camera, Scene &scene) override;
+	void render(Camera &camera, Scene &scene) override;
 
-	void renderPerformer(int threadNum, Film &film, Camera camera, Scene &scene);
+	void renderPerformer(int threadNum, Camera &camera, Scene &scene);
 
 	bool isFinish();
 

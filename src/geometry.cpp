@@ -68,7 +68,9 @@ float Sphere::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
 	Ray ray(_hitInfo.hitpoint, _direction, _hitInfo.hittime);
 	if (this->intersect(ray, &info)) {
 		glm::vec3 p2c = origin - _hitInfo.hitpoint;
-		float cosineMax = std::sqrt(1 - r * r / (glm::dot(p2c, p2c)));
+		float c2 = 1 - r * r / glm::dot(p2c, p2c);
+		//c2~0 denotes hitpoint is nearly on the sampling sphere
+		float cosineMax = c2 < 0.0001 ? 0 : std::sqrt(c2);//avoid nan value
 		float solidAngle = C_TWO_PI * (1 - cosineMax);
 		return 1 / solidAngle;
 	} else
@@ -78,13 +80,16 @@ float Sphere::pdf(const HitInfo &_hitInfo, const glm::vec3 &_direction) const {
 float Sphere::sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const {
 	float r1 = random0_1f(), r2 = random0_1f();
 	glm::vec3 p2c = origin - _hitInfo.hitpoint;
-	float cosineMax = std::sqrt(1 - r * r / (glm::dot(p2c, p2c)));
+	float c2 = 1 - r * r / glm::dot(p2c, p2c);
+	//c2~0 denotes hitpoint is nearly on the sampling sphere
+	float cosineMax = c2 < 0.0001 ? 0 : std::sqrt(c2);//avoid nan value
 	float z = 1 + r2 * (cosineMax - 1);
 	float sinTheta = std::sqrt(1 - z * z);
 	float phi = C_TWO_PI * r1;
 	float x = std::cos(phi) * sinTheta;
 	float y = std::sin(phi) * sinTheta;
-	*_sampledDirection = glm::normalize(ONB::localFromW(glm::normalize(p2c), glm::vec3(x, y, z)));
+	glm::vec3 temp = ONB::localFromW(glm::normalize(p2c), glm::vec3(x, y, z));
+	*_sampledDirection = glm::normalize(temp);
 	float solidAngle = C_TWO_PI * (1 - cosineMax);
 	return 1 / solidAngle;
 }

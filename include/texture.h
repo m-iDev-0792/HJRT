@@ -44,4 +44,39 @@ struct ImageTexture : Texture {
 	glm::vec3 getColor(const glm::vec2 &_uv) const override;
 };
 
+struct SamplingTexture : public Texture {
+private:
+	int width;
+	int height;
+	int *data;
+	int uniformSamplingNum;
+public:
+	SamplingTexture() {
+		data = nullptr;
+		uniformSamplingNum = 1;
+	}
+
+	SamplingTexture(int _samples) : uniformSamplingNum(_samples) {}
+
+	SamplingTexture(std::string _path);
+
+	SamplingTexture(const SamplingTexture &_samplingTex);
+
+	SamplingTexture &operator=(const SamplingTexture &_samplingTex);
+
+	bool loadFromImage(std::string _path);
+
+	glm::vec3 getColor(const glm::vec2 &_uv) const override;
+
+	void setSamples(int _samples) {
+		if (data != nullptr)delete[] data;
+		data = nullptr;
+		uniformSamplingNum = _samples;
+	}
+
+	int getUniformSamples() {
+		return data == nullptr ? uniformSamplingNum : -1;
+	}
+};
+
 #endif //RTTEST_TEXTURE_H

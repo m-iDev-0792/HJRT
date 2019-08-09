@@ -91,7 +91,11 @@ void RTUI::render() {
 		ImGui::Begin("Rendering Info");
 		ImGui::Text("[Parameter]");
 		ImGui::Text("size: %dx%d", film->width, film->height);
-		ImGui::Text("samples: %d", pathTracer->samples);
+		int samples = pathTracer->samplingTex.getUniformSamples();
+		if (samples > 1)
+			ImGui::Text("samples: %d", samples);
+		else
+			ImGui::Text("samples: adaptive");
 		ImGui::Text("anti-alias: %d", pathTracer->antiAliasNum);
 		ImGui::Text("[Progress ]");
 		for (int i = 0; i < pathTracer->runningThreadNum; ++i) {

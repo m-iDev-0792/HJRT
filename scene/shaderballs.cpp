@@ -1,3 +1,7 @@
+//
+// Created by 何振邦 on 2019-08-09.
+//
+
 #include <iostream>
 #include <vector>
 #include "geometry.h"
@@ -10,7 +14,7 @@ using namespace std;
 using namespace glm;
 
 int main() {
-	Camera camera(vec3(0, 2, 14), vec3(0, 2, 0), 512 / 2, 512 / 2, 45);
+	Camera camera(vec3(0, 10, 19), vec3(0, 5, 0), 512 / 2 + 128, 512 / 2, 45);
 
 	auto sphere = make_shared<Sphere>(vec3(0, 0, 0), 2);
 	sphere->name = "diffuse";
@@ -87,27 +91,90 @@ int main() {
 //	scene.addShape(sphere);
 //	scene.addShape(glassSphere);
 
-	scene.addShape(rectangleLight);
-	scene.addShape(floor);
-	scene.addShape(ceil);
-	scene.addShape(redWall);
-	scene.addShape(greenWall);
-	scene.addShape(back);
+//	scene.addShape(rectangleLight);
+//	scene.addShape(floor);
+//	scene.addShape(ceil);
+//	scene.addShape(redWall);
+//	scene.addShape(greenWall);
+//	scene.addShape(back);
+
+//	auto mesh = make_shared<Mesh>();
+//	mesh->material = make_shared<Dielectric>(vec3(1), 2.417);
+//	glm::mat4 meshTransMat(1.0f);
+//	meshTransMat = translate(meshTransMat, vec3(0, -2, 0));
+//	mesh->loadMesh("../mesh/diamondStanding.obj");
+//	mesh->transform(meshTransMat);
+//	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
+//	scene.addShape(mesh);
 
 	auto mesh = make_shared<Mesh>();
-	mesh->material = make_shared<Dielectric>(vec3(1), 2.417);
 	glm::mat4 meshTransMat(1.0f);
 	meshTransMat = translate(meshTransMat, vec3(0, -2, 0));
-	mesh->loadMesh("../mesh/diamondStanding.obj");
-	mesh->transform(meshTransMat);
+	mesh->loadMesh("background.obj");
+//	mesh->transform(meshTransMat);
 	cout << "loaded model: " << mesh->name << "  triangle num: " << mesh->triangles.size() << endl;
 	scene.addShape(mesh);
 
+	auto sbinner=make_shared<Mesh>();
+	sbinner->setMaterial(make_shared<Lambertian>(vec3(0.6)));
+	sbinner->loadMesh("shaderball-inner.obj");
+	scene.addShape(sbinner);
+
+	auto sboutside=make_shared<Mesh>();
+	sboutside->setMaterial(make_shared<Dielectric>(vec3(1),1.4,0.8,0.8));
+	sboutside->loadMesh("shaderball-outside.obj");
+	scene.addShape(sboutside);
+
+	mat4 smaller(1.0);
+	smaller=scale(smaller,vec3(1.0f/50));
+	sbinner->transform(smaller);
+	sboutside->transform(smaller);
+	///////////////////////////////////
+	auto sbinner2=make_shared<Mesh>();
+	sbinner2->setMaterial(make_shared<Lambertian>(vec3(0.6)));
+	sbinner2->loadMesh("shaderball-inner.obj");
+	scene.addShape(sbinner2);
+
+	auto sboutside2=make_shared<Mesh>();
+	sboutside2->setMaterial(make_shared<Metal>(vec3(0.8)));
+	sboutside2->loadMesh("shaderball-outside.obj");
+	scene.addShape(sboutside2);
+
+	mat4 smaller2(1.0);
+	smaller2=translate(smaller2,vec3(-8,0,0));
+	smaller2=scale(smaller2,vec3(1.0f/50));
+	sbinner2->transform(smaller2);
+	sboutside2->transform(smaller2);
+
+	//////////////////////////////////
+	auto sbinner3=make_shared<Mesh>();
+	sbinner3->setMaterial(make_shared<Lambertian>(vec3(0.6)));
+	sbinner3->loadMesh("shaderball-inner.obj");
+	scene.addShape(sbinner3);
+
+	auto sboutside3=make_shared<Mesh>();
+	sboutside3->setMaterial(make_shared<Lambertian>(vec3(0.639, 0.416, 0.800)));
+	sboutside3->loadMesh("shaderball-outside.obj");
+	scene.addShape(sboutside3);
+
+	mat4 smaller3(1.0);
+	smaller3=translate(smaller3,vec3(8,0,0));
+	smaller3=scale(smaller3,vec3(1.0f/50));
+	sbinner3->transform(smaller3);
+	sboutside3->transform(smaller3);
+
+
+	auto testlight = make_shared<Sphere>(vec3(0, 6 * PlaneR, 0), 5);
+	testlight->name = "testlight";
+	testlight->material = make_shared<Lambertian>(vec3(0), vec3(10));
+	testlight->material->emitDirection = vec3(0);
+	scene.addShape(testlight);
+
 	const int antiAliasNum = 2;
-	const int samples = 20;
+	const int samples = 1;
 
 	//!Multiple Importance Sampling!
-	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
+	auto objectSampler = make_shared<ObjectSampler>(testlight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
 	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.5);
 	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->setSampler(mixSampler);
@@ -117,9 +184,9 @@ int main() {
 	//----------------------Render---------------------------
 	PathTracer path;
 	path.antiAliasNum = antiAliasNum;
-	path.renderThreadNum = 0;//0 = auto select
-	path.samplingTex.setSamples(samples);
-	path.renderPortionBlock = 8;//path.renderThreadNum;
+	path.renderThreadNum = 4;
+	path.samples = samples;
+	path.renderPortionBlock = 16;//path.renderThreadNum;
 
 	path.render(camera, scene);
 
