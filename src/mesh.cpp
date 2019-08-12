@@ -42,26 +42,26 @@ bool Mesh::loadMesh(const std::string &path) {
 		glm::vec3 albedo(materials[i].diffuse[0], materials[i].diffuse[1], materials[i].diffuse[2]);
 		glm::vec3 emission(materials[i].emission[0], materials[i].emission[1], materials[i].emission[2]);
 
-		std::shared_ptr<Texture> albedoTex;
+		std::shared_ptr<Texture<glm::vec3>> albedoTex;
 		if (materials[i].diffuse_texname.empty())
-			albedoTex = std::make_shared<SolidColorTexture>(albedo);
+			albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(albedo);
 		else
-			albedoTex = std::make_shared<ImageTexture>(materials[i].diffuse_texname);
+			albedoTex = makeRGBImageTexture(materials[i].diffuse_texname);
 
-		std::shared_ptr<Texture> emissionTex;
+		std::shared_ptr<Texture<glm::vec3>> emissionTex;
 		if (materials[i].emissive_texname.empty())
-			emissionTex = std::make_shared<SolidColorTexture>(emission);
+			emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(emission);
 		else
-			emissionTex = std::make_shared<ImageTexture>(materials[i].emissive_texname);
+			emissionTex = makeRGBImageTexture(materials[i].emissive_texname);
 
 		std::shared_ptr<Material> newMtl;
 
 		if(materials[i].ior>1.01){//Dielectric
 			if(!materials[i].roughness_texname.empty()){
-				auto roughnessTex=std::make_shared<ImageTexture>(materials[i].roughness_texname);
+				auto roughnessTex=makeGrayImageTexture(materials[i].roughness_texname);
 				newMtl=std::make_shared<Dielectric>(albedoTex,materials[i].ior,roughnessTex,roughnessTex);
 			}else{
-				auto roughnessTex=std::make_shared<SolidColorTexture>(glm::vec3(materials[i].roughness));
+				auto roughnessTex=std::make_shared<SolidColorTexture<float>>(materials[i].roughness);
 				newMtl=std::make_shared<Dielectric>(albedoTex,materials[i].ior,roughnessTex,roughnessTex);
 			}
 		}else{//Lambertian

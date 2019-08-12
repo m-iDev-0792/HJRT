@@ -15,7 +15,7 @@ RTUI::RTUI(int _width, int _height, std::string _title) : width(_width), height(
 
 	windowPtr = glfwCreateWindow(_width, _height, _title.c_str(), nullptr, nullptr);
 	if (windowPtr == nullptr) {
-		std::cout << "ERROR @ GLFWWindows : Can't create window " << windowTitle << std::endl;
+		Error("Can't create window\n");
 		throw "ERROR @ GLFWWindows : failed to create glfw window";
 	}
 	glfwSetFramebufferSizeCallback(windowPtr, staticFramebufferSizeCallback);
@@ -25,7 +25,7 @@ RTUI::RTUI(int _width, int _height, std::string _title) : width(_width), height(
 	glfwGetFramebufferSize(windowPtr, &bufferWidth, &bufferHeight);
 	glfwMakeContextCurrent(windowPtr);
 	if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-		std::cout << "Failed to initialize GLAD" << std::endl;
+		Error("Failed to initialize GLAD\n");
 		return;
 	}
 	currentWindow = this;

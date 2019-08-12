@@ -99,7 +99,7 @@ void PathTracer::renderPerformer(int threadNum, Camera &camera, Scene &scene) {
 				int actualSamples;
 				for (int u = 0; u < antiAliasNum; ++u) {
 					for (int v = 0; v < antiAliasNum; ++v) {
-						actualSamples=samplingTex.getColor(glm::vec2(j + subS + subR * u, i + subS + subR * v)).x;
+						actualSamples=samplingTex.getColor(glm::vec2(j + subS + subR * u, i + subS + subR * v));
 						for (int s = 0; s < actualSamples; ++s) {
 							color = color + deNanInf(shade(scene,
 							                               camera.castRay(j + subS + subR * u, i + subS + subR * v,

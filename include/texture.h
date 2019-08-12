@@ -9,46 +9,78 @@
 #include <stb/stb_image.h>
 #include <memory>
 
+template<typename T>
 struct Texture {
-	virtual glm::vec3 getColor(const glm::vec2 &_uv) const = 0;
+	virtual T getColor(const glm::vec2 &_uv) const = 0;
 };
 
-struct SolidColorTexture : Texture {
-	glm::vec3 color;
+template<typename T>
+struct SolidColorTexture : Texture<T> {
+	T color;
 
 	SolidColorTexture() = default;
 
-	SolidColorTexture(glm::vec3 _color);
+	SolidColorTexture(T _color):color(_color){}
 
-	SolidColorTexture(float _r, float _g, float _b);
-
-	glm::vec3 getColor(const glm::vec2 &_uv) const override;
+	T getColor(const glm::vec2 &_uv) const override{return color;}
 };
 
-struct ImageTexture : Texture {
-	unsigned char *data;
+template<typename T>
+struct ImageTexture : Texture<T> {
+	T *data;
 	int width;
 	int height;
-	int channel;
 
 	ImageTexture() { data = nullptr; };
 
-	ImageTexture(std::string _path);
+	ImageTexture(T *_data, int _width, int _height) {
+		getData(_data, _width, _height);
+	}
 
-	ImageTexture(const ImageTexture &_imgTex);
+	ImageTexture(const ImageTexture<T> &_imgTex) {
+		width = _imgTex.width;
+		height = _imgTex.height;
+		data = new T[width * height];
+		std::memcpy(data, _imgTex.data, width * height * sizeof(T));
+	}
 
-	ImageTexture &operator=(const ImageTexture &_imgTex);
+	ImageTexture &operator=(const ImageTexture<T> &_imgTex) {
+		if (&_imgTex == this)return *this;//avoid self assignment
+		width = _imgTex.width;
+		height = _imgTex.height;
+		if (data != nullptr)delete[] data;
+		data = new T[width * height];
+		std::memcpy(data, _imgTex.data, width * height * sizeof(T));
+		return *this;
+	}
 
-	bool loadFromPath(std::string _path);
+	void getData(T *_data, int _width, int _height) {
+		width = _width;
+		height = _height;
+		data = _data;
+	}
 
-	glm::vec3 getColor(const glm::vec2 &_uv) const override;
+	void copyData(T *_data, int _width, int _height) {
+		width = _width;
+		height = _height;
+		data = new T[width * height];
+		std::memcpy(data, _data, width * height * sizeof(T));
+	}
+
+	T getColor(const glm::vec2 &_uv) const override{
+		if (data == nullptr)return T(0);
+		float u, v;
+		u = _uv.x < 0 ? _uv.x - static_cast<int>(_uv.x) + 1 : _uv.x > 1 ? _uv.x - static_cast<int>(_uv.x) : _uv.x;
+		v = _uv.y < 0 ? _uv.y - static_cast<int>(_uv.y) + 1 : _uv.y > 1 ? _uv.y - static_cast<int>(_uv.y) : _uv.y;
+		int x = u * (width - 1);
+		int y = v * (height - 1);
+		return data[(height - 1 - y) * width + x];
+	}
 };
 
-struct SamplingTexture : public Texture {
+struct SamplingTexture : public ImageTexture<int> {
 private:
-	int width;
-	int height;
-	int *data;
+
 	int uniformSamplingNum;
 public:
 	SamplingTexture() {
@@ -56,17 +88,16 @@ public:
 		uniformSamplingNum = 1;
 	}
 
-	SamplingTexture(int _samples) : uniformSamplingNum(_samples) {}
+	SamplingTexture(int _samples) : uniformSamplingNum(_samples) {
+		data= nullptr;
+	}
 
-	SamplingTexture(std::string _path);
+	SamplingTexture(std::string _path){
+		data = nullptr;
+		setSamplesFromImage(_path);
+	}
 
-	SamplingTexture(const SamplingTexture &_samplingTex);
-
-	SamplingTexture &operator=(const SamplingTexture &_samplingTex);
-
-	bool loadFromImage(std::string _path);
-
-	glm::vec3 getColor(const glm::vec2 &_uv) const override;
+	int getColor(const glm::vec2 &_uv) const override;
 
 	void setSamples(int _samples) {
 		if (data != nullptr)delete[] data;
@@ -74,9 +105,15 @@ public:
 		uniformSamplingNum = _samples;
 	}
 
+	bool setSamplesFromImage(std::string _path);
+
 	int getUniformSamples() {
 		return data == nullptr ? uniformSamplingNum : -1;
 	}
 };
+
+std::shared_ptr<ImageTexture<glm::vec3>> makeRGBImageTexture(std::string path);
+
+std::shared_ptr<ImageTexture<float>> makeGrayImageTexture(std::string path);
 
 #endif //RTTEST_TEXTURE_H

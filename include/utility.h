@@ -10,8 +10,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "tinyobjloader/tiny_obj_loader.h"
 #include "constants.h"
+#include "log.h"
 #include <vector>
-#include <iostream>
 #include <random>
 #include <string>
 #include <regex>

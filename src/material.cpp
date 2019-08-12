@@ -5,13 +5,16 @@
 #include "material.h"
 
 std::shared_ptr<Sampler> Material::defaultSampler = std::make_shared<CosineHemisphereSampler>();
-
+//----------------------------------
+//            Lambertian
+//----------------------------------
 Lambertian::Lambertian(glm::vec3 _albedo, glm::vec3 _emission) {
-	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
-	emissionTex = std::make_shared<SolidColorTexture>(_emission);
+	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(_emission);
 }
 
-Lambertian::Lambertian(std::shared_ptr<Texture> _albedoTex, std::shared_ptr<Texture> _emissionTex) {
+Lambertian::Lambertian(std::shared_ptr<Texture<glm::vec3>> _albedoTex,
+                       std::shared_ptr<Texture<glm::vec3>> _emissionTex) {
 	albedoTex = _albedoTex;
 	emissionTex = _emissionTex;
 }
@@ -45,22 +48,25 @@ bool Lambertian::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *a
 	return true;
 }
 
+//----------------------------------
+//              Metal
+//----------------------------------
 Metal::Metal(glm::vec3 _albedo, float _fuzz) {
-	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
-	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
 	float f = (_fuzz > 1) ? 1 : _fuzz;
-	fuzz = std::make_shared<SolidColorTexture>(glm::vec3(f));
+	fuzz = std::make_shared<SolidColorTexture<float>>(f);
 }
 
-Metal::Metal(glm::vec3 _albedo, std::shared_ptr<Texture> _fuzz) {
-	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
-	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+Metal::Metal(glm::vec3 _albedo, std::shared_ptr<Texture<float>> _fuzz) {
+	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
 	fuzz = _fuzz;
 }
 
-Metal::Metal(std::shared_ptr<Texture> _albedo, std::shared_ptr<Texture> _fuzz) {
+Metal::Metal(std::shared_ptr<Texture<glm::vec3>> _albedo, std::shared_ptr<Texture<float>> _fuzz) {
 	albedoTex = _albedo;
-	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
 	fuzz = _fuzz;
 }
 
@@ -70,7 +76,7 @@ bool Metal::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuati
 	scatteredRay->time = ray.time;
 	scatteredRay->tMin = ray.tMin;
 	scatteredRay->tMax = ray.tMax;
-	float FUZZ = fuzz->getColor(hitInfo.uv).x;
+	float FUZZ = fuzz->getColor(hitInfo.uv);
 
 	if (FUZZ > 0.001)
 		scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal) + FUZZ * sampleInsideSphereUniform());
@@ -84,20 +90,24 @@ bool Metal::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenu
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
 
+//----------------------------------
+//           Dielectirc
+//----------------------------------
 Dielectric::Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz, float _refractFuzz) : refractIndex(
 		_refractIndex) {
-	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
-	reflectFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_reflectFuzz));
-	refractFuzz = std::make_shared<SolidColorTexture>(glm::vec3(_refractFuzz));
-	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
+	reflectFuzz = std::make_shared<SolidColorTexture<float>>(_reflectFuzz);
+	refractFuzz = std::make_shared<SolidColorTexture<float>>(_refractFuzz);
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
 }
 
-Dielectric::Dielectric(std::shared_ptr<Texture> _albedo, float _refractIndex, std::shared_ptr<Texture> _reflectFuzz,
-                       std::shared_ptr<Texture> _refractFuzz) : refractIndex(_refractIndex) {
+Dielectric::Dielectric(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refractIndex,
+                       std::shared_ptr<Texture<float>> _reflectFuzz,
+                       std::shared_ptr<Texture<float>> _refractFuzz) : refractIndex(_refractIndex) {
 	albedoTex = _albedo;
-	reflectFuzz = _reflectFuzz == nullptr ? std::make_shared<SolidColorTexture>(glm::vec3(0)) : _reflectFuzz;
-	refractFuzz = _refractFuzz == nullptr ? std::make_shared<SolidColorTexture>(glm::vec3(0)) : _refractFuzz;
-	emissionTex = std::make_shared<SolidColorTexture>(glm::vec3(0));
+	reflectFuzz = _reflectFuzz == nullptr ? std::make_shared<SolidColorTexture<float>>(0) : _reflectFuzz;
+	refractFuzz = _refractFuzz == nullptr ? std::make_shared<SolidColorTexture<float>>(0) : _refractFuzz;
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
 }
 
 bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
@@ -106,12 +116,12 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 	float dotNormalIncidence = glm::dot(ray.dir, hitInfo.normal);
 	glm::vec3 outwardNormal;
 	if (dotNormalIncidence > 0) {
-		//incidence and normal are not in the same side
+		//incidence and normal are not in the same side, from inside to outside
 		outwardNormal = -hitInfo.normal;
 		ni_over_nr = refractIndex;
 		cosine = refractIndex * dotNormalIncidence;//TODO. figure out why multiply refractIndex??????
 	} else {
-		//the most common case
+		//the most common case, from outside to inside
 		outwardNormal = hitInfo.normal;
 		ni_over_nr = 1.0 / refractIndex;
 		cosine = -dotNormalIncidence;
@@ -129,7 +139,7 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 		scatteredRay->origin = hitInfo.hitpoint;
 		scatteredRay->time = ray.time;
 
-		float FUZZ = reflectFuzz->getColor(hitInfo.uv).x;
+		float FUZZ = reflectFuzz->getColor(hitInfo.uv);
 		if (FUZZ > 0.001)
 			scatteredRay->dir = glm::normalize(
 					glm::normalize(reflect(ray.dir, hitInfo.normal)) + FUZZ * sampleInsideSphereUniform());
@@ -142,7 +152,7 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 		scatteredRay->origin = hitInfo.hitpoint;
 		scatteredRay->time = ray.time;
 
-		float FUZZ = refractFuzz->getColor(hitInfo.uv).x;
+		float FUZZ = refractFuzz->getColor(hitInfo.uv);
 		if (FUZZ > 0.001)
 			scatteredRay->dir = glm::normalize(glm::normalize(refracted) + FUZZ * sampleInsideSphereUniform());
 		else scatteredRay->dir = glm::normalize(refracted);
@@ -158,8 +168,11 @@ bool Dielectric::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *a
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
 
+//----------------------------------
+//             Isotropy
+//----------------------------------
 Isotropy::Isotropy(glm::vec3 _albedo) {
-	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
+	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
 }
 
 bool Isotropy::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
@@ -176,16 +189,19 @@ bool Isotropy::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *att
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
 
-
+//----------------------------------
+//         EnvironmentMap
+//----------------------------------
 EnvironmentMap::EnvironmentMap(glm::vec3 _emission, glm::vec3 _albedo) {
-	emissionTex = std::make_shared<SolidColorTexture>(_emission);
-	albedoTex = std::make_shared<SolidColorTexture>(_albedo);
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(_emission);
+	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
 }
 
-EnvironmentMap::EnvironmentMap(std::shared_ptr<Texture> _emissionTex, std::shared_ptr<Texture> _albedoTex) {
+EnvironmentMap::EnvironmentMap(std::shared_ptr<Texture<glm::vec3>> _emissionTex,
+                               std::shared_ptr<Texture<glm::vec3>> _albedoTex) {
 	emissionTex = _emissionTex;
 	if (_albedoTex == nullptr)
-		albedoTex = std::make_shared<SolidColorTexture>(glm::vec3(1));
+		albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(1));
 	else
 		albedoTex = _albedoTex;
 }

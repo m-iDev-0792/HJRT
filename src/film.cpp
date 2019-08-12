@@ -111,7 +111,7 @@ bool SaveEXR(const float *rgb, int width, int height, const char *outfilename) {
 	const char *err = nullptr; // or nullptr in C++11 or later.
 	int ret = SaveEXRImageToFile(&image, &header, outfilename, &err);
 	if (ret != TINYEXR_SUCCESS) {
-		std::cout << "Save EXR err: " << err << std::endl;
+		Error(err) << "\n";
 		FreeEXRErrorMessage(err); // free's buffer for an error message
 		return false;
 	}
