@@ -114,6 +114,8 @@ public:
 
 std::shared_ptr<ImageTexture<glm::vec3>> makeRGBImageTexture(std::string path);
 
+std::shared_ptr<ImageTexture<glm::vec4>> makeRGBAImageTexture(std::string path);
+
 std::shared_ptr<ImageTexture<float>> makeGrayImageTexture(std::string path);
 
 #endif //RTTEST_TEXTURE_H

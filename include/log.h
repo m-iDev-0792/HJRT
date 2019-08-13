@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #define FUNCNAME __func__
 std::ostream &error(std::string place, std::string message);

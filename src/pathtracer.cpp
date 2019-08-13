@@ -223,7 +223,7 @@ float PathTracer::totalProgress() const {
 
 std::string PathTracer::getInfo(std::string para) const {
 	if (para == "samples") {
-		if (samplingTex.getUniformSamples() > 1)return std::to_string(samplingTex.getUniformSamples());
+		if (samplingTex.getUniformSamples() >= 1)return std::to_string(samplingTex.getUniformSamples());
 		else return std::string("adaptive");
 	} else if (para == "antialias")return std::to_string(antiAliasNum);
 	else if (para == "thread")return std::to_string(runningThreadNum);

@@ -11,12 +11,14 @@ std::shared_ptr<Sampler> Material::defaultSampler = std::make_shared<CosineHemis
 Lambertian::Lambertian(glm::vec3 _albedo, glm::vec3 _emission) {
 	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
 	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(_emission);
+	alphaTex = nullptr;
 }
 
 Lambertian::Lambertian(std::shared_ptr<Texture<glm::vec3>> _albedoTex,
                        std::shared_ptr<Texture<glm::vec3>> _emissionTex) {
 	albedoTex = _albedoTex;
 	emissionTex = _emissionTex;
+	alphaTex = nullptr;
 }
 
 glm::vec3 Lambertian::brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const {
@@ -54,6 +56,7 @@ bool Lambertian::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *a
 Metal::Metal(glm::vec3 _albedo, float _fuzz) {
 	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
 	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
+	alphaTex = nullptr;
 	float f = (_fuzz > 1) ? 1 : _fuzz;
 	fuzz = std::make_shared<SolidColorTexture<float>>(f);
 }
@@ -61,12 +64,14 @@ Metal::Metal(glm::vec3 _albedo, float _fuzz) {
 Metal::Metal(glm::vec3 _albedo, std::shared_ptr<Texture<float>> _fuzz) {
 	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
 	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
+	alphaTex = nullptr;
 	fuzz = _fuzz;
 }
 
 Metal::Metal(std::shared_ptr<Texture<glm::vec3>> _albedo, std::shared_ptr<Texture<float>> _fuzz) {
 	albedoTex = _albedo;
 	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
+	alphaTex = nullptr;
 	fuzz = _fuzz;
 }
 
@@ -99,6 +104,7 @@ Dielectric::Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuz
 	reflectFuzz = std::make_shared<SolidColorTexture<float>>(_reflectFuzz);
 	refractFuzz = std::make_shared<SolidColorTexture<float>>(_refractFuzz);
 	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
+	alphaTex = nullptr;
 }
 
 Dielectric::Dielectric(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refractIndex,
@@ -108,6 +114,7 @@ Dielectric::Dielectric(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refra
 	reflectFuzz = _reflectFuzz == nullptr ? std::make_shared<SolidColorTexture<float>>(0) : _reflectFuzz;
 	refractFuzz = _refractFuzz == nullptr ? std::make_shared<SolidColorTexture<float>>(0) : _refractFuzz;
 	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
+	alphaTex = nullptr;
 }
 
 bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {

@@ -14,6 +14,7 @@ struct Material {
 	glm::vec3 emitDirection;//vec3(0) means emitting rays everywhere
 	std::shared_ptr<Texture<glm::vec3>> emissionTex;
 	std::shared_ptr<Texture<glm::vec3>> albedoTex;
+	std::shared_ptr<Texture<float>> alphaTex;
 	static std::shared_ptr<Sampler> defaultSampler;
 	std::shared_ptr<Sampler> sampler;
 

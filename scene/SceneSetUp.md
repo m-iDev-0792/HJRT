@@ -13,7 +13,7 @@
 ### Environment Map
 ```cpp
 	auto env=make_shared<Sphere>(vec3(0),100);
-	env->setMaterial(make_shared<EnvironmentMap>(make_shared<ImageTexture>("sky.jpg")));
+	env->setMaterial(make_shared<EnvironmentMap>(makeRGBImageTexture("sky.jpg")));
 	scene.addShape(env);
 ```
 

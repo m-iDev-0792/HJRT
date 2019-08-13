@@ -25,9 +25,9 @@ int main() {
 	glassSphere->name = "glass";
 	glassSphere->material = make_shared<Dielectric>(vec3(1), 1.5);
 
-	auto light = make_shared<Sphere>(vec3(0, 5, 0), 1);
+	auto light = make_shared<Sphere>(vec3(1, 12, 0), 3);
 	light->name = "light";
-	light->material = make_shared<Lambertian>(vec3(0), vec3(20));
+	light->material = make_shared<Lambertian>(vec3(0), vec3(30));
 	light->material->emitDirection = vec3(0);
 
 	const int PlaneR = 4;
@@ -78,7 +78,7 @@ int main() {
 	rectangleLight->setMaterial(ceilLightMaterial);
 
 	mat4 enlarge(1.0f);
-	enlarge = scale(enlarge, vec3(1.5, 1, 1.5));
+	enlarge = scale(enlarge, vec3(4, 1, 4));
 
 
 	Scene scene;
@@ -88,12 +88,12 @@ int main() {
 //	scene.addShape(sphere);
 //	scene.addShape(glassSphere);
 
-	scene.addShape("light",rectangleLight);
-	scene.addShape("floor",floor);
-	scene.addShape("ceil",ceil);
-	scene.addShape("redWall",redWall);
-	scene.addShape("greenWall",greenWall);
-	scene.addShape("back",back);
+	scene.addShape("light", rectangleLight);
+	scene.addShape("floor", floor);
+	scene.addShape("ceil", ceil);
+	scene.addShape("redWall", redWall);
+	scene.addShape("greenWall", greenWall);
+	scene.addShape("back", back);
 
 	scene.lights.push_back(rectangleLight);
 
@@ -113,12 +113,12 @@ int main() {
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
 	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.5);
-//	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->setSampler(mixSampler);
+	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->setSampler(mixSampler);
 	//!Multiple Importance Sampling!
 
 
 	//----------------------Render---------------------------
-	PathTracerDI path;
+	PathTracer path;
 	path.antiAliasNum = antiAliasNum;
 	path.renderThreadNum = 0;//0 = auto select
 	path.samplingTex.setSamples(samples);

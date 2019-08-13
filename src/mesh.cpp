@@ -56,16 +56,19 @@ bool Mesh::loadMesh(const std::string &path) {
 
 		std::shared_ptr<Material> newMtl;
 
-		if(materials[i].ior>1.01){//Dielectric
-			if(!materials[i].roughness_texname.empty()){
-				auto roughnessTex=makeGrayImageTexture(materials[i].roughness_texname);
-				newMtl=std::make_shared<Dielectric>(albedoTex,materials[i].ior,roughnessTex,roughnessTex);
-			}else{
-				auto roughnessTex=std::make_shared<SolidColorTexture<float>>(materials[i].roughness);
-				newMtl=std::make_shared<Dielectric>(albedoTex,materials[i].ior,roughnessTex,roughnessTex);
+		if (materials[i].ior > 1.01) {//Dielectric
+			if (!materials[i].roughness_texname.empty()) {
+				auto roughnessTex = makeGrayImageTexture(materials[i].roughness_texname);
+				newMtl = std::make_shared<Dielectric>(albedoTex, materials[i].ior, roughnessTex, roughnessTex);
+			} else {
+				auto roughnessTex = std::make_shared<SolidColorTexture<float>>(materials[i].roughness);
+				newMtl = std::make_shared<Dielectric>(albedoTex, materials[i].ior, roughnessTex, roughnessTex);
 			}
-		}else{//Lambertian
-			newMtl=std::make_shared<Lambertian>(albedoTex, emissionTex);
+		} else {//Lambertian
+			newMtl = std::make_shared<Lambertian>(albedoTex, emissionTex);
+		}
+		if (!materials[i].alpha_texname.empty()) {
+			newMtl->alphaTex = makeGrayImageTexture(materials[i].alpha_texname);
 		}
 		//Metal material loading via obj mtl is not available right now
 		materialPtr.push_back(newMtl);
@@ -154,6 +157,7 @@ void Mesh::setMaterial(std::shared_ptr<Material> _material) {
 		t->setMaterial(_material);
 	}
 }
+
 void Mesh::transform(glm::mat4 mat) {
 	if (mat == glm::mat4(1.0f))return;
 	for (auto &t:triangles)
@@ -180,8 +184,8 @@ void Mesh::prepareRendering() {
 }
 
 void Mesh::setSampler(std::shared_ptr<Sampler> _sampler) {
-	material->sampler=_sampler;
-	for(auto& t:triangles){
+	material->sampler = _sampler;
+	for (auto &t:triangles) {
 		t->setSampler(_sampler);
 	}
 }

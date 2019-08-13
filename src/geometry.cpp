@@ -21,13 +21,17 @@ bool Sphere::getAABB(const TimePeriod &period, AABB *box) const {
 	return true;
 }
 
-bool Sphere::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
-	const glm::vec3 p = (hitInfo.hitpoint - origin) / r;
+glm::vec2 getSphereUV(glm::vec3 hitpoint, glm::vec3 origin, float r) {
+	const glm::vec3 p = (hitpoint - origin) / r;
 	float v = asin(p.y);
 	float u = atan2(p.z, p.x);
 	u = 1 - (u + C_PI) / (2 * C_PI);
 	v = (v + C_PI_OVER_TWO) / C_PI;
-	*uvCoord = glm::vec2(u, v);
+	return glm::vec2(u, v);
+}
+
+bool Sphere::getUV(const HitInfo &hitInfo, glm::vec2 *uvCoord) const {
+	*uvCoord = getSphereUV(hitInfo.hitpoint, origin, r);
 	return true;
 }
 
@@ -54,8 +58,14 @@ bool Sphere::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	}
 	HIT:
 	if (t > hitInfo->t || t > ray.tMax)return false;
+	auto hitpoint = ray.origin + t * ray.dir;
+	auto uv = getSphereUV(hitpoint, origin, r);
+	if (material->alphaTex != nullptr) {
+		if (material->alphaTex->getColor(uv) < 0.1)return false;
+	}
 	hitInfo->t = t;
-	hitInfo->hitpoint = ray.origin + t * ray.dir;
+	hitInfo->hitpoint = hitpoint;
+	hitInfo->uv = uv;
 	hitInfo->normal = glm::normalize(hitInfo->hitpoint - origin);
 	hitInfo->hitobject = this;
 	hitInfo->hittime = ray.time;
@@ -183,8 +193,12 @@ bool Triangle::intersect(const Ray &ray, HitInfo *hitInfo) const {
 	v *= fInvDet;
 
 	if (t > hitInfo->t || t < ray.tMin || t > ray.tMax)return false;
+	auto hituv=uv[0] * (1.0f - u - v) + uv[1] * u + uv[2] * v;
+	if (material->alphaTex != nullptr) {
+		if (material->alphaTex->getColor(hituv) < 0.001)return false;
+	}
 	hitInfo->t = t;
-	hitInfo->uv = uv[0] * (1.0f - u - v) + uv[1] * u + uv[2] * v;//glm::vec2(u, v); //modified in 2019-7-25
+	hitInfo->uv = hituv;//glm::vec2(u, v); //modified in 2019-7-25
 	hitInfo->hitpoint = ray.origin + t * ray.dir;// same as :hitInfo->hitpoint=this->v0+u*E1+v*E2;
 	//NOTE.It may cause potential reflection&refraction problem if a non-light-source face is assigned as double-sided face, be careful!!!
 	hitInfo->normal = isDoubleSided ? this->normal * sgn(glm::dot(-t * ray.dir, this->normal))
