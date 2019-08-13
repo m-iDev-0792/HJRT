@@ -43,7 +43,7 @@ protected:
 public:
 
 	Film* film;
-	PathTracer* pathTracer;
+	Integrator* pathTracer;
 	GLuint texID;
 
 	RTUI();

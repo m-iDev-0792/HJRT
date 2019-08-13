@@ -15,6 +15,12 @@ struct Integrator {
 		RENDERING
 	};
 	int state;
+	int latestRenderSec;
+	virtual bool isFinished() const=0;
+
+	virtual std::string getInfo(std::string para)const=0;
+
+	virtual float totalProgress()const =0;
 
 	//Plan: modify "render" to render(Camera &camera, Scene &scene, *!* RenderInfo info*!*)
 	//we store some rendering info in RenderInfo class, and pass it to scene for preprocess before rendering

@@ -1,29 +1,29 @@
 //
-// Created by 何振邦 on 2019-06-06.
+// Created by 何振邦 on 2019-08-13.
 //
 
-#ifndef HJRT_PATHTRACER_H
-#define HJRT_PATHTRACER_H
+#ifndef HJRT_PATHTRACERDI_H
+#define HJRT_PATHTRACERDI_H
 
 #include "integrator.h"
 #include "material.h"
 #include <thread>
 #include <mutex>
 
-constexpr int MAX_THREAD = 128;
+constexpr int MAX_THREAD_PTDI = 128;
 
-struct PathTracer : Integrator {
+struct PathTracerDI : Integrator {
 	SamplingTexture samplingTex;
 	int antiAliasNum;
 	int maxBounce;
 	int RRCutBounce;
 
+
 	int renderThreadNum;
 	int runningThreadNum;//actual thread num
 	int renderPortionBlock;
-
 	//thread state
-	float blockProgress[MAX_THREAD];
+	float blockProgress[MAX_THREAD_PTDI];
 
 	std::vector<std::shared_ptr<std::thread>> threads;
 private:
@@ -31,7 +31,7 @@ private:
 	std::vector<std::pair<glm::vec2, glm::vec2>> taskList;
 	int idleTaskNum;
 public:
-	PathTracer();
+	PathTracerDI();
 
 	glm::vec3 shade(const Scene &_scene, const Ray &_ray);//non-recursive shade function
 
@@ -48,5 +48,4 @@ public:
 
 	std::string getInfo(std::string para)const override ;
 };
-
-#endif //HJRT_PATHTRACER_H
+#endif //HJRT_PATHTRACERDI_H

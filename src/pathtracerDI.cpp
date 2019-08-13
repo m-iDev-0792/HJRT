@@ -1,10 +1,10 @@
 //
-// Created by 何振邦 on 2019-06-07.
+// Created by 何振邦 on 2019-08-13.
 //
 
-#include "pathtracer.h"
+#include "pathtracerDI.h"
 
-PathTracer::PathTracer() {
+PathTracerDI::PathTracerDI() {
 	maxBounce = 25;
 	RRCutBounce = 5;
 	state = Integrator::IDLE;
@@ -15,7 +15,7 @@ PathTracer::PathTracer() {
 	latestRenderSec = 99999999;
 }
 
-void PathTracer::render(Camera &camera, Scene &scene) {
+void PathTracerDI::render(Camera &camera, Scene &scene) {
 	//initialize scene, it may take a while
 	scene.prepareRendering();
 
@@ -67,13 +67,13 @@ void PathTracer::render(Camera &camera, Scene &scene) {
 	state = Integrator::RENDERING;
 
 	for (int i = 0; i < runningThreadNum; ++i) {
-		threads[i] = std::make_shared<std::thread>(&PathTracer::renderPerformer, this, i, std::ref(camera),
+		threads[i] = std::make_shared<std::thread>(&PathTracerDI::renderPerformer, this, i, std::ref(camera),
 		                                           std::ref(scene));
 		threads[i]->detach();
 	}
 }
 
-void PathTracer::renderPerformer(int threadNum, Camera &camera, Scene &scene) {
+void PathTracerDI::renderPerformer(int threadNum, Camera &camera, Scene &scene) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
 	auto startTime = std::chrono::high_resolution_clock::now();
@@ -124,13 +124,14 @@ void PathTracer::renderPerformer(int threadNum, Camera &camera, Scene &scene) {
 	std::cout << "thread " << threadNum << " finished" << std::endl;
 }
 
-glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
+glm::vec3 PathTracerDI::shade(const Scene &_scene, const Ray &_ray) {
 	int depth = 0;
 	glm::vec3 *emissionHistory = new glm::vec3[maxBounce + 2];
 	glm::vec3 *attenuationHistory = new glm::vec3[maxBounce + 2];
+	glm::vec3 *directIlluminationHistory = new glm::vec3[maxBounce + 2];
 	Ray ray = _ray;
 	for (;;) {
-		if (depth > maxBounce) {
+		if (depth > 0) {
 			emissionHistory[depth] = _scene.ambient;
 			break;
 		}
@@ -141,6 +142,35 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 			hitInfo.uv = uv;
 			//compute self emission
 			glm::vec3 emission = hitInfo.hitobject->material->emitted(ray, hitInfo.uv);
+
+			//compute direct illumination
+			const int lightNum = _scene.lights.size();
+			glm::vec3 directIllumination(0);
+			float contributDirectLightNum = 0;
+			for (int i = 0; i < lightNum; ++i) {
+				std::shared_ptr<SampleableShape> lightShape = _scene.lights[i];
+				glm::vec3 lightSampleDir;
+				float lightPdf = lightShape->sample(hitInfo, &lightSampleDir);
+				if(glm::dot(lightSampleDir, hitInfo.normal) < 0.00001)continue;
+				Ray shadowray(hitInfo.hitpoint, lightSampleDir, ray.time, ray.tMin, ray.tMax);
+				HitInfo lightSampleHitInfo;
+				if (_scene.intersect(shadowray, &lightSampleHitInfo)) {
+					if (lightSampleHitInfo.hitobject != lightShape.get())continue;
+					//has direct illumination
+					auto material = hitInfo.hitobject->material;
+					auto d=lightSampleHitInfo.hitpoint-hitInfo.hitpoint;
+					float distance=glm::dot(d,d);
+					glm::vec3 a =
+							material->brdf(ray.dir, lightSampleDir, hitInfo) * glm::dot(hitInfo.normal, lightSampleDir);
+					directIllumination +=
+							a * lightShape->material->emitted(shadowray, lightSampleHitInfo.uv) / lightPdf;
+					contributDirectLightNum += 1;
+				}
+			}
+			if (contributDirectLightNum > 0)
+				directIlluminationHistory[depth] = directIllumination / contributDirectLightNum;
+			else directIlluminationHistory[depth] = glm::vec3(0);
+
 			//compute indirect illumination
 			float RRWeight = 1.0f;//Russian roulette weight
 			if (depth > RRCutBounce) {
@@ -169,19 +199,21 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 			}
 		} else {
 			emissionHistory[depth] = _scene.ambient;
+			directIlluminationHistory[depth] = glm::vec3(0);//direct light
 			break;
 		}
 	}
-	glm::vec3 color = emissionHistory[depth];
+	glm::vec3 color = emissionHistory[depth] + directIlluminationHistory[depth];
 	for (int i = depth - 1; i >= 0; --i) {
-		color = emissionHistory[i] + attenuationHistory[i] * color;
+		color = emissionHistory[i] + attenuationHistory[i] * color + directIlluminationHistory[i];
 	}
 	delete[] emissionHistory;
 	delete[] attenuationHistory;
+	delete[] directIlluminationHistory;
 	return color;
 }
 
-glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
+glm::vec3 PathTracerDI::shade(const Scene &scene, const Ray &ray, int depth) {
 	if (depth > maxBounce)return scene.ambient;
 	HitInfo hitInfo;
 	if (scene.intersect(ray, &hitInfo)) {
@@ -208,7 +240,7 @@ glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
 	}
 }
 
-bool PathTracer::isFinished() const {
+bool PathTracerDI::isFinished() const {
 	if (idleTaskNum < taskList.size())return false;
 	for (int i = 0; i < runningThreadNum; ++i) {
 		if (blockProgress[i] < 0.999)return false;
@@ -216,17 +248,17 @@ bool PathTracer::isFinished() const {
 	return true;
 }
 
-float PathTracer::totalProgress() const {
+float PathTracerDI::totalProgress() const {
 	float t;
 	return (t = static_cast<float>(idleTaskNum) / taskList.size()) > 1 ? 1 : t;
 }
 
-std::string PathTracer::getInfo(std::string para) const {
+std::string PathTracerDI::getInfo(std::string para) const {
 	if (para == "samples") {
 		if (samplingTex.getUniformSamples() > 1)return std::to_string(samplingTex.getUniformSamples());
 		else return std::string("adaptive");
 	} else if (para == "antialias")return std::to_string(antiAliasNum);
 	else if (para == "thread")return std::to_string(runningThreadNum);
-	else if (para == "integrator")return std::string("PathTracer");
+	else if (para == "integrator")return std::string("PT-DI-Test");
 	return std::string("none");
 }

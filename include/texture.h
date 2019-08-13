@@ -107,7 +107,7 @@ public:
 
 	bool setSamplesFromImage(std::string _path);
 
-	int getUniformSamples() {
+	int getUniformSamples() const{
 		return data == nullptr ? uniformSamplingNum : -1;
 	}
 };

@@ -285,7 +285,9 @@ void Plane::setUVs(glm::vec2 _uv0, glm::vec2 _uv1, glm::vec2 _uv2, glm::vec2 _uv
 }
 
 bool Plane::intersect(const Ray &ray, HitInfo *hitInfo) const {
-	return triangles[0].intersect(ray, hitInfo) || triangles[1].intersect(ray, hitInfo);
+	bool hit = triangles[0].intersect(ray, hitInfo) || triangles[1].intersect(ray, hitInfo);
+	if (hit)hitInfo->hitobject = this;
+	return hit;
 }
 
 float Plane::getArea() const {

@@ -68,7 +68,7 @@ void RTUI::render() {
 		auto current = std::chrono::high_resolution_clock::now();
 		auto secDura = std::chrono::duration_cast<std::chrono::milliseconds>(current - lasttime);
 		//update rendering result
-		bool finish = pathTracer->isFinish();
+		bool finish = pathTracer->isFinished();
 		if (secDura.count() > 250) {
 			lasttime = current;
 			if (!finish || (!lastFrameFinished)) {
@@ -89,19 +89,14 @@ void RTUI::render() {
 		ImGui::End();
 
 		ImGui::Begin("Rendering Info");
+		ImGui::Text("[Integrator]");
+		ImGui::Text("%s", pathTracer->getInfo("integrator").c_str());
 		ImGui::Text("[Parameter]");
 		ImGui::Text("size: %dx%d", film->width, film->height);
-		int samples = pathTracer->samplingTex.getUniformSamples();
-		if (samples > 1)
-			ImGui::Text("samples: %d", samples);
-		else
-			ImGui::Text("samples: adaptive");
-		ImGui::Text("anti-alias: %d", pathTracer->antiAliasNum);
+		ImGui::Text("samples: %s", pathTracer->getInfo("samples").c_str());
+		ImGui::Text("anti-alias: %s", pathTracer->getInfo("antialias").c_str());
+		ImGui::Text("thread: %s", pathTracer->getInfo("thread").c_str());
 		ImGui::Text("[Progress ]");
-		for (int i = 0; i < pathTracer->runningThreadNum; ++i) {
-			ImGui::Text("thread %d", i);
-			ImGui::Text(" -block progress: %.1f%%", pathTracer->blockProgress[i] * 100);
-		}
 		ImGui::ProgressBar(pathTracer->totalProgress());
 		if (finish)ImGui::Text("total time: %ds", pathTracer->latestRenderSec);
 

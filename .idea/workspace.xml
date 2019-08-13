@@ -15,15 +15,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/HJRT" beforeDir="false" afterPath="$PROJECT_DIR$/bin/HJRT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/bin/image.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/material.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/material.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/bin/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/integrator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/integrator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/pathtracer.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/pathtracer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/rtui.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/rtui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/scene.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/texture.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/texture.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/utility.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/utility.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/film.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/film.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/material.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/material.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/mesh.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/2019-6-14.md" beforeDir="false" afterPath="$PROJECT_DIR$/log/2019-6-14.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/geometry.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/geometry.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pathtracer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pathtracer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rtui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/texture.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/texture.cpp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -116,7 +118,7 @@
       <workItem from="1564107346138" duration="1037000" />
       <workItem from="1564108467692" duration="105253000" />
       <workItem from="1564969493852" duration="87231000" />
-      <workItem from="1565602178828" duration="2278000" />
+      <workItem from="1565602178828" duration="15778000" />
     </task>
     <servers />
   </component>

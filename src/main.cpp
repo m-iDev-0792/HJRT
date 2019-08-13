@@ -4,6 +4,7 @@
 #include "movingobject.h"
 #include "mesh.h"
 #include "pathtracer.h"
+#include "pathtracerDI.h"
 #include "rtui.h"
 
 using namespace std;
@@ -87,12 +88,14 @@ int main() {
 //	scene.addShape(sphere);
 //	scene.addShape(glassSphere);
 
-	scene.addShape(rectangleLight);
-	scene.addShape(floor);
-	scene.addShape(ceil);
-	scene.addShape(redWall);
-	scene.addShape(greenWall);
-	scene.addShape(back);
+	scene.addShape("light",rectangleLight);
+	scene.addShape("floor",floor);
+	scene.addShape("ceil",ceil);
+	scene.addShape("redWall",redWall);
+	scene.addShape("greenWall",greenWall);
+	scene.addShape("back",back);
+
+	scene.lights.push_back(rectangleLight);
 
 	auto mesh = make_shared<Mesh>();
 	mesh->material = make_shared<Dielectric>(vec3(1), 2.417);
@@ -110,12 +113,12 @@ int main() {
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
 	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.5);
-	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->setSampler(mixSampler);
+//	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->setSampler(mixSampler);
 	//!Multiple Importance Sampling!
 
 
 	//----------------------Render---------------------------
-	PathTracer path;
+	PathTracerDI path;
 	path.antiAliasNum = antiAliasNum;
 	path.renderThreadNum = 0;//0 = auto select
 	path.samplingTex.setSamples(samples);
