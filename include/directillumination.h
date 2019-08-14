@@ -5,42 +5,23 @@
 #ifndef HJRT_DIRECTILLUMINATION_H
 #define HJRT_DIRECTILLUMINATION_H
 
-#include "integrator.h"
+#include "multithreadIntegrator.h"
 #include "material.h"
 #include <thread>
 #include <mutex>
 
-constexpr int MAX_THREAD_DI = 128;
-
-struct DirectIllumination : Integrator {
+struct DirectIllumination : MultiThreadIntegrator {
 	SamplingTexture samplingTex;
 	int antiAliasNum;
-
-	int renderThreadNum;
-	int runningThreadNum;//actual thread num
-	int renderPortionBlock;
-	//thread state
-	float blockProgress[MAX_THREAD_DI];
-
-	std::vector<std::shared_ptr<std::thread>> threads;
-private:
-	std::mutex taskMutex;
-	std::vector<std::pair<glm::vec2, glm::vec2>> taskList;
-	int idleTaskNum;
 public:
 	DirectIllumination();
 
 	glm::vec3 shade(const Scene &_scene, const Ray &_ray);//non-recursive shade function
 
-	void render(Camera &camera, Scene &scene) override;
-
-	void renderPerformer(int threadNum, Camera &camera, Scene &scene);
+	void renderBlock(float &blockProgress, Camera &camera, Scene &scene, glm::ivec2 start, glm::ivec2 end) override;
 
 	//derived functions
-	bool isFinished()const override ;
-
-	float totalProgress()const override ;
-
-	std::string getInfo(std::string para)const override ;
+	std::string getInfo(std::string para) const override;
 };
+
 #endif //HJRT_DIRECTILLUMINATION_H

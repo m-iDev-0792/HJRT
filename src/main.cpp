@@ -5,6 +5,7 @@
 #include "mesh.h"
 #include "pathtracer.h"
 #include "pathtracerDI.h"
+#include "directillumination.h"
 #include "rtui.h"
 
 using namespace std;
