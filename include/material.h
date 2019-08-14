@@ -18,7 +18,12 @@ struct Material {
 	static std::shared_ptr<Sampler> defaultSampler;
 	std::shared_ptr<Sampler> sampler;
 
-	Material() { sampler = defaultSampler; }
+	Material() {
+		sampler = defaultSampler;
+		emissionTex = nullptr;
+		albedoTex = nullptr;
+		alphaTex = nullptr;
+	}
 
 	virtual glm::vec3
 	brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const { return glm::vec3(0); }
@@ -55,7 +60,8 @@ struct Lambertian : Material {
 
 	Lambertian(glm::vec3 _albedo, glm::vec3 _emission = glm::vec3(0));
 
-	Lambertian(std::shared_ptr<Texture<glm::vec3>> _albedoTex, std::shared_ptr<Texture<glm::vec3>> _emissionTex = nullptr);
+	Lambertian(std::shared_ptr<Texture<glm::vec3>> _albedoTex,
+	           std::shared_ptr<Texture<glm::vec3>> _emissionTex = nullptr);
 
 	glm::vec3 brdf(const glm::vec3 &_inRay, const glm::vec3 &_outRay, const HitInfo &_hitInfo) const override;
 
@@ -89,7 +95,8 @@ struct Dielectric : Material {
 
 	Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz = 0.0, float _refractFuzz = 0.0);
 
-	Dielectric(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refractIndex, std::shared_ptr<Texture<float>> _reflectFuzz = nullptr,
+	Dielectric(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refractIndex,
+	           std::shared_ptr<Texture<float>> _reflectFuzz = nullptr,
 	           std::shared_ptr<Texture<float>> _refractFuzz = nullptr);
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
@@ -117,7 +124,8 @@ struct EnvironmentMap : Material {
 	//Be careful about parameter order
 	EnvironmentMap(glm::vec3 _emission, glm::vec3 _albedo = glm::vec3(1));
 
-	EnvironmentMap(std::shared_ptr<Texture<glm::vec3>> _emissionTex, std::shared_ptr<Texture<glm::vec3>> _albedoTex = nullptr);
+	EnvironmentMap(std::shared_ptr<Texture<glm::vec3>> _emissionTex,
+	               std::shared_ptr<Texture<glm::vec3>> _albedoTex = nullptr);
 
 	glm::vec3 albedo(const glm::vec2 &_uv) const override;
 

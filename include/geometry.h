@@ -136,6 +136,8 @@ struct Sphere : public SampleableShape {
 	float sample(const HitInfo &_hitInfo, glm::vec3 *_sampledDirection) const override;
 };
 
+
+//TODO. this class is out of date, do not use it for now
 struct Fog : public Shape {
 	std::shared_ptr<Shape> boundary;
 	float density;
