@@ -15,14 +15,24 @@ void Scene::constructBVH(const TimePeriod &period) {
 	auto objectCopy = objects;
 	bvhRoot = std::make_shared<BVH>(objectCopy.begin(), objectCopy.end(), period);
 }
-
+void Scene::setSampler(std::shared_ptr<Sampler> sampler) {
+	for(auto &s:objects){
+		s->setSampler(sampler);
+	}
+}
 void Scene::addShape(std::shared_ptr<Shape> shape) {
+	for (auto &s:objects) {
+		if (s == shape) {
+			Warning("trying to add a already exist shape to scene! operation abort!\n");
+			return;
+		}
+	}
 	this->objects.push_back(shape);
 }
 
 void Scene::addShape(std::string name, std::shared_ptr<Shape> shape) {
 	shape->name = name;
-	this->objects.push_back(shape);
+	addShape(shape);
 }
 
 void Scene::removeShape(std::shared_ptr<Shape> shape) {
@@ -32,6 +42,33 @@ void Scene::removeShape(std::shared_ptr<Shape> shape) {
 			return;
 		}
 	}
+}
+
+void Scene::addLight(std::shared_ptr<SampleableShape> light) {
+	for (auto &l:lights) {
+		if (l == light) {
+			Warning("trying to add a already exist light to scene! operation abort!\n");
+			return;
+		}
+	}
+	this->lights.push_back(light);
+	addShape(light);
+
+}
+
+void Scene::addLight(std::string name, std::shared_ptr<SampleableShape> light) {
+	light->name = name;
+	addLight(light);
+}
+
+void Scene::removeLight(std::shared_ptr<SampleableShape> light) {
+	for (int i = 0; i < lights.size(); ++i) {
+		if (lights[i] == light) {
+			lights.erase(lights.begin() + i);
+			return;
+		}
+	}
+	removeShape(light);
 }
 
 bool Scene::intersect(const Ray &ray, HitInfo *hitInfo) const {
@@ -48,6 +85,6 @@ bool Scene::intersect(const Ray &ray, HitInfo *hitInfo) const {
 }
 
 void Scene::prepareRendering() {
-	for(auto& o:objects)o->prepareRendering();
+	for (auto &o:objects)o->prepareRendering();
 	constructBVH(shutterPeriod);
 }

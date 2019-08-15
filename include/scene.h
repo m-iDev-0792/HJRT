@@ -22,11 +22,19 @@ struct Scene {
 
 	void constructBVH(const TimePeriod &period);
 
+	void setSampler(std::shared_ptr<Sampler> sampler);
+
 	void addShape(std::shared_ptr<Shape> shape);
 
 	void addShape(std::string name, std::shared_ptr<Shape> shape);
 
 	void removeShape(std::shared_ptr<Shape> shape);
+
+	void addLight(std::shared_ptr<SampleableShape> light);
+
+	void addLight(std::string name, std::shared_ptr<SampleableShape> light);
+
+	void removeLight(std::shared_ptr<SampleableShape> light);
 
 	//WARNNING!! integrator MUST call this funtion before performing actual rendering jobs!
 	void prepareRendering();

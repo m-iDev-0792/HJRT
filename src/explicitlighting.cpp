@@ -2,9 +2,9 @@
 // Created by 何振邦 on 2019-08-13.
 //
 
-#include "pathtracerDI.h"
+#include "explicitlighting.h"
 
-PathTracerDI::PathTracerDI() {
+ExplicitLightingPathTracer::ExplicitLightingPathTracer() {
 	maxBounce = 25;
 	RRCutBounce = 5;
 	state = Integrator::IDLE;
@@ -15,7 +15,7 @@ PathTracerDI::PathTracerDI() {
 	latestRenderSec = 99999999;
 }
 
-void PathTracerDI::renderBlock(float &blockProgress, Camera &camera, Scene &scene, glm::ivec2 start, glm::ivec2 end) {
+void ExplicitLightingPathTracer::renderBlock(float &blockProgress, Camera &camera, Scene &scene, glm::ivec2 start, glm::ivec2 end) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
 	for (int i = start.y; i < end.y; ++i) {//row
@@ -41,17 +41,18 @@ void PathTracerDI::renderBlock(float &blockProgress, Camera &camera, Scene &scen
 	}
 }
 
-glm::vec3 PathTracerDI::shade(const Scene &_scene, const Ray &_ray) {
+glm::vec3 ExplicitLightingPathTracer::shade(const Scene &_scene, const Ray &_ray) {
 	int depth = 0;
-	glm::vec3 *emissionHistory = new glm::vec3[maxBounce + 2];
 	glm::vec3 *attenuationHistory = new glm::vec3[maxBounce + 2];
 	glm::vec3 *directIlluminationHistory = new glm::vec3[maxBounce + 2];
 	Ray ray = _ray;
+	int emissionFlag = 0;
 	for (;;) {
 		if (depth > maxBounce) {
-			emissionHistory[depth] = _scene.ambient;
+			directIlluminationHistory[depth] = _scene.ambient;
 			break;
 		}
+
 		HitInfo hitInfo;
 		if (_scene.intersect(ray, &hitInfo)) {
 			glm::vec2 uv;
@@ -88,7 +89,14 @@ glm::vec3 PathTracerDI::shade(const Scene &_scene, const Ray &_ray) {
 			if (contributDirectLightNum > 0)
 				directIlluminationHistory[depth] = directIllumination / contributDirectLightNum;
 			else directIlluminationHistory[depth] = glm::vec3(0);
-
+			//consider self emission?
+			if (!emissionFlag) {
+				//if hit surface is a non-reflection surface, consider self-emission
+				if (!(hitInfo.hitobject->material->type & MATERIAL_TYPE::REFLECTION)) {
+					directIlluminationHistory[depth] += hitInfo.hitobject->material->emitted(ray, hitInfo.uv);
+					++emissionFlag;
+				}//if hit surface is a reflection surface, just ignore
+			}
 			//compute indirect illumination
 			float RRWeight = 1.0f;//Russian roulette weight
 			if (depth > RRCutBounce) {
@@ -97,48 +105,41 @@ glm::vec3 PathTracerDI::shade(const Scene &_scene, const Ray &_ray) {
 				float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
 
 				if (random0_1f() > RRProbability) {
-					emissionHistory[depth] = emission;
 					break;
 				} else {
 					RRWeight /= RRProbability;
 				}
 			}
+			//generate a new ray
 			glm::vec3 attenuation;
 			Ray newRay;
 			if (hitInfo.hitobject->material->scatterPro(ray, hitInfo, &attenuation, &newRay)) {
+				//we have a valid scatter ray
 				attenuationHistory[depth] = attenuation * RRWeight;
-				emissionHistory[depth] = emission;
 				ray = newRay;
 				++depth;
 				continue;
 			} else {
-				emissionHistory[depth] = emission;
+				//no scatter happens on the surface
 				break;
 			}
 		} else {
-			emissionHistory[depth] = _scene.ambient;
-			directIlluminationHistory[depth] = glm::vec3(0);//direct light
+			//ray dosen't hit anything
+			directIlluminationHistory[depth] = _scene.ambient;//direct light
 			break;
 		}
 	}
-	glm::vec3 color = emissionHistory[depth] + directIlluminationHistory[depth];
+	glm::vec3 color = directIlluminationHistory[depth];
 	for (int i = depth - 1; i >= 0; --i) {
-		color = emissionHistory[i] + attenuationHistory[i] * color + directIlluminationHistory[i];
+		color = attenuationHistory[i] * color + directIlluminationHistory[i];
 	}
-	if(random0_1f()<0.001){
-		Log("direct illumination:\n");
-		for(int i=0;i<=depth;++i){
-			Log("DI depth= ")<<i<<" "<<directIlluminationHistory[i]<<"\n";
-		}
-		Log("\n\n");
-	}
-	delete[] emissionHistory;
+
 	delete[] attenuationHistory;
 	delete[] directIlluminationHistory;
 	return color;
 }
 
-glm::vec3 PathTracerDI::shade(const Scene &scene, const Ray &ray, int depth) {
+glm::vec3 ExplicitLightingPathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
 	if (depth > maxBounce)return scene.ambient;
 	HitInfo hitInfo;
 	if (scene.intersect(ray, &hitInfo)) {
@@ -165,12 +166,12 @@ glm::vec3 PathTracerDI::shade(const Scene &scene, const Ray &ray, int depth) {
 	}
 }
 
-std::string PathTracerDI::getInfo(std::string para) const {
+std::string ExplicitLightingPathTracer::getInfo(std::string para) const {
 	if (para == "samples") {
 		if (samplingTex.getUniformSamples() > 1)return std::to_string(samplingTex.getUniformSamples());
 		else return std::string("adaptive");
 	} else if (para == "antialias")return std::to_string(antiAliasNum);
 	else if (para == "thread")return std::to_string(runningThreadNum);
-	else if (para == "integrator")return std::string("PT-DI-Test");
+	else if (para == "integrator")return std::string("PathTracer\n(Explicit Lighting)");
 	return std::string("none");
 }

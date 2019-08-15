@@ -63,6 +63,7 @@ void RTUI::render() {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
+	static auto renderStartTime = std::chrono::high_resolution_clock::now();
 	ImVec4 clear_color = ImVec4(0.333, 0.341, 0.345, 1.00);
 	{
 		auto current = std::chrono::high_resolution_clock::now();
@@ -97,9 +98,14 @@ void RTUI::render() {
 		ImGui::Text("anti-alias: %s", pathTracer->getInfo("antialias").c_str());
 		ImGui::Text("thread: %s", pathTracer->getInfo("thread").c_str());
 		ImGui::Text("[Progress ]");
-		ImGui::ProgressBar(pathTracer->totalProgress());
-		if (finish)ImGui::Text("total time: %ds", pathTracer->latestRenderSec);
-
+		auto totalProgress = pathTracer->totalProgress();
+		ImGui::ProgressBar(totalProgress);
+		if (finish)ImGui::Text("total time: %s", secondToFormatTime(pathTracer->latestRenderSec).c_str());
+		else {
+			auto ellapsedRenderTime = std::chrono::duration_cast<std::chrono::seconds>(current - renderStartTime);
+			auto eta = ellapsedRenderTime.count() / totalProgress - ellapsedRenderTime.count();
+			ImGui::Text("ETA: %s", secondToFormatTime(eta).c_str());
+		}
 		ImGui::End();
 	}
 	// Rendering

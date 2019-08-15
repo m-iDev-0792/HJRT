@@ -10,7 +10,14 @@
 #include "texture.h"
 #include <memory>
 
+enum MATERIAL_TYPE {
+	REFLECTION = 1 << 0,
+	TRANSMISSION = 1 << 1,
+	DIFFUSE = 1 << 2
+};
+
 struct Material {
+	int type;
 	glm::vec3 emitDirection;//vec3(0) means emitting rays everywhere
 	std::shared_ptr<Texture<glm::vec3>> emissionTex;
 	std::shared_ptr<Texture<glm::vec3>> albedoTex;
@@ -23,6 +30,7 @@ struct Material {
 		emissionTex = nullptr;
 		albedoTex = nullptr;
 		alphaTex = nullptr;
+		emitDirection = glm::vec3(0);
 	}
 
 	virtual glm::vec3
@@ -56,7 +64,9 @@ struct Material {
 //https://en.wikipedia.org/wiki/Lambert%27s_cosine_law
 //https://en.wikipedia.org/wiki/Lambertian_reflectance
 struct Lambertian : Material {
-	Lambertian() = default;
+	Lambertian() {
+		type = MATERIAL_TYPE::DIFFUSE;
+	}
 
 	Lambertian(glm::vec3 _albedo, glm::vec3 _emission = glm::vec3(0));
 
@@ -73,7 +83,10 @@ struct Lambertian : Material {
 struct Metal : Material {
 	std::shared_ptr<Texture<float>> fuzz;
 
-	Metal() = default;
+	Metal() {
+		type = MATERIAL_TYPE::REFLECTION;
+		fuzz = nullptr;
+	}
 
 	Metal(glm::vec3 _albedo, float _fuzz = 0.0);
 
@@ -91,7 +104,11 @@ struct Dielectric : Material {
 	std::shared_ptr<Texture<float>> reflectFuzz;
 	std::shared_ptr<Texture<float>> refractFuzz;
 
-	Dielectric() = default;
+	Dielectric() {
+		type = MATERIAL_TYPE::REFLECTION | MATERIAL_TYPE::TRANSMISSION;
+		reflectFuzz = nullptr;
+		refractFuzz = nullptr;
+	}
 
 	Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz = 0.0, float _refractFuzz = 0.0);
 
@@ -105,7 +122,9 @@ struct Dielectric : Material {
 };
 
 struct Isotropy : Material {
-	Isotropy() = default;
+	Isotropy() {
+		type = MATERIAL_TYPE::DIFFUSE;
+	}
 
 	Isotropy(glm::vec3 _albedo);
 
@@ -119,7 +138,9 @@ struct Isotropy : Material {
 //      EnvironmentMap uses albedoTex as intensity measurement of emissionTex since EnvironmentMap does not do scattering
 //      and does not need albedoTex data.
 struct EnvironmentMap : Material {
-	EnvironmentMap() = default;
+	EnvironmentMap() {
+		type = MATERIAL_TYPE::DIFFUSE;
+	}
 
 	//Be careful about parameter order
 	EnvironmentMap(glm::vec3 _emission, glm::vec3 _albedo = glm::vec3(1));

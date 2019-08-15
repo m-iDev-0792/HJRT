@@ -2,19 +2,19 @@
 // Created by 何振邦 on 2019-08-13.
 //
 
-#ifndef HJRT_PATHTRACERDI_H
-#define HJRT_PATHTRACERDI_H
+#ifndef HJRT_EXPLICITLIGHTING_H
+#define HJRT_EXPLICITLIGHTING_H
 
 #include "multithreadIntegrator.h"
 #include "material.h"
 
-struct PathTracerDI : MultiThreadIntegrator {
+struct ExplicitLightingPathTracer : MultiThreadIntegrator {
 	SamplingTexture samplingTex;
 	int antiAliasNum;
 	int maxBounce;
 	int RRCutBounce;
 
-	PathTracerDI();
+	ExplicitLightingPathTracer();
 
 	glm::vec3 shade(const Scene &_scene, const Ray &_ray);//non-recursive shade function
 
@@ -24,4 +24,4 @@ struct PathTracerDI : MultiThreadIntegrator {
 
 	std::string getInfo(std::string para)const override ;
 };
-#endif //HJRT_PATHTRACERDI_H
+#endif //HJRT_EXPLICITLIGHTING_H

@@ -12,10 +12,14 @@ HJRT is a portable C++14 path tracing renderer which renders image using naive b
 + BVH 
 + depth of field and motion blur
 + obj model loading 
-+ participating media rendering, like fog 
-+ multi-format image export
++ participating media rendering, eg, fog 
++ multi-format image export, eg, ppm, jpg, png, exr
 + multiple importance sampling
 + adaptive sampling
++ multi-integrator
+  + direct illumination
+  + path tracer
+  + explicit lighting path tracer
 
 HJRT uses [Dear Imgui](https://github.com/ocornut/imgui) as program GUI to show rendering result and progress real-time, check it out.
 
@@ -28,7 +32,7 @@ HJRT uses [Dear Imgui](https://github.com/ocornut/imgui) as program GUI to show 
 
 ![](log/img/diamondMIS.png) &emsp; ![](log/img/diamondPTLow.png) &emsp; ![](log/img/diamondPTHigh.png) 
  
-*left: MIS @ 20spp took 22s; &emsp;&emsp;&emsp;&emsp; center:PT @ 20spp took 31s; &emsp;&emsp;&emsp;&emsp; right:PT @ 200spp took 3m50s*
+*left: MIS @ 20spp took 22s; &emsp;&emsp;&emsp;&emsp;&emsp; center:PT @ 20spp took 31s; &emsp;&emsp;&emsp;&emsp;&emsp; right:PT @ 200spp took 3m50s*
 
 **Multiple Importance Sampling**
 

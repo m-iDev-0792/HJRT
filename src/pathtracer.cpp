@@ -71,19 +71,23 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 					RRWeight /= RRProbability;
 				}
 			}
+			//generate a new ray
 			glm::vec3 attenuation;
 			Ray newRay;
 			if (hitInfo.hitobject->material->scatterPro(ray, hitInfo, &attenuation, &newRay)) {
+				//we have a valid scatter ray
 				attenuationHistory[depth] = attenuation * RRWeight;
 				emissionHistory[depth] = emission;
 				ray = newRay;
 				++depth;
 				continue;
 			} else {
+				//no scatter happens on the surface
 				emissionHistory[depth] = emission;
 				break;
 			}
 		} else {
+			//ray dosen't hit anything
 			emissionHistory[depth] = _scene.ambient;
 			break;
 		}

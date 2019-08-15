@@ -4,7 +4,7 @@
 #include "movingobject.h"
 #include "mesh.h"
 #include "pathtracer.h"
-#include "pathtracerDI.h"
+#include "explicitlighting.h"
 #include "directillumination.h"
 #include "rtui.h"
 
@@ -87,16 +87,15 @@ int main() {
 	scene.ambient = vec3(0);
 	scene.shutterPeriod = TimePeriod(0, 1.0);
 //	scene.addShape(sphere);
-//	scene.addShape(glassSphere);
+//	scene.addShape(metalSphere);
 
-	scene.addShape("light", rectangleLight);
 	scene.addShape("floor", floor);
 	scene.addShape("ceil", ceil);
 	scene.addShape("redWall", redWall);
 	scene.addShape("greenWall", greenWall);
 	scene.addShape("back", back);
 
-	scene.lights.push_back(rectangleLight);
+	scene.addLight(rectangleLight);
 
 	auto mesh = make_shared<Mesh>();
 	mesh->material = make_shared<Dielectric>(vec3(1), 2.417);
@@ -114,7 +113,7 @@ int main() {
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);
 	auto cosineSampler = make_shared<CosineHemisphereSampler>();
 	auto mixSampler = make_shared<MixtureSampler>(objectSampler, cosineSampler, 0.5);
-	for (int i = 0; i < scene.objects.size(); ++i)scene.objects[i]->setSampler(mixSampler);
+	scene.setSampler(mixSampler);
 	//!Multiple Importance Sampling!
 
 
