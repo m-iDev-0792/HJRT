@@ -40,6 +40,12 @@ HJRT uses [Dear Imgui](https://github.com/ocornut/imgui) as program GUI to show 
 
 **Motion Blur**
 
+![](log/img/integratorPT.png) &emsp; ![](log/img/integratorEL.png) &emsp; ![](log/img/integratorDI.png) 
+ 
+*left: Path Tracer; &emsp;&emsp;&emsp;&emsp;&emsp; center: Explicit Lighting Path Tracer; &emsp;&emsp;&emsp;&emsp;&emsp; right: Direct Illumination*
+
+**Integrators**
+
 ##  Acknowledge
 
 This project is inspired by

@@ -15,16 +15,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/HJRT" beforeDir="false" afterPath="$PROJECT_DIR$/bin/HJRT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/bin/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/material.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/material.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/pathtracerDI.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/explicitlighting.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/material.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/material.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pathtracer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pathtracer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pathtracerDI.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/explicitlighting.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtui.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtui.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/scene.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/image.png" beforeDir="false" afterPath="$PROJECT_DIR$/bin/image.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/img/huajigeUI.png" beforeDir="false" afterPath="$PROJECT_DIR$/log/img/huajigeUI.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +110,7 @@
       <workItem from="1564108467692" duration="105253000" />
       <workItem from="1564969493852" duration="87231000" />
       <workItem from="1565602178828" duration="27401000" />
-      <workItem from="1565700279754" duration="26296000" />
+      <workItem from="1565700279754" duration="27692000" />
     </task>
     <servers />
   </component>
