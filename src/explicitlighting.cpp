@@ -15,7 +15,8 @@ ExplicitLightingPathTracer::ExplicitLightingPathTracer() {
 	latestRenderSec = 99999999;
 }
 
-void ExplicitLightingPathTracer::renderBlock(float &blockProgress, Camera &camera, Scene &scene, glm::ivec2 start, glm::ivec2 end) {
+void ExplicitLightingPathTracer::renderBlock(float &blockProgress, Camera &camera, Scene &scene, glm::ivec2 start,
+                                             glm::ivec2 end) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
 	for (int i = start.y; i < end.y; ++i) {//row
@@ -43,13 +44,13 @@ void ExplicitLightingPathTracer::renderBlock(float &blockProgress, Camera &camer
 
 glm::vec3 ExplicitLightingPathTracer::shade(const Scene &_scene, const Ray &_ray) {
 	int depth = 0;
-	glm::vec3 *attenuationHistory = new glm::vec3[maxBounce + 2];
-	glm::vec3 *directIlluminationHistory = new glm::vec3[maxBounce + 2];
+	glm::vec3 color(0);
+	glm::vec3 throughput(1.0f);
 	Ray ray = _ray;
 	int emissionFlag = 0;
 	for (;;) {
 		if (depth > maxBounce) {
-			directIlluminationHistory[depth] = _scene.ambient;
+			color += throughput * _scene.backgroundColor;
 			break;
 		}
 
@@ -87,15 +88,15 @@ glm::vec3 ExplicitLightingPathTracer::shade(const Scene &_scene, const Ray &_ray
 				}
 			}
 			if (contributDirectLightNum > 0)
-				directIlluminationHistory[depth] = directIllumination / contributDirectLightNum;
-			else directIlluminationHistory[depth] = glm::vec3(0);
+				color += throughput * directIllumination / contributDirectLightNum;
 			//consider self emission?
-			if (!emissionFlag) {
+			if (!emissionFlag) { //emissionFlag == 0
 				//if hit surface is a non-reflection surface, consider self-emission
 				if (!(hitInfo.hitobject->material->type & MATERIAL_TYPE::REFLECTION)) {
-					directIlluminationHistory[depth] += hitInfo.hitobject->material->emitted(ray, hitInfo.uv);
+					color += throughput * hitInfo.hitobject->material->emitted(ray, hitInfo.uv);
 					++emissionFlag;
-				}//if hit surface is a reflection surface, just ignore
+				}
+				//if hit surface is a reflection surface, just ignore
 			}
 			//compute indirect illumination
 			float RRWeight = 1.0f;//Russian roulette weight
@@ -115,7 +116,7 @@ glm::vec3 ExplicitLightingPathTracer::shade(const Scene &_scene, const Ray &_ray
 			Ray newRay;
 			if (hitInfo.hitobject->material->scatterPro(ray, hitInfo, &attenuation, &newRay)) {
 				//we have a valid scatter ray
-				attenuationHistory[depth] = attenuation * RRWeight;
+				throughput *= attenuation * RRWeight;
 				ray = newRay;
 				++depth;
 				continue;
@@ -125,22 +126,15 @@ glm::vec3 ExplicitLightingPathTracer::shade(const Scene &_scene, const Ray &_ray
 			}
 		} else {
 			//ray dosen't hit anything
-			directIlluminationHistory[depth] = _scene.ambient;//direct light
+			color += throughput * _scene.backgroundColor;//direct light
 			break;
 		}
 	}
-	glm::vec3 color = directIlluminationHistory[depth];
-	for (int i = depth - 1; i >= 0; --i) {
-		color = attenuationHistory[i] * color + directIlluminationHistory[i];
-	}
-
-	delete[] attenuationHistory;
-	delete[] directIlluminationHistory;
 	return color;
 }
 
 glm::vec3 ExplicitLightingPathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
-	if (depth > maxBounce)return scene.ambient;
+	if (depth > maxBounce)return scene.backgroundColor;
 	HitInfo hitInfo;
 	if (scene.intersect(ray, &hitInfo)) {
 		glm::vec2 uv;
@@ -162,7 +156,7 @@ glm::vec3 ExplicitLightingPathTracer::shade(const Scene &scene, const Ray &ray, 
 		} else
 			return emission;
 	} else {
-		return scene.ambient;
+		return scene.backgroundColor;
 	}
 }
 

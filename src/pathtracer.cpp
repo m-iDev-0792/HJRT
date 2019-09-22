@@ -14,6 +14,7 @@ PathTracer::PathTracer() {
 	renderPortionBlock = 8;
 	latestRenderSec = 99999999;
 }
+
 void PathTracer::renderBlock(float &blockProgress, Camera &camera, Scene &scene, glm::ivec2 start, glm::ivec2 end) {
 	float subR = 1.0 / antiAliasNum;
 	float subS = (-antiAliasNum / 2 + 0.5) * subR;
@@ -42,12 +43,12 @@ void PathTracer::renderBlock(float &blockProgress, Camera &camera, Scene &scene,
 
 glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 	int depth = 0;
-	glm::vec3 *emissionHistory = new glm::vec3[maxBounce + 2];
-	glm::vec3 *attenuationHistory = new glm::vec3[maxBounce + 2];
+	glm::vec3 color(0);
+	glm::vec3 throughput(1.0f);
 	Ray ray = _ray;
 	for (;;) {
 		if (depth > maxBounce) {
-			emissionHistory[depth] = _scene.ambient;
+			color += throughput * _scene.backgroundColor;
 			break;
 		}
 		HitInfo hitInfo;
@@ -65,7 +66,7 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 				float RRProbability = f.x > f.y && f.x > f.z ? f.x : f.y > f.z ? f.y : f.z;
 
 				if (random0_1f() > RRProbability) {
-					emissionHistory[depth] = emission;
+					color += throughput * emission;
 					break;
 				} else {
 					RRWeight /= RRProbability;
@@ -76,33 +77,28 @@ glm::vec3 PathTracer::shade(const Scene &_scene, const Ray &_ray) {
 			Ray newRay;
 			if (hitInfo.hitobject->material->scatterPro(ray, hitInfo, &attenuation, &newRay)) {
 				//we have a valid scatter ray
-				attenuationHistory[depth] = attenuation * RRWeight;
-				emissionHistory[depth] = emission;
+				color += throughput * emission;
+				throughput *= attenuation * RRWeight;
+
 				ray = newRay;
 				++depth;
 				continue;
 			} else {
 				//no scatter happens on the surface
-				emissionHistory[depth] = emission;
+				color += throughput * emission;
 				break;
 			}
 		} else {
 			//ray dosen't hit anything
-			emissionHistory[depth] = _scene.ambient;
+			color += throughput * _scene.backgroundColor;
 			break;
 		}
 	}
-	glm::vec3 color = emissionHistory[depth];
-	for (int i = depth - 1; i >= 0; --i) {
-		color = emissionHistory[i] + attenuationHistory[i] * color;
-	}
-	delete[] emissionHistory;
-	delete[] attenuationHistory;
 	return color;
 }
 
 glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
-	if (depth > maxBounce)return scene.ambient;
+	if (depth > maxBounce)return scene.backgroundColor;
 	HitInfo hitInfo;
 	if (scene.intersect(ray, &hitInfo)) {
 		glm::vec2 uv;
@@ -124,7 +120,7 @@ glm::vec3 PathTracer::shade(const Scene &scene, const Ray &ray, int depth) {
 		} else
 			return emission;
 	} else {
-		return scene.ambient;
+		return scene.backgroundColor;
 	}
 }
 

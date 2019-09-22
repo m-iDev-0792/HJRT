@@ -17,7 +17,7 @@ HJRT is a portable C++14 path tracing renderer which renders image using naive b
 + multiple importance sampling
 + adaptive sampling
 + multi-integrator
-  + direct illumination
+  + direct illumination 
   + path tracer
   + explicit lighting path tracer
 

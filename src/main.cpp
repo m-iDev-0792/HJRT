@@ -84,7 +84,7 @@ int main() {
 
 	Scene scene;
 	scene.useBVH = false;//turn on when there are many objects in the scene
-	scene.ambient = vec3(0);
+	scene.backgroundColor = vec3(0);
 	scene.shutterPeriod = TimePeriod(0, 1.0);
 //	scene.addShape(sphere);
 //	scene.addShape(metalSphere);
@@ -128,7 +128,8 @@ int main() {
 
 
 	RTUI ui(800, 600, "HJRT");
-	ui.film = &camera.film;
+	ui.scene = &scene;
+	ui.camera = &camera;
 	ui.pathTracer = &path;
 	ui.run();
 	cout << "rendering time:" << secondToFormatTime(path.latestRenderSec) << endl;

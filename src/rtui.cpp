@@ -64,6 +64,7 @@ void RTUI::render() {
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	static auto renderStartTime = std::chrono::high_resolution_clock::now();
+	static Film* film=&camera->film;
 	ImVec4 clear_color = ImVec4(0.333, 0.341, 0.345, 1.00);
 	{
 		auto current = std::chrono::high_resolution_clock::now();
@@ -107,6 +108,45 @@ void RTUI::render() {
 			ImGui::Text("ETA: %s", secondToFormatTime(eta).c_str());
 		}
 		ImGui::End();
+
+
+		ImGui::Begin("Scene Info");
+		if (ImGui::TreeNode("Scene")){
+			if (ImGui::TreeNode("Light")){
+				for(auto& l:scene->lights){
+					std::string name=l->name;
+					if(name=="")
+						ImGui::Text("- No Name");
+					else
+						ImGui::Text("- %s",name.c_str());
+				}
+				ImGui::TreePop();
+			}
+			if (ImGui::TreeNode("Object")){
+				for(auto& l:scene->objects){
+					std::string name=l->name;
+					if(name=="")
+						ImGui::Text("- No Name");
+					else
+						ImGui::Text("- %s",name.c_str());
+				}
+				ImGui::TreePop();
+			}
+			ImGui::TreePop();
+		}
+		if (ImGui::TreeNode("Camera")){
+			glm::vec3 pos=camera->position;
+			ImGui::Text("postion:(%.2f,%.2f,%.2f)",pos.x,pos.y,pos.z);
+			glm::vec3 dir=camera->direction;
+			ImGui::Text("direction:(%.2f,%.2f,%.2f)",dir.x,dir.y,dir.z);
+			ImGui::Text("width:%d",camera->width);
+			ImGui::Text("height:%d",camera->height);
+			ImGui::Text("fov:%.2f",camera->fov);
+			ImGui::Text("aperture:%.2f",camera->aperture);
+			ImGui::TreePop();
+		}
+		ImGui::End();
+
 	}
 	// Rendering
 	ImGui::Render();
@@ -129,6 +169,7 @@ void RTUI::customInit() {
 	ImGui_ImplGlfw_InitForOpenGL(windowPtr, true);
 	const char *glsl_version = "#version 150";
 	ImGui_ImplOpenGL3_Init(glsl_version);
+	Film* film=&camera->film;
 	if (film != nullptr) {
 		glGenTextures(1, &texID);
 		glBindTexture(GL_TEXTURE_2D, texID);

@@ -11,7 +11,7 @@ struct Scene {
 	std::vector<std::shared_ptr<Shape>> objects;
 	std::vector<std::shared_ptr<SampleableShape>> lights;//light must be sampleable object
 	std::shared_ptr<BVH> bvhRoot;
-	glm::vec3 ambient;
+	glm::vec3 backgroundColor;
 	TimePeriod shutterPeriod;
 
 	bool useBVH;

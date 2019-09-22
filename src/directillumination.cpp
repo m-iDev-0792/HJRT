@@ -82,7 +82,7 @@ glm::vec3 DirectIllumination::shade(const Scene &_scene, const Ray &_ray) {
 		else totalDirectIllumination = glm::vec3(0);
 
 	} else {
-		emission = _scene.ambient;
+		emission = _scene.backgroundColor;
 		totalDirectIllumination = glm::vec3(0);//direct light
 	}
 	return emission + totalDirectIllumination;
