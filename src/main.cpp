@@ -81,11 +81,15 @@ int main() {
 	mat4 enlarge(1.0f);
 	enlarge = scale(enlarge, vec3(4, 1, 4));
 
+	auto plasticSphere = make_shared<Sphere>(vec3(0, 0, 0), 2);
+	plasticSphere->name = "plastic sphere";
+	plasticSphere->material = make_shared<Plastic>(vec3(255) * (1 / 255.0f), 1.2);
 
 	Scene scene;
 	scene.useBVH = false;//turn on when there are many objects in the scene
 	scene.backgroundColor = vec3(0);
 	scene.shutterPeriod = TimePeriod(0, 1.0);
+//	scene.addShape(plasticSphere);
 //	scene.addShape(sphere);
 //	scene.addShape(metalSphere);
 
@@ -107,7 +111,7 @@ int main() {
 	scene.addShape(mesh);
 
 	const int antiAliasNum = 2;
-	const int samples = 20;
+	const int samples = 300;
 
 	//!Multiple Importance Sampling!
 	auto objectSampler = make_shared<ObjectSampler>(rectangleLight);

@@ -108,6 +108,7 @@ struct Dielectric : Material {
 		type = MATERIAL_TYPE::REFLECTION | MATERIAL_TYPE::TRANSMISSION;
 		reflectFuzz = nullptr;
 		refractFuzz = nullptr;
+		refractIndex = 1.0f;
 	}
 
 	Dielectric(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz = 0.0, float _refractFuzz = 0.0);
@@ -115,6 +116,26 @@ struct Dielectric : Material {
 	Dielectric(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refractIndex,
 	           std::shared_ptr<Texture<float>> _reflectFuzz = nullptr,
 	           std::shared_ptr<Texture<float>> _refractFuzz = nullptr);
+
+	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
+
+	bool scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
+};
+
+struct Plastic : Material {
+	float refractIndex;
+	std::shared_ptr<Texture<float>> reflectFuzz;
+
+	Plastic() {
+		type = MATERIAL_TYPE::REFLECTION | MATERIAL_TYPE::TRANSMISSION;
+		reflectFuzz = nullptr;
+		refractIndex = 1.0f;
+	}
+
+	Plastic(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz = 0.0);
+
+	Plastic(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refractIndex,
+	           std::shared_ptr<Texture<float>> _reflectFuzz = nullptr);
 
 	bool scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const override;
 

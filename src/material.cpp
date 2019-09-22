@@ -182,7 +182,77 @@ bool Dielectric::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *atte
 bool Dielectric::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
 	return scatter(ray, hitInfo, attenuation, scatteredRay);
 }
+//----------------------------------
+//             Plastic
+//----------------------------------
+Plastic::Plastic(glm::vec3 _albedo, float _refractIndex, float _reflectFuzz):refractIndex(_refractIndex){
+	type = MATERIAL_TYPE::REFLECTION | MATERIAL_TYPE::TRANSMISSION;
+	albedoTex = std::make_shared<SolidColorTexture<glm::vec3>>(_albedo);
+	reflectFuzz = std::make_shared<SolidColorTexture<float>>(_reflectFuzz);
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
+	alphaTex = nullptr;
+}
+Plastic::Plastic(std::shared_ptr<Texture<glm::vec3>> _albedo, float _refractIndex,
+                 std::shared_ptr<Texture<float>> _reflectFuzz):refractIndex(_refractIndex){
+	type = MATERIAL_TYPE::REFLECTION | MATERIAL_TYPE::TRANSMISSION;
+	albedoTex = _albedo;
+	reflectFuzz = _reflectFuzz == nullptr ? std::make_shared<SolidColorTexture<float>>(0) : _reflectFuzz;
+	emissionTex = std::make_shared<SolidColorTexture<glm::vec3>>(glm::vec3(0));
+	alphaTex = nullptr;
+}
+bool Plastic::scatter(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	*attenuation = albedo(hitInfo.uv);
+	float ni_over_nr, cosine, reflect_prob;
+	float dotNormalIncidence = glm::dot(ray.dir, hitInfo.normal);
+	glm::vec3 outwardNormal;
+	if (dotNormalIncidence > 0) {
+		//incidence and normal are not in the same side, from inside to outside
+		outwardNormal = -hitInfo.normal;
+		ni_over_nr = refractIndex;
+		cosine = refractIndex * dotNormalIncidence;
+	} else {
+		//the most common case, from outside to inside
+		outwardNormal = hitInfo.normal;
+		ni_over_nr = 1.0 / refractIndex;
+		cosine = -dotNormalIncidence;
+	}
+	glm::vec3 refracted;
+	//calculate reflect probability
+	if (refract(ray.dir, outwardNormal, ni_over_nr, &refracted)) {
+		reflect_prob = fresnel(cosine, refractIndex);
+	} else {
+		reflect_prob = 1.0;
+	}
 
+	if (random0_1f() < reflect_prob) {
+		//do reflect
+		scatteredRay->origin = hitInfo.hitpoint;
+		scatteredRay->time = ray.time;
+
+		float FUZZ = reflectFuzz->getColor(hitInfo.uv);
+		if (FUZZ > 0.001)
+			scatteredRay->dir = glm::normalize(
+					glm::normalize(reflect(ray.dir, hitInfo.normal)) + FUZZ * sampleInsideSphereUniform());
+		else scatteredRay->dir = glm::normalize(reflect(ray.dir, hitInfo.normal));
+
+		scatteredRay->tMin = ray.tMin;
+		scatteredRay->tMax = ray.tMax;
+	} else {
+		//do lambertian diffuse
+		scatteredRay->origin = hitInfo.hitpoint;
+		scatteredRay->time = ray.time;
+
+		scatteredRay->dir = glm::normalize(hitInfo.normal + sampleInsideSphereUniform());
+
+		scatteredRay->tMin = ray.tMin;
+		scatteredRay->tMax = ray.tMax;
+	}
+
+	return true;
+}
+bool Plastic::scatterPro(const Ray &ray, const HitInfo &hitInfo, glm::vec3 *attenuation, Ray *scatteredRay) const {
+	return scatter(ray, hitInfo, attenuation, scatteredRay);
+}
 //----------------------------------
 //             Isotropy
 //----------------------------------
